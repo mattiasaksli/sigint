@@ -1,0 +1,186 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Delta Blaster"
+run/main_scene="res://scenes/game_world.tscn"
+config/icon="res://_project_meta_files/icon.png"
+
+[debug]
+
+settings/stdout/print_fps=true
+
+[display]
+
+window/size/width=1280
+window/size/height=800
+window/size/resizable=false
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[input]
+
+player1_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player1_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player1_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player1_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player1_look_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player1_look_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player1_look_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player1_look_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player2_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player2_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player2_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player2_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player2_look_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player2_look_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player2_look_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player2_look_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":1,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player3_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player3_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player3_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player3_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player3_look_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player3_look_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player3_look_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player3_look_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+
+[layer_names]
+
+3d_physics/layer_1="environment"
+3d_physics/layer_2="player"
+
+[physics]
+
+3d/active_soft_world=false
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+threads/thread_model=0
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+quality/directional_shadow/size=2048
+quality/directional_shadow/size.mobile=1024
+quality/shadow_atlas/size=2048
+quality/shadow_atlas/size.mobile=1024
+quality/reflections/texture_array_reflections=false
+quality/reflections/high_quality_ggx=false
+quality/reflections/irradiance_max_size=32
+batching/options/single_rect_fallback=true
+limits/buffers/canvas_polygon_buffer_size_kb=64
+limits/buffers/canvas_polygon_index_buffer_size_kb=64
+limits/buffers/immediate_buffer_size_kb=1024
+quality/reflections/atlas_size=1024
+quality/reflections/atlas_subdiv=4
+quality/depth/hdr=false
+environment/default_environment="res://environments/default_env.tres"

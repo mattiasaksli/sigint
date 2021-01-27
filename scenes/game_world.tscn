@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://materials/floor_blinn_phong.material" type="Material" id=2]
+[ext_resource path="res://scripts/player2.gd" type="Script" id=4]
+[ext_resource path="res://scripts/player3.gd" type="Script" id=5]
+
+[sub_resource type="QuadMesh" id=1]
+material = ExtResource( 2 )
+size = Vector2( 96, 60 )
+
+[sub_resource type="QuadMesh" id=2]
+material = ExtResource( 2 )
+size = Vector2( 96, 2.5 )
+
+[sub_resource type="QuadMesh" id=3]
+material = ExtResource( 2 )
+size = Vector2( 60, 2.5 )
+
+[sub_resource type="QuadMesh" id=4]
+material = ExtResource( 2 )
+size = Vector2( 65, 2.5 )
+
+[node name="Main" type="Node"]
+
+[node name="Root3D" type="Spatial" parent="."]
+
+[node name="Geometry" type="Spatial" parent="Root3D"]
+
+[node name="Walls" type="Spatial" parent="Root3D/Geometry"]
+
+[node name="MeshInstance" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000724792, -0.0941124, -1.48588 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, -0.25 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 30, -0.25 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -48, 0, -0.25 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 2.65431e-14, 1.62921e-07, -1, 1, -1.62921e-07, 0, -1.62921e-07, -1, -1.62921e-07, 48, 0, -0.25 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance6" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31.25, 1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance7" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.25, 1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance8" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, -49.25, 0, 1 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance9" type="MeshInstance" parent="Root3D/Geometry/Walls"]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 49.25, 0, 1 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Player1_Bounds" type="Spatial" parent="Root3D/Geometry"]
+
+[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Player1_Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46.5, -28.5, 0 )
+
+[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Player1_Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 28.5, 0 )
+
+[node name="Player2_Bounds" type="Spatial" parent="Root3D/Geometry"]
+
+[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Player2_Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -28.5, 0 )
+
+[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Player2_Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 28.5, 0 )
+
+[node name="Player3_Bounds" type="Spatial" parent="Root3D/Geometry"]
+
+[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Player3_Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -28.5, 0 )
+
+[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Player3_Bounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5, 28.5, 0 )
+
+[node name="CSGBox" type="CSGBox" parent="Root3D/Geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0 )
+height = 60.0
+
+[node name="CSGBox2" type="CSGBox" parent="Root3D/Geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0 )
+height = 60.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Root3D"]
+transform = Transform( 0.664612, -0.498908, -0.55622, 0.732858, 0.580355, 0.355116, 0.145635, -0.643645, 0.75134, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="Root3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
+current = true
+near = 40.0
+far = 47.0
+
+[node name="Player1" parent="Root3D" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, 3.16691, 0 )
+
+[node name="Player2" parent="Root3D" instance=ExtResource( 1 )]
+transform = Transform( 0.870244, 0.492621, 0, -0.492621, 0.870244, 0, 0, 0, 1, 2.51978, 12.7789, 0 )
+script = ExtResource( 4 )
+
+[node name="Player3" parent="Root3D" instance=ExtResource( 1 )]
+transform = Transform( -0.830645, -0.556803, 0, 0.556803, -0.830645, 0, 0, 0, 1, 36.433, -11.5574, 0 )
+script = ExtResource( 5 )

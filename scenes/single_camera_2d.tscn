@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ViewportTexture" id=5]
+viewport_path = NodePath("Root3D/Viewport")
+
+[node name="Root2D" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+anchor_left = 0.004
+anchor_top = 0.006
+anchor_right = 0.996
+anchor_bottom = 0.994
+margin_left = -0.12
+margin_top = 0.2
+margin_right = 0.119873
+margin_bottom = -0.200012
+rect_min_size = Vector2( 420, 790 )
+size_flags_horizontal = 15
+size_flags_vertical = 15
+texture = SubResource( 5 )
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Background"]
+anchor_left = 0.332
+anchor_top = 0.006
+anchor_right = 0.336
+anchor_bottom = 0.994
+margin_left = 0.0400085
+margin_top = 0.2
+margin_right = -0.0799866
+margin_bottom = -0.199951
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="Background"]
+anchor_left = 0.664
+anchor_top = 0.006
+anchor_right = 0.668
+anchor_bottom = 0.994
+margin_left = 0.0800171
+margin_top = 0.2
+margin_right = -0.039978
+margin_bottom = -0.199951
+__meta__ = {
+"_edit_use_anchors_": false
+}
