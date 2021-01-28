@@ -2,14 +2,18 @@ extends Spatial
 
 export var MAX_SPEED : float = 25
 export var ACCELERATION : float = 500
+export var shooting_cooldown_time_ms = 1000
 
 var s_w_bounds : Vector2
 var n_e_bounds : Vector2
-
 var velocity : Vector2
+
+var last_shot_time : float = 0
+var current_time : float = 1
 
 func _process(delta):
 	handle_movement(delta)
+	handle_shooting()
 
 #func _physics_process(delta):
 #	handle_movement(delta)
@@ -51,14 +55,25 @@ func handle_movement(delta):
 	
 	translation += Vector3(velocity.x * delta, velocity.y * delta, 0.0)
 
+func handle_shooting():
+	current_time = OS.get_ticks_msec()
+	
+	if current_time - last_shot_time > shooting_cooldown_time_ms:
+		if Input.is_action_pressed("player1_shoot"):
+			var shooting_direction = Vector2(transform.basis.x.x, transform.basis.x.y)
+			var bullet = preload("res://scenes/bullet.tscn").instance()
+			bullet.init(shooting_direction)
+			
+			last_shot_time = current_time
+
 func get_look_direction_input():
 	# Player rotation input
 	var look_direction = Vector2()
 	
-	if Input.is_action_pressed("player1_look_up") or Input.is_action_pressed("player1_look_down"):
-		look_direction.y = Input.get_action_strength("player1_look_up") - Input.get_action_strength("player1_look_down")
-	if Input.is_action_pressed("player1_look_left") or Input.is_action_pressed("player1_look_right"):
-		look_direction.x = Input.get_action_strength("player1_look_right") - Input.get_action_strength("player1_look_left")
+	if Input.is_action_pressed("look_up") or Input.is_action_pressed("look_down"):
+		look_direction.y = Input.get_action_strength("look_up") - Input.get_action_strength("look_down")
+	if Input.is_action_pressed("look_left") or Input.is_action_pressed("look_right"):
+		look_direction.x = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
 	
 	return look_direction
 
@@ -66,9 +81,10 @@ func get_move_direction_input():
 	# Player translation input
 	var direction = Vector2()
 	
-	if Input.is_action_pressed("player1_move_up") or Input.is_action_pressed("player1_move_down"):
-		direction.y = Input.get_action_strength("player1_move_up") - Input.get_action_strength("player1_move_down")
-	if Input.is_action_pressed("player1_move_left") or Input.is_action_pressed("player1_move_right"):
-		direction.x = Input.get_action_strength("player1_move_right") - Input.get_action_strength("player1_move_left")
+	if Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down"):
+		direction.y = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+	if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+		direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	
 	return direction
+
