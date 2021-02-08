@@ -106,6 +106,8 @@ height = 60.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0 )
 height = 60.0
 
+[node name="Bullets" type="Spatial" parent="Root3D"]
+
 [node name="DirectionalLight" type="DirectionalLight" parent="Root3D"]
 transform = Transform( 0.664612, -0.498908, -0.55622, 0.732858, 0.580355, 0.355116, 0.145635, -0.643645, 0.75134, 0, 0, 0 )
 

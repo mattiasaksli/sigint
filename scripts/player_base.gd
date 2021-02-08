@@ -1,13 +1,17 @@
 extends Spatial
 
-export var MAX_SPEED : float = 25
-export var ACCELERATION : float = 500
+export var max_speed : float = 25
+export var acceleration : float = 500
 export var shooting_cooldown_time_ms = 1000
+
+export var health : int = 10
+export var attack_damage : int = 1
 
 var s_w_bounds : Vector2
 var n_e_bounds : Vector2
-var velocity : Vector2
+var ref_gun : Spatial
 
+var velocity : Vector2
 var last_shot_time : float = 0
 var current_time : float = 1
 
@@ -26,7 +30,7 @@ func handle_movement(delta):
 		look_direction = look_direction.normalized()
 		var rotation_angle_rad = atan2(look_direction.y, look_direction.x)
 		if abs(rotation_angle_rad) > 0.01:
-			# Rotate smoothly to the target angle.
+			# Rotate smoothly to the target angle
 			rotation.z = lerp_angle(rotation.z, rotation_angle_rad, 0.25)
 	
 	# Translation
@@ -34,18 +38,18 @@ func handle_movement(delta):
 	
 	if move_direction != Vector2.ZERO:
 		# Keep move_direction vector length in the range of [0, 1] 
-		# for variable movement speed, based on how far the joystick is pressed.
+		# for variable movement speed, based on how far the joystick is pressed
 		var move_direction_magnitude = move_direction.length_squared()
 		if move_direction_magnitude > 1.0:
 			move_direction = move_direction.normalized()
 		
-		velocity += move_direction * ACCELERATION * delta
-		velocity = velocity.clamped(MAX_SPEED * move_direction_magnitude)
+		velocity += move_direction * acceleration * delta
+		velocity = velocity.clamped(max_speed * move_direction_magnitude)
 	else:
-		# Decrease velocity gradually.
+		# Decrease velocity gradually
 		velocity = velocity.linear_interpolate(Vector2.ZERO, 0.1)
 		
-	# Manual AABB collision check for walls.
+	# Manual AABB collision check for walls
 	if (translation.x <= s_w_bounds.x and velocity.x < 0.0 or
 	translation.x >= n_e_bounds.x and velocity.x > 0.0):
 		velocity.x = 0.0
@@ -59,12 +63,18 @@ func handle_shooting():
 	current_time = OS.get_ticks_msec()
 	
 	if current_time - last_shot_time > shooting_cooldown_time_ms:
-		if Input.is_action_pressed("player1_shoot"):
+		if is_player_shooting():
+			# Instance new bullet
 			var shooting_direction = Vector2(transform.basis.x.x, transform.basis.x.y)
 			var bullet = preload("res://scenes/bullet.tscn").instance()
-			bullet.init(shooting_direction)
+			bullet.init(shooting_direction, attack_damage, self)
+			get_parent().get_node("Bullets").add_child(bullet)
+			bullet.translation = translation
 			
 			last_shot_time = current_time
+
+func is_player_shooting():
+	return Input.is_action_pressed("shoot")
 
 func get_look_direction_input():
 	# Player rotation input
@@ -88,3 +98,12 @@ func get_move_direction_input():
 	
 	return direction
 
+func take_damage(damage_amount : int):
+	health -= damage_amount
+	print(self.to_string() + " took damage")
+	if health <= 0:
+		die()
+
+func die():
+	#TODO: remove player, add larger score bonus to player who defeated this one
+	pass
