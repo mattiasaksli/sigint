@@ -5,19 +5,14 @@ export var acceleration : float = 500
 export var shooting_cooldown_time_ms = 1000
 
 export var health : int = 10
-export var attack_damage : int = 1
 
 var s_w_bounds : Vector2
 var n_e_bounds : Vector2
-var ref_gun : Spatial
 
 var velocity : Vector2
-var last_shot_time : float = 0
-var current_time : float = 1
 
 func _process(delta):
 	handle_movement(delta)
-	handle_shooting()
 
 #func _physics_process(delta):
 #	handle_movement(delta)
@@ -59,23 +54,6 @@ func handle_movement(delta):
 	
 	translation += Vector3(velocity.x * delta, velocity.y * delta, 0.0)
 
-func handle_shooting():
-	current_time = OS.get_ticks_msec()
-	
-	if current_time - last_shot_time > shooting_cooldown_time_ms:
-		if is_player_shooting():
-			# Instance new bullet
-			var shooting_direction = Vector2(transform.basis.x.x, transform.basis.x.y)
-			var bullet = preload("res://scenes/bullet.tscn").instance()
-			bullet.init(shooting_direction, attack_damage, self)
-			get_parent().get_node("Bullets").add_child(bullet)
-			bullet.translation = translation
-			
-			last_shot_time = current_time
-
-func is_player_shooting():
-	return Input.is_action_pressed("shoot")
-
 func get_look_direction_input():
 	# Player rotation input
 	var look_direction = Vector2()
@@ -105,5 +83,5 @@ func take_damage(damage_amount : int):
 		die()
 
 func die():
-	#TODO: remove player, add larger score bonus to player who defeated this one
+	#TODO:
 	pass

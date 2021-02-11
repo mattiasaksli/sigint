@@ -1,12 +1,10 @@
 extends "res://scripts/player_base.gd"
 
 func _ready():
-	s_w_bounds.x = $"../Geometry/Player2_Bounds/S_W_Bounds".translation.x
-	s_w_bounds.y = $"../Geometry/Player2_Bounds/S_W_Bounds".translation.y
-	n_e_bounds.x = $"../Geometry/Player2_Bounds/N_E_Bounds".translation.x
-	n_e_bounds.y = $"../Geometry/Player2_Bounds/N_E_Bounds".translation.y
-	
-	ref_gun = $Gun
+	s_w_bounds.x = $"../Geometry/Right_Side_Bounds/S_W_Bounds".translation.x
+	s_w_bounds.y = $"../Geometry/Right_Side_Bounds/S_W_Bounds".translation.y
+	n_e_bounds.x = $"../Geometry/Right_Side_Bounds/N_E_Bounds".translation.x
+	n_e_bounds.y = $"../Geometry/Right_Side_Bounds/N_E_Bounds".translation.y
 
 func get_look_direction_input():
 	# Player rotation input
@@ -29,9 +27,6 @@ func get_move_direction_input():
 		direction.x = Input.get_action_strength("player2_move_right") - Input.get_action_strength("player2_move_left")
 	
 	return direction
-
-func is_player_shooting():
-	return Input.is_action_pressed("player2_shoot")
 
 func _to_string():
 	return "Player 2"

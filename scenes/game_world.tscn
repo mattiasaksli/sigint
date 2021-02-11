@@ -1,25 +1,36 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://materials/floor_blinn_phong.material" type="Material" id=2]
+[ext_resource path="res://materials/guard_blinn_phong.material" type="Material" id=3]
 [ext_resource path="res://scripts/player2.gd" type="Script" id=4]
-[ext_resource path="res://scripts/player3.gd" type="Script" id=5]
-
-[sub_resource type="QuadMesh" id=1]
-material = ExtResource( 2 )
-size = Vector2( 96, 60 )
-
-[sub_resource type="QuadMesh" id=2]
-material = ExtResource( 2 )
-size = Vector2( 96, 2.5 )
 
 [sub_resource type="QuadMesh" id=3]
 material = ExtResource( 2 )
-size = Vector2( 60, 2.5 )
+size = Vector2( 96, 60 )
 
 [sub_resource type="QuadMesh" id=4]
 material = ExtResource( 2 )
+size = Vector2( 96, 2.5 )
+
+[sub_resource type="QuadMesh" id=5]
+material = ExtResource( 2 )
+size = Vector2( 60, 2.5 )
+
+[sub_resource type="QuadMesh" id=6]
+material = ExtResource( 2 )
 size = Vector2( 65, 2.5 )
+
+[sub_resource type="CapsuleMesh" id=7]
+material = ExtResource( 3 )
+radial_segments = 8
+rings = 2
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 1.25, 0.5 )
+
+[sub_resource type="QuadMesh" id=2]
+size = Vector2( 0.5, 0.5 )
 
 [node name="Main" type="Node"]
 
@@ -31,71 +42,71 @@ size = Vector2( 65, 2.5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000724792, -0.0941124, -1.48588 )
-mesh = SubResource( 1 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, -0.25 )
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="MeshInstance3" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 30, -0.25 )
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="MeshInstance4" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -48, 0, -0.25 )
-mesh = SubResource( 3 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="MeshInstance5" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 2.65431e-14, 1.62921e-07, -1, 1, -1.62921e-07, 0, -1.62921e-07, -1, -1.62921e-07, 48, 0, -0.25 )
-mesh = SubResource( 3 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="MeshInstance6" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31.25, 1 )
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="MeshInstance7" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.25, 1 )
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="MeshInstance8" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, -49.25, 0, 1 )
-mesh = SubResource( 4 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="MeshInstance9" type="MeshInstance" parent="Root3D/Geometry/Walls"]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 49.25, 0, 1 )
-mesh = SubResource( 4 )
+mesh = SubResource( 6 )
 material/0 = null
 
-[node name="Player1_Bounds" type="Spatial" parent="Root3D/Geometry"]
+[node name="Left_Side_Bounds" type="Spatial" parent="Root3D/Geometry"]
 
-[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Player1_Bounds"]
+[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Left_Side_Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46.5, -28.5, 0 )
 
-[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Player1_Bounds"]
+[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Left_Side_Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 28.5, 0 )
 
-[node name="Player2_Bounds" type="Spatial" parent="Root3D/Geometry"]
+[node name="Guard_Bounds" type="Spatial" parent="Root3D/Geometry"]
 
-[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Player2_Bounds"]
+[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Guard_Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -28.5, 0 )
 
-[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Player2_Bounds"]
+[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Guard_Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 28.5, 0 )
 
-[node name="Player3_Bounds" type="Spatial" parent="Root3D/Geometry"]
+[node name="Right_Side_Bounds" type="Spatial" parent="Root3D/Geometry"]
 
-[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Player3_Bounds"]
+[node name="S_W_Bounds" type="Spatial" parent="Root3D/Geometry/Right_Side_Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -28.5, 0 )
 
-[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Player3_Bounds"]
+[node name="N_E_Bounds" type="Spatial" parent="Root3D/Geometry/Right_Side_Bounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5, 28.5, 0 )
 
 [node name="CSGBox" type="CSGBox" parent="Root3D/Geometry"]
@@ -121,9 +132,37 @@ far = 47.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, 3.16691, 0 )
 
 [node name="Player2" parent="Root3D" instance=ExtResource( 1 )]
-transform = Transform( 0.870244, 0.492621, 0, -0.492621, 0.870244, 0, 0, 0, 1, 2.51978, 12.7789, 0 )
+transform = Transform( -0.830645, -0.556803, 0, 0.556803, -0.830645, 0, 0, 0, 1, 36.433, -11.5574, 0 )
 script = ExtResource( 4 )
 
-[node name="Player3" parent="Root3D" instance=ExtResource( 1 )]
-transform = Transform( -0.830645, -0.556803, 0, 0.556803, -0.830645, 0, 0, 0, 1, 36.433, -11.5574, 0 )
-script = ExtResource( 5 )
+[node name="Guard" type="Spatial" parent="Root3D"]
+transform = Transform( 0.870244, 0.492621, 0, -0.492621, 0.870244, 0, 0, 0, 1, 2.51978, 12.7789, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="Root3D/Guard"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Gun" type="Spatial" parent="Root3D/Guard"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1.25, -0.7, 0 )
+
+[node name="MeshGun" type="MeshInstance" parent="Root3D/Guard/Gun"]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -0.25, 0, -0.625 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshGun2" type="MeshInstance" parent="Root3D/Guard/Gun"]
+transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 1.23161e-07, 0.25, -0.625 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshGun3" type="MeshInstance" parent="Root3D/Guard/Gun"]
+transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 1.23161e-07, -0.25, -0.625 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshGun4" type="MeshInstance" parent="Root3D/Guard/Gun"]
+mesh = SubResource( 2 )
+material/0 = null
