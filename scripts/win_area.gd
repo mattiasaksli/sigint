@@ -3,12 +3,13 @@ extends Area
 var all_players : Array
 var players_in_win_area : Array
 
+
 func _ready():
 	all_players = get_tree().get_nodes_in_group("players")
 
 func on_player_entered(body: Node):
 	if body.is_in_group("players"):
-		print_debug(body.to_string() + " entered win area")
+		print_debug(body.name + " entered win area")
 		players_in_win_area.append(body)
 		
 		if do_arrays_match(all_players, players_in_win_area):
@@ -16,7 +17,7 @@ func on_player_entered(body: Node):
 
 func on_player_exited(body: Node):
 	if body.is_in_group("players"):
-		print_debug(body.to_string() + " left win area")
+		print_debug(body.name + " left win area")
 		players_in_win_area.erase(body)
 
 func do_arrays_match(array1 : Array, array2 : Array):

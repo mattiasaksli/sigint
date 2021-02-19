@@ -159,6 +159,7 @@ player3_look_right={
 
 3d_physics/layer_1="environment"
 3d_physics/layer_2="player"
+3d_physics/layer_3="player_only_environment"
 
 [physics]
 

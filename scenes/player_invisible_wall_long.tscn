@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="LongInvisibleWall" type="StaticBody"]
+collision_layer = 4
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, 1.25, 0, -1.25 )

@@ -6,15 +6,24 @@ export var ACCELERATION : float = 100
 var velocity : Vector3
 var player_input_prefix : String
 
+var game_manager : Node
+
+func _enter_tree():
+	game_manager = $"/root/Main"
+
 func _ready():
 	player_input_prefix = self.name.to_lower() + "_"
+	
+	# warning-ignore:return_value_discarded
+	game_manager.connect("game_over", self, "on_game_over")
 
-func _process(delta):
+#func _process(delta):
+#	handle_rotation()
+#	handle_movement(delta)
+
+func _physics_process(delta):
 	handle_rotation()
 	handle_movement(delta)
-
-#func _physics_process(delta):
-#	handle_movement(delta)
 
 func handle_rotation():
 	var look_direction = get_look_direction_input()
@@ -81,3 +90,11 @@ func get_move_direction_input():
 		direction.x = Input.get_action_strength(player_input_prefix + "move_right") - Input.get_action_strength(player_input_prefix + "move_left")
 	
 	return direction
+
+func on_game_over():
+	# TODO: finish function
+	
+	print_debug(self.name + " game ended")
+	
+	# Stop script
+	set_script(null)
