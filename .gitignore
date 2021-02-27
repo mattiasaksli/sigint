@@ -1,3 +1,4 @@
+.project_meta_files/*.rpi4
 
 # Godot-specific ignores
 .import/

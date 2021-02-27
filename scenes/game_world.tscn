@@ -1,21 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://materials/floor_blinn_phong.material" type="Material" id=2]
-[ext_resource path="res://materials/guard_blinn_phong.material" type="Material" id=3]
+[ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/game_manager.gd" type="Script" id=4]
-[ext_resource path="res://scripts/camera_guard.gd" type="Script" id=5]
 [ext_resource path="res://scripts/win_area.gd" type="Script" id=6]
-[ext_resource path="res://scenes/player_invisible_wall_short.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/player_invisible_wall_long.tscn" type="PackedScene" id=8]
-
-[sub_resource type="CapsuleMesh" id=1]
-material = ExtResource( 3 )
-radial_segments = 8
-rings = 2
-
-[sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( 0, 13.325, 0.5, 0, 13.325, -0.5, 0, 13.325, 0.5, 0, 13.325, -0.5, -5, -13.325, 0.5, 5, -13.325, -0.5, 5, -13.325, 0.5, -5, -13.325, -0.5, 0, 13.325, 0.5, 0, 13.325, -0.5, 0, 13.325, -0.5, 0, 13.325, 0.5, 5, -13.325, 0.5, -5, -13.325, -0.5, 5, -13.325, -0.5, -5, -13.325, 0.5, -5, -13.325, 0.5, 5, -13.325, 0.5, -5, -13.325, -0.5, 5, -13.325, -0.5 )
+[ext_resource path="res://scenes/player/player_invisible_wall_short.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/player/player_invisible_wall_long.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/interactables/move_wall_interactable.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 48, 4, 0.955035 )
@@ -42,9 +34,16 @@ height = 60.0
 depth = 2.5
 
 [node name="LeftWall" type="CSGBox" parent="Root3D/Geometry"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -0.25 )
-use_collision = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -1.75853 )
 height = 60.0
+depth = 2.5
+
+[node name="RaisedLeftWall" type="CSGBox" parent="Root3D/Geometry"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -8.24302, 0 )
+use_collision = true
+collision_layer = 8
+collision_mask = 0
+height = 5.0
 depth = 2.5
 
 [node name="RightWall" type="CSGBox" parent="Root3D/Geometry"]
@@ -52,9 +51,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -1.75853 )
 height = 60.0
 depth = 2.5
 
-[node name="RaisedWall" type="CSGBox" parent="Root3D/Geometry"]
+[node name="RaisedRightWall" type="CSGBox" parent="Root3D/Geometry"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -12.3429, 0 )
 use_collision = true
+collision_layer = 8
+collision_mask = 0
 height = 5.0
 depth = 2.5
 
@@ -93,120 +94,33 @@ current = true
 near = 40.0
 far = 47.0
 
-[node name="Player1" parent="Root3D" groups=[
+[node name="Players" type="Spatial" parent="Root3D"]
+
+[node name="Player1" parent="Root3D/Players" groups=[
 "players",
 ] instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.3651, -27.059, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.4086, -27.059, 0 )
 
-[node name="Player2" parent="Root3D" groups=[
+[node name="Player2" parent="Root3D/Players" groups=[
 "players",
 ] instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9821, -14.7521, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.131, -24.3246, 0 )
 
-[node name="LinearPatrolRoute" type="Spatial" parent="Root3D"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0 )
+[node name="Guards" type="Spatial" parent="Root3D"]
 
-[node name="TopPos" type="Spatial" parent="Root3D/LinearPatrolRoute"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
-
-[node name="BottomPos" type="Spatial" parent="Root3D/LinearPatrolRoute"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -24, 0 )
-
-[node name="CameraGuard" type="KinematicBody" parent="Root3D/LinearPatrolRoute"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.295, 0 )
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Body" type="MeshInstance" parent="Root3D/LinearPatrolRoute/CameraGuard"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionPolygon" type="CollisionPolygon" parent="Root3D/LinearPatrolRoute/CameraGuard"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-depth = 2.2
-polygon = PoolVector2Array( -1.1, 0, 1.1, 0 )
-
-[node name="FOVRaycasts" type="Spatial" parent="Root3D/LinearPatrolRoute/CameraGuard"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.545214, 0, 0 )
-
-[node name="RayCast" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast2" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.987688, -0.156434, 0, 0.156434, 0.987688, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast3" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.994522, -0.104528, 0, 0.104528, 0.994522, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast4" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.99863, -0.052336, 0, 0.052336, 0.99863, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast5" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast6" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.99863, 0.052336, 0, -0.052336, 0.99863, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast7" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.994522, 0.104528, 0, -0.104528, 0.994522, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast8" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.987688, 0.156434, 0, -0.156434, 0.987688, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="RayCast9" type="RayCast" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVRaycasts"]
-transform = Transform( 0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 25, 0, 0 )
-collision_mask = 3
-
-[node name="FOVArea" type="Area" parent="Root3D/LinearPatrolRoute/CameraGuard"]
-transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 12.1776, 0, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/LinearPatrolRoute/CameraGuard/FOVArea"]
-shape = SubResource( 2 )
-
-[node name="DetectionTimer" type="Timer" parent="Root3D/LinearPatrolRoute/CameraGuard"]
-process_mode = 0
-wait_time = 2.0
-one_shot = true
-
-[node name="MovementPauseTimer" type="Timer" parent="Root3D/LinearPatrolRoute/CameraGuard"]
-process_mode = 0
-one_shot = true
+[node name="CameraGuard" parent="Root3D/Guards" instance=ExtResource( 3 )]
 
 [node name="WinArea" type="Area" parent="Root3D"]
+collision_layer = 1024
+collision_mask = 2
 script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Root3D/WinArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, 0 )
 shape = SubResource( 3 )
-[connection signal="body_entered" from="Root3D/LinearPatrolRoute/CameraGuard/FOVArea" to="Root3D/LinearPatrolRoute/CameraGuard" method="body_entered_area"]
-[connection signal="body_exited" from="Root3D/LinearPatrolRoute/CameraGuard/FOVArea" to="Root3D/LinearPatrolRoute/CameraGuard" method="body_exited_area"]
-[connection signal="timeout" from="Root3D/LinearPatrolRoute/CameraGuard/DetectionTimer" to="Root3D/LinearPatrolRoute/CameraGuard" method="game_over"]
+
+[node name="Interactables" type="Spatial" parent="Root3D"]
+
+[node name="MoveWallInteractable" parent="Root3D/Interactables" instance=ExtResource( 9 )]
 [connection signal="body_entered" from="Root3D/WinArea" to="Root3D/WinArea" method="on_player_entered"]
 [connection signal="body_exited" from="Root3D/WinArea" to="Root3D/WinArea" method="on_player_exited"]

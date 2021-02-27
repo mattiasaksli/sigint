@@ -8,10 +8,10 @@ var player_input_prefix : String
 
 var game_manager : Node
 
-func _enter_tree():
+func _enter_tree() -> void:
 	game_manager = $"/root/Main"
 
-func _ready():
+func _ready() -> void:
 	player_input_prefix = self.name.to_lower() + "_"
 	
 	# warning-ignore:return_value_discarded
@@ -21,11 +21,11 @@ func _ready():
 #	handle_rotation()
 #	handle_movement(delta)
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	handle_rotation()
 	handle_movement(delta)
 
-func handle_rotation():
+func handle_rotation() -> void:
 	var look_direction = get_look_direction_input()
 	
 	if look_direction != Vector2.ZERO:
@@ -35,7 +35,7 @@ func handle_rotation():
 			# Rotate smoothly to the target angle
 			rotation.z = lerp_angle(rotation.z, rotation_angle_rad, 0.25)
 
-func handle_movement(delta):
+func handle_movement(delta) -> void:
 	var move_direction = get_move_direction_input()
 	
 	if move_direction.length() > 0.2:
@@ -58,18 +58,18 @@ func handle_movement(delta):
 #	translation += Vector3(velocity.x * delta, velocity.y * delta, 0.0)
 	velocity = move_and_slide(velocity)
 
-func apply_movement(acceleration: Vector3, move_direction_magnitude : float):
+func apply_movement(acceleration: Vector3, move_direction_magnitude : float) -> void:
 	velocity += acceleration
 	var clamped_velocity : Vector2 = Vector2(velocity.x, velocity.y).clamped(MAX_SPEED * move_direction_magnitude)
 	velocity = Vector3(clamped_velocity.x, clamped_velocity.y, 0)
 
-func apply_friction(deceleration: float):
+func apply_friction(deceleration: float) -> void:
 	if velocity.length() > deceleration:
 		velocity -= velocity.normalized() * deceleration
 	else:
 		velocity = Vector3.ZERO
 
-func get_look_direction_input():
+func get_look_direction_input() -> Vector2:
 	# Player rotation input
 	var look_direction = Vector2()
 	
@@ -80,7 +80,7 @@ func get_look_direction_input():
 	
 	return look_direction
 
-func get_move_direction_input():
+func get_move_direction_input() -> Vector2:
 	# Player translation input
 	var direction = Vector2()
 	
@@ -91,10 +91,8 @@ func get_move_direction_input():
 	
 	return direction
 
-func on_game_over():
+func on_game_over() -> void:
 	# TODO: finish function
-	
-	print_debug(self.name + " game ended")
 	
 	# Stop script
 	set_script(null)
