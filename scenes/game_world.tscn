@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/player/player_invisible_wall_long.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/interactables/move_wall_interactable.tscn" type="PackedScene" id=9]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 48, 4, 0.955035 )
 
 [node name="Main" type="Node"]
@@ -117,7 +117,7 @@ script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Root3D/WinArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Interactables" type="Spatial" parent="Root3D"]
 
