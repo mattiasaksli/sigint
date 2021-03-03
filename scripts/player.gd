@@ -1,12 +1,13 @@
 extends KinematicBody
 
+var game_manager : Node
+
 export var MAX_SPEED : float = 15
 export var ACCELERATION : float = 100
 
 var velocity : Vector3
 var player_input_prefix : String
 
-var game_manager : Node
 
 func _enter_tree() -> void:
 	game_manager = $"/root/Main"

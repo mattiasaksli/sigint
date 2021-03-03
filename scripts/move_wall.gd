@@ -1,5 +1,7 @@
 extends Spatial
 
+var game_manager : Node
+
 export var wall_node_path : NodePath
 export var speed : float = 6
 export var upper_bound : float = 25
@@ -12,8 +14,14 @@ var can_move_wall_down : bool = false
 const registered_players : Array = []
 
 
+func _enter_tree() -> void:
+	game_manager = $"/root/Main"
+
 func _ready() -> void:
 	wall_node = get_node(wall_node_path)
+	
+	# warning-ignore:return_value_discarded
+	game_manager.connect("game_over", self, "on_game_over")
 
 func _physics_process(delta : float) -> void:
 	if not registered_players.empty():
@@ -49,3 +57,9 @@ func on_player_registered(body : Node) -> void:
 
 func on_player_unregistered(body : Node) -> void:
 	registered_players.erase(body.name.to_lower() + "_")
+
+func on_game_over() -> void:
+	# TODO: finish function
+	
+	# Stop script
+	set_script(null)
