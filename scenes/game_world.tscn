@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://materials/walls_blinn_phong.material" type="Material" id=2]
+[ext_resource path="res://materials/walls.material" type="Material" id=2]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/game_manager.gd" type="Script" id=4]
-[ext_resource path="res://materials/divider_blinn_phong.material" type="Material" id=5]
+[ext_resource path="res://materials/divider.material" type="Material" id=5]
 [ext_resource path="res://scripts/win_area.gd" type="Script" id=6]
 [ext_resource path="res://scenes/interactables/move_wall_interactable.tscn" type="PackedScene" id=9]
 
@@ -268,7 +268,7 @@ mesh = SubResource( 6 )
 material/0 = null
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Root3D"]
-transform = Transform( 0.6743, -0.549869, -0.492914, 0.732855, 0.580354, 0.355123, 0.090793, -0.600694, 0.794307, 0, 0, 0 )
+transform = Transform( 0.6743, -0.549869, -0.492914, 0.732855, 0.580354, 0.355124, 0.090793, -0.600694, 0.794307, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="Root3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
