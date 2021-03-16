@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/move_wall.gd" type="Script" id=1]
 
-[sub_resource type="PrismMesh" id=4]
+[sub_resource type="PrismMesh" id=1]
 size = Vector3( 1, 1, 2 )
 
 [node name="MoveWallInteractable" type="Spatial"]
@@ -20,7 +20,7 @@ depth = 4.0
 polygon = PoolVector2Array( -2, 0, 2, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 4 )
+mesh = SubResource( 1 )
 material/0 = null
 [connection signal="body_entered" from="InteractionArea" to="." method="on_player_registered"]
 [connection signal="body_exited" from="InteractionArea" to="." method="on_player_unregistered"]

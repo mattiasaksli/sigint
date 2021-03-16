@@ -1,4 +1,7 @@
 .project_meta_files/*.rpi4
+bin/
+git_api.gdnlib
+git_api.gdns
 
 # Godot-specific ignores
 .import/

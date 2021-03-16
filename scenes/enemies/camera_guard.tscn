@@ -17,8 +17,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-top_bound = 22.0
-bottom_bound = -22.0
 
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25 )
@@ -26,7 +24,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="FOVRaycasts" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26049, -5.72205e-06, 0 )
 
 [node name="RayCast" type="RayCast" parent="FOVRaycasts"]
 transform = Transform( 0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, 0, 0, 0 )
@@ -70,7 +68,7 @@ cast_to = Vector3( 30, 0, 0 )
 collision_mask = 10
 
 [node name="FOVArea" type="Area" parent="."]
-transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 12.1776, 0, 0 )
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 12.2381, -4.76837e-06, 0 )
 collision_layer = 16
 collision_mask = 2
 
@@ -88,4 +86,4 @@ process_mode = 0
 one_shot = true
 [connection signal="body_entered" from="FOVArea" to="." method="body_entered_area"]
 [connection signal="body_exited" from="FOVArea" to="." method="body_exited_area"]
-[connection signal="timeout" from="DetectionTimer" to="." method="game_over"]
+[connection signal="timeout" from="DetectionTimer" to="." method="trigger_game_over"]

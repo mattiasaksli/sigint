@@ -61,5 +61,8 @@ func on_player_unregistered(body : Node) -> void:
 func on_game_over() -> void:
 	# TODO: finish function
 	
+	$InteractionArea.disconnect("body_entered", self, "on_player_registered")
+	$InteractionArea.disconnect("body_exited", self, "on_player_unregistered")
+	
 	# Stop script
 	set_script(null)

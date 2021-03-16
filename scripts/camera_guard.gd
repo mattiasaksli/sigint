@@ -73,7 +73,7 @@ func body_entered_area(body : Node) -> void:
 func body_exited_area(body : Node) -> void:
 	players_nearby.erase(body)
 
-func game_over() -> void:
+func trigger_game_over() -> void:
 	# TODO: finish function
 	
 	print_debug(self.name + " triggered the game over because " + get_caught_players_string() + " got caught")
