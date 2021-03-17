@@ -2,7 +2,6 @@ extends Spatial
 
 var game_manager : Node
 
-onready var fov_raycasts : Array = $FOVRaycasts.get_children()
 onready var detection_timer : Timer = $DetectionTimer
 onready var movement_pause_timer : Timer = $MovementPauseTimer
 
@@ -13,6 +12,9 @@ export var bottom_bound : float = -20
 
 const players_nearby : Array = []
 const visible_players : Array = []
+
+const player_and_hidable_env_mask : int = 0b1010
+const player_layer : int = 0b10
 
 signal player_busted
 
@@ -50,17 +52,26 @@ func check_bounds() -> void:
 
 func check_for_players() -> void:
 	visible_players.clear()
-	var collider : Node
-	var raycast : RayCast
+	var collider : PhysicsBody
+	var raycast_hit : Dictionary
+	var space_state : PhysicsDirectSpaceState = get_world().direct_space_state
 	
-	for i in range(fov_raycasts.size()):
-		raycast = fov_raycasts[i]
-		if raycast.is_colliding():
-			collider = raycast.get_collider()
-			if not collider.is_in_group("players"):
-				continue
-			elif not visible_players.has(collider):
-				visible_players.append(collider)
+	# Raycast for all players inside FOVArea.
+	for player in players_nearby:
+		raycast_hit = space_state.intersect_ray(translation, player.translation, [], player_and_hidable_env_mask)
+		# A hit is guaranteed, since a player has to be inside FOVArea for a raycast to occur.
+		collider = raycast_hit.collider
+		if collider.collision_layer == player_layer and not visible_players.has(collider):
+			visible_players.append(collider)
+	
+#	for i in range(fov_raycasts.size()):
+#		raycast = fov_raycasts[i]
+#		if raycast.is_colliding():
+#			collider = raycast.get_collider()
+#			if not collider.is_in_group("players"):
+#				continue
+#			elif not visible_players.has(collider):
+#				visible_players.append(collider)
 	
 	if not visible_players.empty() and detection_timer.is_stopped():
 		detection_timer.start()
@@ -79,13 +90,6 @@ func trigger_game_over() -> void:
 	print_debug(self.name + " triggered the game over because " + get_caught_players_string() + " got caught")
 	
 	emit_signal("player_busted")
-	
-	# Disconnect signals used by FOVArea to stop warnings
-	$FOVArea.disconnect("body_entered", self, "body_entered_area")
-	$FOVArea.disconnect("body_exited", self, "body_exited_area")
-	
-	# Stop script
-	set_script(null)
 
 func get_caught_players_string() -> String:
 	if players_nearby.size() == 1:
@@ -105,5 +109,11 @@ func get_caught_players_string() -> String:
 	return caught_players_string
 
 func on_game_over() -> void:
-	pass
 	# TODO: finish function
+	
+	# Disconnect signals used by FOVArea to stop warnings
+	$FOV/FOVArea.disconnect("body_entered", self, "body_entered_area")
+	$FOV/FOVArea.disconnect("body_exited", self, "body_exited_area")
+	
+	# Stop script
+	set_script(null)

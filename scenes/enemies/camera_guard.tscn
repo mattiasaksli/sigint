@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/camera_guard.gd" type="Script" id=1]
 [ext_resource path="res://materials/enemy.material" type="Material" id=2]
+[ext_resource path="res://mesh_shapes/fov_cone.mesh" type="ArrayMesh" id=3]
 
 [sub_resource type="CapsuleMesh" id=1]
 material = ExtResource( 2 )
@@ -9,7 +10,7 @@ radial_segments = 8
 rings = 2
 
 [sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( 0, 15, 0.5, 0, 15, -0.5, 0, 15, 0.5, 0, 15, -0.5, -6.5, -15, 0.5, 6.5, -15, -0.5, 6.5, -15, 0.5, -6.5, -15, -0.5, 0, 15, 0.5, 0, 15, -0.5, 0, 15, -0.5, 0, 15, 0.5, 6.5, -15, 0.5, -6.5, -15, -0.5, 6.5, -15, -0.5, -6.5, -15, 0.5, -6.5, -15, 0.5, 6.5, -15, 0.5, -6.5, -15, -0.5, 6.5, -15, -0.5 )
+points = PoolVector3Array( 0, 0, 0, 29.3444, 0, -6.23735, 29.3444, 0, 6.23735, 30.457, 0.001, 0 )
 
 [node name="CameraGuard" type="Spatial"]
 transform = Transform( -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0, 1, -13, -13.295, 0 )
@@ -23,58 +24,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="FOVRaycasts" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26049, -5.72205e-06, 0 )
+[node name="FOV" type="Spatial" parent="."]
 
-[node name="RayCast" type="RayCast" parent="FOVRaycasts"]
-transform = Transform( 0.978148, -0.207912, 0, 0.207912, 0.978148, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="RayCast2" type="RayCast" parent="FOVRaycasts"]
-transform = Transform( 0.990268, -0.139173, 0, 0.139173, 0.990268, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="RayCast3" type="RayCast" parent="FOVRaycasts"]
-transform = Transform( 0.997564, -0.0697565, 0, 0.0697565, 0.997564, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="RayCast4" type="RayCast" parent="FOVRaycasts"]
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="RayCast5" type="RayCast" parent="FOVRaycasts"]
-transform = Transform( 0.997564, 0.0697565, 0, -0.0697565, 0.997564, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="RayCast6" type="RayCast" parent="FOVRaycasts"]
-transform = Transform( 0.990268, 0.139173, 0, -0.139173, 0.990268, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="RayCast7" type="RayCast" parent="FOVRaycasts"]
-transform = Transform( 0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 0, 0, 1, 0, 0, 0 )
-enabled = true
-cast_to = Vector3( 30, 0, 0 )
-collision_mask = 10
-
-[node name="FOVArea" type="Area" parent="."]
-transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 12.2381, -4.76837e-06, 0 )
+[node name="FOVArea" type="Area" parent="FOV"]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 12.2381, -5.72205e-06, 0 )
 collision_layer = 16
 collision_mask = 2
 
-[node name="CollisionShape2" type="CollisionShape" parent="FOVArea"]
-transform = Transform( 1, 3.12639e-13, 0, -3.12639e-13, 1, 0, 0, 0, 1, -9.53674e-07, -4.0224, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="FOV/FOVArea"]
+transform = Transform( -1.62921e-07, -1.62921e-07, -1, -1, 2.65432e-14, 1.62921e-07, 0, 1, -1.62921e-07, 9.53674e-07, 10.9776, 0 )
 shape = SubResource( 2 )
+
+[node name="ConeMesh" type="MeshInstance" parent="FOV"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 1.26049, -7.62939e-06, 0 )
+mesh = ExtResource( 3 )
+material/0 = null
 
 [node name="DetectionTimer" type="Timer" parent="."]
 process_mode = 0
@@ -84,6 +48,6 @@ one_shot = true
 [node name="MovementPauseTimer" type="Timer" parent="."]
 process_mode = 0
 one_shot = true
-[connection signal="body_entered" from="FOVArea" to="." method="body_entered_area"]
-[connection signal="body_exited" from="FOVArea" to="." method="body_exited_area"]
+[connection signal="body_entered" from="FOV/FOVArea" to="." method="body_entered_area"]
+[connection signal="body_exited" from="FOV/FOVArea" to="." method="body_exited_area"]
 [connection signal="timeout" from="DetectionTimer" to="." method="trigger_game_over"]
