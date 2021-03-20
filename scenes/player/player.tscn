@@ -4,11 +4,13 @@
 [ext_resource path="res://mesh_shapes/player_capsulemesh.tres" type="CapsuleMesh" id=2]
 
 [sub_resource type="ConvexPolygonShape" id=1]
-points = PoolVector3Array( 0, 0, 0.084, 1.1, 0, 0, 0.707, 0.707, 0, 0, 1.1, 0, -0.707, 0.707, 0, -1.1, 0, 0, -0.707, -0.707, 0, 0, -1.1, 0, 0.707, -0.707, 0 )
+points = PoolVector3Array( 1.25, 0, 0.5, 0.85, 0.85, 0.5, 0, 1.25, 0.5, -0.85, 0.85, 0.5, -1.25, 0, 0.5, -0.85, -0.85, 0.5, 0, -1.25, 0.5, 0.85, -0.85, 0.5, 1.25, 0, -0.5, 0.85, 0.85, -0.5, 0, 1.25, -0.5, -0.85, 0.85, -0.5, -1.25, 0, -0.5, -0.85, -0.85, -0.5, 0, -1.25, -0.5, 0.85, -0.85, -0.5 )
 
-[node name="Player1" type="KinematicBody"]
+[node name="Player1" type="KinematicBody" groups=[
+"players",
+]]
 collision_layer = 2
-collision_mask = 3077
+collision_mask = 35870
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

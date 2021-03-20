@@ -1,94 +1,76 @@
+class_name Player
+
 extends KinematicBody
 
-var game_manager : Node
+export var max_speed : float = 15
+export var acceleration : float = 100
 
-export var MAX_SPEED : float = 15
-export var ACCELERATION : float = 100
-
-var velocity : Vector3
-var player_input_prefix : String
+var _game_manager : Node
+var _velocity : Vector3
+var _player_input_prefix : String
 
 
 func _enter_tree() -> void:
-	game_manager = $"/root/Main"
+	_game_manager = $"/root/Main"
 
 func _ready() -> void:
-	player_input_prefix = self.name.to_lower() + "_"
+	_player_input_prefix = self.name.to_lower() + "_"
 	
 	# warning-ignore:return_value_discarded
-	game_manager.connect("game_over", self, "on_game_over")
+	_game_manager.connect("game_over", self, "on_game_over")
 
 #func _process(delta):
-#	handle_rotation()
-#	handle_movement(delta)
+#	_handle_movement(delta)
 
-func _physics_process(delta) -> void:
-	handle_rotation()
-	handle_movement(delta)
+func _physics_process(delta : float) -> void:
+	_handle_movement(delta)
 
-func handle_rotation() -> void:
-	var look_direction = get_look_direction_input()
-	
-	if look_direction != Vector2.ZERO:
-		look_direction = look_direction.normalized()
-		var rotation_angle_rad = atan2(look_direction.y, look_direction.x)
-		if abs(rotation_angle_rad) > 0.01:
-			# Rotate smoothly to the target angle
-			rotation.z = lerp_angle(rotation.z, rotation_angle_rad, 0.25)
+func move_on_bridge(amount : Vector3) -> void:
+	# Amount is already multiplied by delta time
+	translation += amount
 
-func handle_movement(delta) -> void:
-	var move_direction = get_move_direction_input()
+func _handle_movement(delta : float) -> void:
+	var move_direction : Vector2 = _get_move_direction_input()
 	
 	if move_direction.length() > 0.2:
 		# Keep move_direction vector length in the range of [0, 1] 
 		# for variable movement speed, based on how far the joystick is pressed
-		var move_direction_magnitude = move_direction.length_squared()
+		var move_direction_magnitude : float = move_direction.length_squared()
 		if move_direction_magnitude > 1.0:
 			move_direction = move_direction.normalized()
 		
-#		velocity += move_direction * ACCELERATION * delta
-#		velocity = velocity.clamped(MAX_SPEED * move_direction_magnitude)
+#		_velocity += move_direction * acceleration * delta
+#		_velocity = _velocity.clamped(max_speed * move_direction_magnitude)
 		
-		var acceleration_vector : Vector2 = move_direction * ACCELERATION * delta
-		apply_movement(Vector3(acceleration_vector.x, acceleration_vector.y, 0), move_direction_magnitude)
+		var acceleration_vector : Vector2 = move_direction * (acceleration * delta)
+		_apply_movement(Vector3(acceleration_vector.x, acceleration_vector.y, 0), move_direction_magnitude)
 	else:
-		# Decrease velocity gradually
-		velocity = velocity.linear_interpolate(Vector3.ZERO, 0.05)
-#		apply_friction(0.5 * ACCELERATION * delta)
+		# Decrease _velocity gradually
+		_velocity = _velocity.linear_interpolate(Vector3.ZERO, 0.05)
+#		_apply_friction(0.5 * acceleration * delta)
 	
-#	translation += Vector3(velocity.x * delta, velocity.y * delta, 0.0)
-	velocity = move_and_slide(velocity)
+#	translation += Vector3(_velocity.x * delta, _velocity.y * delta, 0.0)
+	_velocity = move_and_slide(_velocity)
 
-func apply_movement(acceleration: Vector3, move_direction_magnitude : float) -> void:
-	velocity += acceleration
-	var clamped_velocity : Vector2 = Vector2(velocity.x, velocity.y).clamped(MAX_SPEED * move_direction_magnitude)
-	velocity = Vector3(clamped_velocity.x, clamped_velocity.y, 0)
+func _apply_movement(accel: Vector3, move_direction_magnitude : float) -> void:
+	_velocity += accel
+	var clamped_velocity : Vector2 = Vector2(_velocity.x, _velocity.y).clamped(max_speed * move_direction_magnitude)
+	_velocity = Vector3(clamped_velocity.x, clamped_velocity.y, 0)
 
-func apply_friction(deceleration: float) -> void:
-	if velocity.length() > deceleration:
-		velocity -= velocity.normalized() * deceleration
+func _apply_friction(deceleration: float) -> void:
+	if _velocity.length() > deceleration:
+		_velocity -= _velocity.normalized() * deceleration
 	else:
-		velocity = Vector3.ZERO
+		_velocity = Vector3.ZERO
 
-func get_look_direction_input() -> Vector2:
-	# Player rotation input
-	var look_direction = Vector2()
-	
-	if Input.is_action_pressed(player_input_prefix + "look_up") or Input.is_action_pressed(player_input_prefix + "look_down"):
-		look_direction.y = Input.get_action_strength(player_input_prefix + "look_up") - Input.get_action_strength(player_input_prefix + "look_down")
-	if Input.is_action_pressed(player_input_prefix + "look_left") or Input.is_action_pressed(player_input_prefix + "look_right"):
-		look_direction.x = Input.get_action_strength(player_input_prefix + "look_right") - Input.get_action_strength(player_input_prefix + "look_left")
-	
-	return look_direction
-
-func get_move_direction_input() -> Vector2:
+func _get_move_direction_input() -> Vector2:
 	# Player translation input
-	var direction = Vector2()
+	var direction : Vector2 = Vector2()
 	
-	if Input.is_action_pressed(player_input_prefix + "move_up") or Input.is_action_pressed(player_input_prefix + "move_down"):
-		direction.y = Input.get_action_strength(player_input_prefix + "move_up") - Input.get_action_strength(player_input_prefix + "move_down")
-	if Input.is_action_pressed(player_input_prefix + "move_left") or Input.is_action_pressed(player_input_prefix + "move_right"):
-		direction.x = Input.get_action_strength(player_input_prefix + "move_right") - Input.get_action_strength(player_input_prefix + "move_left")
+	if Input.is_action_pressed(_player_input_prefix + "move_up") or Input.is_action_pressed(_player_input_prefix + "move_down"):
+		direction.y = Input.get_action_strength(_player_input_prefix + "move_up") - Input.get_action_strength(_player_input_prefix + "move_down")
+	if Input.is_action_pressed(_player_input_prefix + "move_left") or Input.is_action_pressed(_player_input_prefix + "move_right"):
+		direction.x = Input.get_action_strength(_player_input_prefix + "move_right") - Input.get_action_strength(_player_input_prefix + "move_left")
 	
 	return direction
 

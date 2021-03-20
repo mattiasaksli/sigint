@@ -8,6 +8,9 @@ size = Vector3( 1, 1, 2 )
 [node name="MoveWallInteractable" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.1682, -7.2614, -1.90735e-06 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 wall_node_path = NodePath("../../Geometry/RaisedRightWall")
 
 [node name="InteractionArea" type="Area" parent="."]

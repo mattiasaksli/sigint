@@ -1,62 +1,58 @@
 extends Spatial
 
-var game_manager : Node
-
 export var wall_node_path : NodePath
 export var speed : float = 6
 export var upper_bound : float = 25
 export var lower_bound : float = -25
 
-var wall_node : Spatial
-var can_move_wall_up : bool = false
-var can_move_wall_down : bool = false
+var wall_movement_direction : Vector3 = Vector3.ZERO
 
-const registered_players : Array = []
+var _registered_players : Array
+var _wall_node : Spatial
+var _game_manager : Node
 
 
 func _enter_tree() -> void:
-	game_manager = $"/root/Main"
+	_game_manager = $"/root/Main"
 
 func _ready() -> void:
-	wall_node = get_node(wall_node_path)
+	_wall_node = get_node(wall_node_path) as Spatial
 	
 	# warning-ignore:return_value_discarded
-	game_manager.connect("game_over", self, "on_game_over")
+	_game_manager.connect("game_over", self, "on_game_over")
+
+func _process(_delta : float) -> void:
+	if not _registered_players.empty():
+		for player_string_prefix in _registered_players:
+			_handle_player_input(player_string_prefix)
 
 func _physics_process(delta : float) -> void:
-	if not registered_players.empty():
-		for player_string_prefix in registered_players:
-			handle_player_input(player_string_prefix)
-	handle_wall_movement(delta)
-	reset_wall()
+	_handle_wall_movement(delta)
 
-func reset_wall() -> void:
-	can_move_wall_up = false
-	can_move_wall_down = false
-
-func handle_player_input(prefix : String) -> void:
+func _handle_player_input(prefix : String) -> void:
 	if Input.is_action_pressed(prefix + "interact_up"):
-		can_move_wall_up = true
+		wall_movement_direction.y = 1
 	elif Input.is_action_pressed(prefix + "interact_down"):
-		can_move_wall_down = true
+		wall_movement_direction.y = -1
+	else:
+		wall_movement_direction.y = 0
 
-func handle_wall_movement(delta : float):
-	if can_move_wall_up:
-		if not wall_node.translation.y > upper_bound:
-			wall_node.translation += Vector3(0, 1, 0) * (speed * delta)
-		else:
-			wall_node.translation.y = upper_bound
-	elif can_move_wall_down:
-		if not wall_node.translation.y < lower_bound:
-			wall_node.translation += Vector3(0, -1, 0) * (speed * delta)
-		else:
-			wall_node.translation.y = lower_bound
+func _handle_wall_movement(delta : float) -> void:
+	if wall_movement_direction.y != 0:
+		_wall_node.translation += wall_movement_direction * (speed * delta)
+		
+		if wall_movement_direction.y == 1 and _wall_node.translation.y > upper_bound:
+			_wall_node.translation.y = upper_bound
+		elif wall_movement_direction.y == -1 and _wall_node.translation.y < lower_bound:
+			_wall_node.translation.y = lower_bound
 
 func on_player_registered(body : Node) -> void:
-	registered_players.append(body.name.to_lower() + "_")
+	var player : String = body.name.to_lower() + "_"
+	if not _registered_players.has(player):
+		_registered_players.append(player)
 
 func on_player_unregistered(body : Node) -> void:
-	registered_players.erase(body.name.to_lower() + "_")
+	_registered_players.erase(body.name.to_lower() + "_")
 
 func on_game_over() -> void:
 	# TODO: finish function

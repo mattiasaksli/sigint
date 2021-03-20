@@ -1,25 +1,26 @@
 extends Area
 
-var all_players : Array
-var players_in_win_area : Array
+var ALL_PLAYERS : Array
+var PLAYERS_IN_WIN_AREA : Array
 
 
 func _ready() -> void:
-	all_players = get_tree().get_nodes_in_group("players")
+	ALL_PLAYERS = get_tree().get_nodes_in_group("players")
 
 func on_player_entered(body: Node) -> void:
 	print_debug(body.name + " entered win area")
-	players_in_win_area.append(body)
+	if not PLAYERS_IN_WIN_AREA.has(body):
+		PLAYERS_IN_WIN_AREA.append(body)
 	
-	if do_arrays_match(all_players, players_in_win_area):
-		win()
+	if _do_arrays_match(ALL_PLAYERS, PLAYERS_IN_WIN_AREA):
+		_win()
 
 func on_player_exited(body: Node) -> void:
 	print_debug(body.name + " left win area")
-	players_in_win_area.erase(body)
+	PLAYERS_IN_WIN_AREA.erase(body)
 
 # Returns true if array2 contains the same elements as array1, assuming there are no duplicate elements.
-func do_arrays_match(array1 : Array, array2 : Array) -> bool:
+func _do_arrays_match(array1 : Array, array2 : Array) -> bool:
 	if array1.size() != array2.size():
 		return false
 	
@@ -29,7 +30,7 @@ func do_arrays_match(array1 : Array, array2 : Array) -> bool:
 	
 	return true
 
-func win() -> void:
+func _win() -> void:
 	print_debug("move to next level")
-	# TODO: maybe add timer
+	# TODO: add timer
 	# TODO: move to next level

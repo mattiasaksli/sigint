@@ -1,112 +1,104 @@
 extends Spatial
 
-var game_manager : Node
+signal player_busted
 
-onready var detection_timer : Timer = $DetectionTimer
-onready var movement_pause_timer : Timer = $MovementPauseTimer
+const PLAYER_AND_HIDABLE_ENV_LAYERS : int = 0b1010
+const PLAYER_LAYER : int = 0b10
 
 export var direction : Vector3 = Vector3(0, -1, 0)
 export var speed : float = 6
 export var top_bound : float = 20
 export var bottom_bound : float = -20
 
-const players_nearby : Array = []
-const visible_players : Array = []
+var _players_nearby : Array
+var _visible_players : Array
+var _game_manager : Node
 
-const player_and_hidable_env_mask : int = 0b1010
-const player_layer : int = 0b10
-
-signal player_busted
+onready var _detection_timer : Timer = $DetectionTimer as Timer
+onready var _movement_pause_timer : Timer = $MovementPauseTimer as Timer
 
 
 func _enter_tree() -> void:
-	game_manager = $"/root/Main"
+	_game_manager = $"/root/Main"
 
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
-	self.connect("player_busted", game_manager, "on_player_busted")	# Send game over to game manager
+	self.connect("player_busted", _game_manager, "on_player_busted")	# Send game over to game manager
 	# warning-ignore:return_value_discarded
-	game_manager.connect("game_over", self, "on_game_over")	# Do game over logic when the signal comes from game manager
+	_game_manager.connect("game_over", self, "on_game_over")	# Do game over logic when the signal comes from game manager
 
-func _physics_process(delta) -> void:
-	if not players_nearby.empty():
-		check_for_players()
-	elif not detection_timer.is_stopped():
+func _physics_process(delta : float) -> void:
+	if not _players_nearby.empty():
+		_check_for_players()
+	elif not _detection_timer.is_stopped():
 		# Otherwise detection timer will continue when no players are in the area
-		detection_timer.stop()
+		_detection_timer.stop()
 	
-	if movement_pause_timer.is_stopped():
+	if _movement_pause_timer.is_stopped():
 		translation += direction * (speed * delta)
-		check_bounds()
+		_check_bounds()
 
-func check_bounds() -> void:
+func _check_bounds() -> void:
 	if translation.y < bottom_bound:	# Reached the bottom
 		direction.y = 1
 		translation.y = bottom_bound
 		
-		movement_pause_timer.start()
+		_movement_pause_timer.start()
 	elif translation.y > top_bound:		# Reached the top
 		direction.y = -1
 		translation.y = top_bound
-		movement_pause_timer.start()
+		_movement_pause_timer.start()
 
-func check_for_players() -> void:
-	visible_players.clear()
+func _check_for_players() -> void:
+	_visible_players.clear()
 	var collider : PhysicsBody
 	var raycast_hit : Dictionary
 	var space_state : PhysicsDirectSpaceState = get_world().direct_space_state
+	var player : Spatial
 	
 	# Raycast for all players inside FOVArea.
-	for player in players_nearby:
-		raycast_hit = space_state.intersect_ray(translation, player.translation, [], player_and_hidable_env_mask)
+	for i in range(_players_nearby.size()):
+		player = _players_nearby[i]
+		raycast_hit = space_state.intersect_ray(self.global_transform.origin, player.global_transform.origin, [], PLAYER_AND_HIDABLE_ENV_LAYERS)
 		# A hit is guaranteed, since a player has to be inside FOVArea for a raycast to occur.
 		collider = raycast_hit.collider
-		if collider.collision_layer == player_layer and not visible_players.has(collider):
-			visible_players.append(collider)
+		if collider.collision_layer == PLAYER_LAYER and not _visible_players.has(collider):
+			_visible_players.append(collider)
 	
-#	for i in range(fov_raycasts.size()):
-#		raycast = fov_raycasts[i]
-#		if raycast.is_colliding():
-#			collider = raycast.get_collider()
-#			if not collider.is_in_group("players"):
-#				continue
-#			elif not visible_players.has(collider):
-#				visible_players.append(collider)
-	
-	if not visible_players.empty() and detection_timer.is_stopped():
-		detection_timer.start()
-	elif visible_players.empty() and not detection_timer.is_stopped():
-		detection_timer.stop()
+	if not _visible_players.empty() and _detection_timer.is_stopped():
+		_detection_timer.start()
+	elif _visible_players.empty() and not _detection_timer.is_stopped():
+		_detection_timer.stop()
 
-func body_entered_area(body : Node) -> void:
-	players_nearby.append(body)
-
-func body_exited_area(body : Node) -> void:
-	players_nearby.erase(body)
-
-func trigger_game_over() -> void:
-	# TODO: finish function
-	
-	print_debug(self.name + " triggered the game over because " + get_caught_players_string() + " got caught")
-	
-	emit_signal("player_busted")
-
-func get_caught_players_string() -> String:
-	if players_nearby.size() == 1:
-		return players_nearby[0].name
+func _get_caught_players_string() -> String:
+	if _players_nearby.size() == 1:
+		return _players_nearby[0].name
 	
 	var caught_players_string : String = ""
 	
 	var player_name : String
-	for i in range(players_nearby.size()):
-		player_name = players_nearby[i].name
+	for i in range(_players_nearby.size()):
+		player_name = _players_nearby[i].name
 		# If the next index is the last one, finish the string.
-		if i + 1 == players_nearby.size() - 1:
-			var last_player_name : String = players_nearby[i + 1].name
+		if i + 1 == _players_nearby.size() - 1:
+			var last_player_name : String = _players_nearby[i + 1].name
 			return caught_players_string + player_name + " and " + last_player_name
 		else:
 			caught_players_string += player_name + ", "
 	return caught_players_string
+
+func body_entered_area(body : Node) -> void:
+	_players_nearby.append(body)
+
+func body_exited_area(body : Node) -> void:
+	_players_nearby.erase(body)
+
+func trigger_game_over() -> void:
+	# TODO: finish function
+	
+	print_debug(self.name + " triggered the game over because " + _get_caught_players_string() + " got caught")
+	
+	emit_signal("player_busted")
 
 func on_game_over() -> void:
 	# TODO: finish function

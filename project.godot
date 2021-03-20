@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "KinematicBody",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/player.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"GitAPI": "",
+"Player": ""
 }
 
 [application]
@@ -88,6 +94,11 @@ player1_look_right={
 "events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":2,"axis_value":1.0,"script":null)
  ]
 }
+player1_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 player1_interact_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
@@ -153,6 +164,11 @@ player2_interact_up={
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+player2_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 player2_interact_down={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
@@ -206,6 +222,11 @@ player3_look_left={
 player3_look_right={
 "deadzone": 0.15,
 "events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":2,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player3_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":2,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 player3_interact_up={
@@ -268,6 +289,11 @@ player4_look_right={
 "events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":3,"axis":2,"axis_value":1.0,"script":null)
  ]
 }
+player4_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 player4_interact_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
@@ -294,10 +320,11 @@ player4_interact_right={
 3d_physics/layer_1="environment"
 3d_physics/layer_2="player"
 3d_physics/layer_3="player_invisible_walls"
-3d_physics/layer_4="hideable_environment"
+3d_physics/layer_4="hidable_environment"
 3d_physics/layer_5="enemy_fov_areas"
 3d_physics/layer_11="win_area"
 3d_physics/layer_12="interactable"
+3d_physics/layer_16="moving_platform_area"
 
 [physics]
 
