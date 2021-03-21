@@ -1,81 +1,59 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://materials/walls.material" type="Material" id=2]
-[ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/game_manager.gd" type="Script" id=4]
-[ext_resource path="res://materials/divider.material" type="Material" id=5]
-[ext_resource path="res://scripts/win_area.gd" type="Script" id=6]
-[ext_resource path="res://scripts/move_bridge.gd" type="Script" id=7]
-[ext_resource path="res://scenes/interactables/move_wall_interactable.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/move_wall.gd" type="Script" id=1]
+[ext_resource path="res://scripts/move_bridge.gd" type="Script" id=2]
+[ext_resource path="res://scripts/game_manager.gd" type="Script" id=3]
+[ext_resource path="res://scenes/level_misc/bridge_obstacle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://materials/walls.material" type="Material" id=7]
+[ext_resource path="res://materials/divider.material" type="Material" id=8]
+[ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/level_misc/win_area.tscn" type="PackedScene" id=10]
 
 [sub_resource type="QuadMesh" id=1]
-material = ExtResource( 2 )
-size = Vector2( 32, 60 )
-
-[sub_resource type="PrismMesh" id=2]
-size = Vector3( 1, 1, 2 )
+material = ExtResource( 7 )
+size = Vector2( 32, 66 )
 
 [sub_resource type="QuadMesh" id=3]
-material = ExtResource( 5 )
+material = ExtResource( 8 )
 size = Vector2( 2, 6 )
 
 [sub_resource type="QuadMesh" id=4]
-material = ExtResource( 5 )
+material = ExtResource( 8 )
 size = Vector2( 2, 2 )
 
 [sub_resource type="QuadMesh" id=5]
-material = ExtResource( 5 )
-size = Vector2( 2, 60 )
+material = ExtResource( 8 )
+size = Vector2( 2, 66 )
 
 [sub_resource type="QuadMesh" id=6]
-material = ExtResource( 2 )
+material = ExtResource( 7 )
 size = Vector2( 32, 30 )
 
 [sub_resource type="QuadMesh" id=7]
-material = ExtResource( 2 )
-size = Vector2( 32, 12 )
-
-[sub_resource type="BoxShape" id=8]
-extents = Vector3( 2, 0.1, 1 )
-
-[sub_resource type="QuadMesh" id=9]
-size = Vector2( 4, 18 )
-
-[sub_resource type="BoxShape" id=10]
-extents = Vector3( 7, 0.1, 1 )
-
-[sub_resource type="BoxShape" id=11]
-extents = Vector3( 0.1, 8.9, 1 )
-
-[sub_resource type="BoxShape" id=12]
-extents = Vector3( 1.8, 8.8, 1 )
+material = ExtResource( 7 )
+size = Vector2( 32, 15 )
 
 [sub_resource type="QuadMesh" id=13]
-material = ExtResource( 2 )
+material = ExtResource( 7 )
 size = Vector2( 96, 3 )
 
 [sub_resource type="QuadMesh" id=14]
-material = ExtResource( 2 )
+material = ExtResource( 7 )
 size = Vector2( 3, 66 )
 
-[sub_resource type="BoxShape" id=15]
-extents = Vector3( 48, 3, 1 )
-
 [node name="Main" type="Node"]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
 [node name="Root3D" type="Spatial" parent="."]
 
 [node name="LeftRoom" type="Spatial" parent="Root3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
 
-[node name="Players" type="Spatial" parent="Root3D/LeftRoom"]
+[node name="FloorMeshes" type="Spatial" parent="Root3D/LeftRoom"]
 
-[node name="Player1" parent="Root3D/LeftRoom/Players" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.602, -26.1183, 0 )
-
-[node name="LeftFloor" type="MeshInstance" parent="Root3D/LeftRoom"]
+[node name="LeftFloor" type="MeshInstance" parent="Root3D/LeftRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 mesh = SubResource( 1 )
 material/0 = null
@@ -125,38 +103,34 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0
 depth = 31.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
+[node name="Players" type="Spatial" parent="Root3D/LeftRoom"]
+
+[node name="Player1" parent="Root3D/LeftRoom/Players" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.602, -26.1183, 0 )
+
 [node name="Interactables" type="Spatial" parent="Root3D/LeftRoom"]
 
-[node name="MoveWallInteractable" parent="Root3D/LeftRoom/Interactables" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17061, 0 )
+[node name="WallInteractable" parent="Root3D/LeftRoom/Interactables" instance=ExtResource( 9 )]
+script = ExtResource( 1 )
 wall_node_path = NodePath("../../../MiddleRoom/RightDivider/MovableRightWall")
 
-[node name="BridgeInteractable" type="Spatial" parent="Root3D/LeftRoom/Interactables"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.261, 0 )
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_group_": true
-}
-bridge_node_path = NodePath("../../../RightRoom/BridgeObstacle/Bridge")
-
-[node name="InteractionArea" type="Area" parent="Root3D/LeftRoom/Interactables/BridgeInteractable"]
-collision_layer = 2048
-collision_mask = 2
-
-[node name="CollisionPolygon" type="CollisionPolygon" parent="Root3D/LeftRoom/Interactables/BridgeInteractable/InteractionArea"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-depth = 4.0
-polygon = PoolVector2Array( -2, 0, 2, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Root3D/LeftRoom/Interactables/BridgeInteractable"]
-mesh = SubResource( 2 )
-material/0 = null
+[node name="BridgeInteractable" parent="Root3D/LeftRoom/Interactables" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.49933, 0 )
+script = ExtResource( 2 )
+bridge_obstacle_node_path = NodePath("../../../RightRoom/BridgeObstacle")
 
 [node name="MiddleRoom" type="Spatial" parent="Root3D"]
 
+[node name="FloorMeshes" type="Spatial" parent="Root3D/MiddleRoom"]
+
+[node name="MiddleFloor" type="MeshInstance" parent="Root3D/MiddleRoom/FloorMeshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
+mesh = SubResource( 1 )
+material/0 = null
+
 [node name="Guards" type="Spatial" parent="Root3D/MiddleRoom"]
 
-[node name="CameraGuard" parent="Root3D/MiddleRoom/Guards" instance=ExtResource( 3 )]
+[node name="CameraGuard" parent="Root3D/MiddleRoom/Guards" instance=ExtResource( 5 )]
 
 [node name="LeftDivider" type="Spatial" parent="Root3D/MiddleRoom"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, -0.5 )
@@ -261,12 +235,9 @@ material/0 = null
 [node name="RightRoom" type="Spatial" parent="Root3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
 
-[node name="Players" type="Spatial" parent="Root3D/RightRoom"]
+[node name="FloorMeshes" type="Spatial" parent="Root3D/RightRoom"]
 
-[node name="Player2" parent="Root3D/RightRoom/Players" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -27.5, 0 )
-
-[node name="RightFloor" type="MeshInstance" parent="Root3D/RightRoom"]
+[node name="RightFloor" type="MeshInstance" parent="Root3D/RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, -1.5 )
 mesh = SubResource( 6 )
 material/0 = null
@@ -274,8 +245,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RightFloor2" type="MeshInstance" parent="Root3D/RightRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, -1.5 )
+[node name="RightFloor2" type="MeshInstance" parent="Root3D/RightRoom/FloorMeshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.5, -1.5 )
 mesh = SubResource( 7 )
 material/0 = null
 __meta__ = {
@@ -324,106 +295,18 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0
 depth = 31.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="BridgeObstacle" type="Spatial" parent="Root3D/RightRoom"]
-__meta__ = {
-"_edit_group_": true
-}
+[node name="Players" type="Spatial" parent="Root3D/RightRoom"]
 
-[node name="Bridge" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle"]
-collision_layer = 4
-collision_mask = 2147483650
+[node name="Player2" parent="Root3D/RightRoom/Players" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -27.5, 0 )
 
-[node name="EndCollider" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/Bridge"]
-shape = SubResource( 8 )
-
-[node name="Floor" type="MeshInstance" parent="Root3D/RightRoom/BridgeObstacle/Bridge"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -1.51 )
-mesh = SubResource( 9 )
-material/0 = null
-
-[node name="InvisibleWalls" type="Spatial" parent="Root3D/RightRoom/BridgeObstacle"]
-
-[node name="LeftDownInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/LeftDownInvisibleWall"]
-shape = SubResource( 10 )
-
-[node name="LeftUpInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 18, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/LeftUpInvisibleWall"]
-shape = SubResource( 10 )
-
-[node name="RightDownInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/RightDownInvisibleWall"]
-shape = SubResource( 10 )
-
-[node name="RightUpInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 18, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/RightUpInvisibleWall"]
-shape = SubResource( 10 )
-
-[node name="BridgeLeftInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/BridgeLeftInvisibleWall"]
-shape = SubResource( 11 )
-
-[node name="BridgeRightInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/BridgeRightInvisibleWall"]
-shape = SubResource( 11 )
-
-[node name="OtherSideInvisibleWall" type="StaticBody" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="OppositeCollider" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/InvisibleWalls/OtherSideInvisibleWall"]
-shape = SubResource( 8 )
-
-[node name="OnBridgeArea" type="Area" parent="Root3D/RightRoom/BridgeObstacle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
-input_ray_pickable = false
-monitorable = false
-collision_layer = 32768
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/RightRoom/BridgeObstacle/OnBridgeArea"]
-shape = SubResource( 12 )
+[node name="BridgeObstacle" parent="Root3D/RightRoom" instance=ExtResource( 4 )]
 
 [node name="OuterWalls" type="Spatial" parent="Root3D"]
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
-
-[node name="MiddleFloor" type="MeshInstance" parent="Root3D/OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="UpWall" type="MeshInstance" parent="Root3D/OuterWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 30, 0 )
-mesh = SubResource( 13 )
-material/0 = null
 
 [node name="DownWall" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, 0 )
@@ -438,11 +321,6 @@ material/0 = null
 [node name="RightWall" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48, 0, 0 )
 mesh = SubResource( 14 )
-material/0 = null
-
-[node name="UpRim" type="MeshInstance" parent="Root3D/OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 31.5, 1.5 )
-mesh = SubResource( 13 )
 material/0 = null
 
 [node name="DownRim" type="MeshInstance" parent="Root3D/OuterWalls"]
@@ -460,14 +338,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 0, 1.5 )
 mesh = SubResource( 14 )
 material/0 = null
 
-[node name="WinArea" type="Area" parent="Root3D"]
-collision_layer = 1024
-collision_mask = 2
-script = ExtResource( 6 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Root3D/WinArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
-shape = SubResource( 15 )
+[node name="WinArea" parent="Root3D" instance=ExtResource( 10 )]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="Root3D"]
 transform = Transform( 0.6743, -0.549869, -0.492914, 0.732855, 0.580354, 0.355124, 0.090793, -0.600694, 0.794307, 0, 0, 0 )
@@ -483,7 +354,3 @@ far = 47.0
 __meta__ = {
 "_edit_lock_": true
 }
-[connection signal="body_entered" from="Root3D/LeftRoom/Interactables/BridgeInteractable/InteractionArea" to="Root3D/LeftRoom/Interactables/BridgeInteractable" method="on_player_registered"]
-[connection signal="body_exited" from="Root3D/LeftRoom/Interactables/BridgeInteractable/InteractionArea" to="Root3D/LeftRoom/Interactables/BridgeInteractable" method="on_player_unregistered"]
-[connection signal="body_entered" from="Root3D/WinArea" to="Root3D/WinArea" method="on_player_entered"]
-[connection signal="body_exited" from="Root3D/WinArea" to="Root3D/WinArea" method="on_player_exited"]

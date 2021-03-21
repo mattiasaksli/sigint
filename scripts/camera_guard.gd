@@ -21,11 +21,13 @@ onready var _movement_pause_timer : Timer = $MovementPauseTimer as Timer
 func _enter_tree() -> void:
 	_game_manager = $"/root/Main"
 
+
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	self.connect("player_busted", _game_manager, "on_player_busted")	# Send game over to game manager
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")	# Do game over logic when the signal comes from game manager
+
 
 func _physics_process(delta : float) -> void:
 	if not _players_nearby.empty():
@@ -38,6 +40,7 @@ func _physics_process(delta : float) -> void:
 		translation += direction * (speed * delta)
 		_check_bounds()
 
+
 func _check_bounds() -> void:
 	if translation.y < bottom_bound:	# Reached the bottom
 		direction.y = 1
@@ -48,6 +51,7 @@ func _check_bounds() -> void:
 		direction.y = -1
 		translation.y = top_bound
 		_movement_pause_timer.start()
+
 
 func _check_for_players() -> void:
 	_visible_players.clear()
@@ -70,35 +74,20 @@ func _check_for_players() -> void:
 	elif _visible_players.empty() and not _detection_timer.is_stopped():
 		_detection_timer.stop()
 
-func _get_caught_players_string() -> String:
-	if _players_nearby.size() == 1:
-		return _players_nearby[0].name
-	
-	var caught_players_string : String = ""
-	
-	var player_name : String
-	for i in range(_players_nearby.size()):
-		player_name = _players_nearby[i].name
-		# If the next index is the last one, finish the string.
-		if i + 1 == _players_nearby.size() - 1:
-			var last_player_name : String = _players_nearby[i + 1].name
-			return caught_players_string + player_name + " and " + last_player_name
-		else:
-			caught_players_string += player_name + ", "
-	return caught_players_string
 
 func body_entered_area(body : Node) -> void:
 	_players_nearby.append(body)
 
+
 func body_exited_area(body : Node) -> void:
 	_players_nearby.erase(body)
+
 
 func trigger_game_over() -> void:
 	# TODO: finish function
 	
-	print_debug(self.name + " triggered the game over because " + _get_caught_players_string() + " got caught")
-	
 	emit_signal("player_busted")
+
 
 func on_game_over() -> void:
 	# TODO: finish function

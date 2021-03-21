@@ -15,19 +15,23 @@ var _game_manager : Node
 func _enter_tree() -> void:
 	_game_manager = $"/root/Main"
 
+
 func _ready() -> void:
 	_wall_node = get_node(wall_node_path) as Spatial
 	
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
 
+
 func _process(_delta : float) -> void:
 	if not _registered_players.empty():
 		for player_string_prefix in _registered_players:
 			_handle_player_input(player_string_prefix)
 
+
 func _physics_process(delta : float) -> void:
 	_handle_wall_movement(delta)
+
 
 func _handle_player_input(prefix : String) -> void:
 	if Input.is_action_pressed(prefix + "interact_up"):
@@ -36,6 +40,7 @@ func _handle_player_input(prefix : String) -> void:
 		wall_movement_direction.y = -1
 	else:
 		wall_movement_direction.y = 0
+
 
 func _handle_wall_movement(delta : float) -> void:
 	if wall_movement_direction.y != 0:
@@ -46,13 +51,16 @@ func _handle_wall_movement(delta : float) -> void:
 		elif wall_movement_direction.y == -1 and _wall_node.translation.y < lower_bound:
 			_wall_node.translation.y = lower_bound
 
+
 func on_player_registered(body : Node) -> void:
 	var player : String = body.name.to_lower() + "_"
 	if not _registered_players.has(player):
 		_registered_players.append(player)
 
+
 func on_player_unregistered(body : Node) -> void:
 	_registered_players.erase(body.name.to_lower() + "_")
+
 
 func on_game_over() -> void:
 	# TODO: finish function

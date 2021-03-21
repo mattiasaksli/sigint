@@ -13,21 +13,26 @@ var _player_input_prefix : String
 func _enter_tree() -> void:
 	_game_manager = $"/root/Main"
 
+
 func _ready() -> void:
 	_player_input_prefix = self.name.to_lower() + "_"
 	
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
 
+
 #func _process(delta):
 #	_handle_movement(delta)
+
 
 func _physics_process(delta : float) -> void:
 	_handle_movement(delta)
 
+
 func move_on_bridge(amount : Vector3) -> void:
 	# Amount is already multiplied by delta time
 	translation += amount
+
 
 func _handle_movement(delta : float) -> void:
 	var move_direction : Vector2 = _get_move_direction_input()
@@ -52,16 +57,19 @@ func _handle_movement(delta : float) -> void:
 #	translation += Vector3(_velocity.x * delta, _velocity.y * delta, 0.0)
 	_velocity = move_and_slide(_velocity)
 
+
 func _apply_movement(accel: Vector3, move_direction_magnitude : float) -> void:
 	_velocity += accel
 	var clamped_velocity : Vector2 = Vector2(_velocity.x, _velocity.y).clamped(max_speed * move_direction_magnitude)
 	_velocity = Vector3(clamped_velocity.x, clamped_velocity.y, 0)
+
 
 func _apply_friction(deceleration: float) -> void:
 	if _velocity.length() > deceleration:
 		_velocity -= _velocity.normalized() * deceleration
 	else:
 		_velocity = Vector3.ZERO
+
 
 func _get_move_direction_input() -> Vector2:
 	# Player translation input
@@ -73,6 +81,7 @@ func _get_move_direction_input() -> Vector2:
 		direction.x = Input.get_action_strength(_player_input_prefix + "move_right") - Input.get_action_strength(_player_input_prefix + "move_left")
 	
 	return direction
+
 
 func on_game_over() -> void:
 	# TODO: finish function

@@ -1,36 +1,53 @@
 extends Area
 
-var ALL_PLAYERS : Array
-var PLAYERS_IN_WIN_AREA : Array
+export var next_level_path : String
+
+var _players_in_win_area : Dictionary
+var _level_loader_thread : LevelLoader
+
+onready var _timer : Timer = $Timer
 
 
 func _ready() -> void:
-	ALL_PLAYERS = get_tree().get_nodes_in_group("players")
+	var players = get_tree().get_nodes_in_group("players")
+	for player in players:
+		_players_in_win_area[player] = false
+	
+	_level_loader_thread = preload("res://scripts/level_loader.gd").new()
+	_level_loader_thread.start()
+
 
 func on_player_entered(body: Node) -> void:
-	print_debug(body.name + " entered win area")
-	if not PLAYERS_IN_WIN_AREA.has(body):
-		PLAYERS_IN_WIN_AREA.append(body)
+	_players_in_win_area[body] = true
 	
-	if _do_arrays_match(ALL_PLAYERS, PLAYERS_IN_WIN_AREA):
+	if _are_all_players_in_win_area():
 		_win()
 
-func on_player_exited(body: Node) -> void:
-	print_debug(body.name + " left win area")
-	PLAYERS_IN_WIN_AREA.erase(body)
 
-# Returns true if array2 contains the same elements as array1, assuming there are no duplicate elements.
-func _do_arrays_match(array1 : Array, array2 : Array) -> bool:
-	if array1.size() != array2.size():
-		return false
+func on_player_exited(body: Node) -> void:
+	_players_in_win_area[body] = false
 	
-	for player in array1:
-		if !array2.has(player):
+	# Not all players are in the win area, stopping timer and level loading
+	if not _timer.is_stopped():
+		_timer.stop()
+		_level_loader_thread.cancel_loading_level()
+
+
+func _on_Timer_timeout():
+	var next_scene : PackedScene = _level_loader_thread.get_level(next_level_path)
+	#$"/root/Main".queue_free()
+	if get_tree().change_scene_to(next_scene) == ERR_CANT_CREATE:
+		printerr("Error changing scene to " + next_level_path)
+
+
+func _are_all_players_in_win_area() -> bool:
+	for is_present in _players_in_win_area.values():
+		if not is_present:
 			return false
 	
 	return true
 
+
 func _win() -> void:
-	print_debug("move to next level")
-	# TODO: add timer
-	# TODO: move to next level
+	_level_loader_thread.queue_level(next_level_path)
+	_timer.start()

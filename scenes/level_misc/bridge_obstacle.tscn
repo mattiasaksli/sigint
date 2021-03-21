@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 2, 0.1, 1 )
+
+[sub_resource type="QuadMesh" id=2]
+size = Vector2( 4, 18 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 7, 0.1, 1 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.1, 8.9, 1 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 1.8, 8.8, 1 )
+
+[node name="BridgeObstacle" type="Spatial"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Bridge" type="StaticBody" parent="."]
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="EndCollider" type="CollisionShape" parent="Bridge"]
+shape = SubResource( 1 )
+
+[node name="Floor" type="MeshInstance" parent="Bridge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -1.51 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="InvisibleWalls" type="Spatial" parent="."]
+
+[node name="LeftDownInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="InvisibleWalls/LeftDownInvisibleWall"]
+shape = SubResource( 3 )
+
+[node name="LeftUpInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 18, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="InvisibleWalls/LeftUpInvisibleWall"]
+shape = SubResource( 3 )
+
+[node name="RightDownInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="InvisibleWalls/RightDownInvisibleWall"]
+shape = SubResource( 3 )
+
+[node name="RightUpInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 18, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="InvisibleWalls/RightUpInvisibleWall"]
+shape = SubResource( 3 )
+
+[node name="BridgeLeftInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="InvisibleWalls/BridgeLeftInvisibleWall"]
+shape = SubResource( 4 )
+
+[node name="BridgeRightInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="CollisionShape" type="CollisionShape" parent="InvisibleWalls/BridgeRightInvisibleWall"]
+shape = SubResource( 4 )
+
+[node name="OtherSideInvisibleWall" type="StaticBody" parent="InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0 )
+collision_layer = 4
+collision_mask = 2147483650
+
+[node name="OppositeCollider" type="CollisionShape" parent="InvisibleWalls/OtherSideInvisibleWall"]
+shape = SubResource( 1 )
+
+[node name="OnBridgeArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
+input_ray_pickable = false
+monitorable = false
+collision_layer = 32768
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="OnBridgeArea"]
+shape = SubResource( 5 )
