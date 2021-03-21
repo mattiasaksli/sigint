@@ -16,7 +16,7 @@ var _game_manager : Node
 
 
 func _enter_tree() -> void:
-	_game_manager = $"/root/Main"
+	_game_manager = $"/root/GameManager"
 
 
 func _ready() -> void:
@@ -40,18 +40,15 @@ func _ready() -> void:
 
 
 func _physics_process(delta : float) -> void:
+	_handle_bridge_movement(delta)
+	_handle_toggling_bridge_colliders()
+	
 	if not _registered_players.empty():
 		for player_string_prefix in _registered_players:
 			_handle_player_input(player_string_prefix)
-		
-		_handle_bridge_movement(delta)
-		_handle_toggling_bridge_colliders()
 	
 	if not _players_on_bridge.empty():
-		var player : Player
-		for i in range(_players_on_bridge.size()):
-			player = _players_on_bridge[i]
-			player.move_on_bridge(_bridge_movement_direction * (speed * delta))
+		_handle_bridge_player_movement(delta)
 
 
 func _handle_player_input(prefix : String) -> void:
@@ -87,6 +84,13 @@ func _handle_toggling_bridge_colliders() -> void:
 		_bridge_opposite_collider.disabled = false
 
 
+func _handle_bridge_player_movement(delta : float):
+	var player : Player
+	for i in range(_players_on_bridge.size()):
+		player = _players_on_bridge[i]
+		player.move_on_bridge(_bridge_movement_direction * (speed * delta))
+
+
 func on_player_registered(body : Node) -> void:
 	var player : String = body.name.to_lower() + "_"
 	if not _registered_players.has(player):
@@ -95,6 +99,8 @@ func on_player_registered(body : Node) -> void:
 
 func on_player_unregistered(body : Node) -> void:
 	_registered_players.erase(body.name.to_lower() + "_")
+	if _bridge_node.translation.y > lower_bound:
+		_bridge_movement_direction.y = -1
 
 
 func on_player_entered_bridge(body : Node) -> void:

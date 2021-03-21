@@ -19,7 +19,7 @@ onready var _movement_pause_timer : Timer = $MovementPauseTimer as Timer
 
 
 func _enter_tree() -> void:
-	_game_manager = $"/root/Main"
+	_game_manager = $"/root/GameManager"
 
 
 func _ready() -> void:
@@ -85,6 +85,13 @@ func body_exited_area(body : Node) -> void:
 
 func trigger_game_over() -> void:
 	# TODO: finish function
+	
+	var caught : String = ""
+	for player in _visible_players:
+		caught += player.name + " "
+	caught += "got caught"
+	
+	print_debug(caught)
 	
 	emit_signal("player_busted")
 

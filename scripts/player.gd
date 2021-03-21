@@ -11,7 +11,7 @@ var _player_input_prefix : String
 
 
 func _enter_tree() -> void:
-	_game_manager = $"/root/Main"
+	_game_manager = $"/root/GameManager"
 
 
 func _ready() -> void:

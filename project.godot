@@ -36,6 +36,12 @@ config/name="Sneak Ops"
 run/main_scene="res://scenes/levels/level1.tscn"
 config/icon="res://.project_meta_files/icon.png"
 
+[autoload]
+
+Players="*res://scenes/globals/players.tscn"
+GlobalCamera="*res://scenes/globals/camera.tscn"
+GameManager="*res://scenes/globals/game_manager.tscn"
+
 [debug]
 
 settings/stdout/print_fps=true
