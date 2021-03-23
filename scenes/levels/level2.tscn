@@ -24,7 +24,7 @@ size = Vector2( 2, 2 )
 material = ExtResource( 8 )
 size = Vector2( 2, 66 )
 
-[sub_resource type="QuadMesh" id=7]
+[sub_resource type="QuadMesh" id=5]
 material = ExtResource( 7 )
 size = Vector2( 3, 66 )
 
@@ -249,22 +249,22 @@ __meta__ = {
 
 [node name="LeftWall" type="MeshInstance" parent="OuterWalls"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -48, 0, 0 )
-mesh = SubResource( 7 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="RightWall" type="MeshInstance" parent="OuterWalls"]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48, 0, 0 )
-mesh = SubResource( 7 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="LeftRim" type="MeshInstance" parent="OuterWalls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, 0, 1.5 )
-mesh = SubResource( 7 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="RightRim" type="MeshInstance" parent="OuterWalls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 0, 1.5 )
-mesh = SubResource( 7 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="WinArea" parent="." instance=ExtResource( 10 )]

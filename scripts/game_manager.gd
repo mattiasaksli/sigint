@@ -1,10 +1,12 @@
 extends Node
 
+signal add_player(player)
+signal remove_player(player)
 signal game_over
 
 var _new_player_spawn_locations : Array
 var _controller_player_dict : Dictionary
-var _can_handle_joystick_connections : bool = true
+var _can_handle_joystick_connections : bool = true    # Is set to false while the level is changing
 var _unhandled_joystick_connections : Dictionary
 
 
@@ -27,16 +29,19 @@ func _process(_delta : float) -> void:
 		_unhandled_joystick_connections.clear()
 
 
+# Sets the new level's spawn locations
 func initialize_variables() -> void:
+	var root_3d : Spatial = $"/root".get_child($"/root".get_child_count() - 1)
+	
 	_new_player_spawn_locations = [
-		($"/root/Root3D/PlayerSpawnLocations/Spawn1" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn2" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn3" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn4" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn5" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn6" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn7" as Spatial).translation,
-		($"/root/Root3D/PlayerSpawnLocations/Spawn8" as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn1") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn2") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn3") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn4") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn5") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn6") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn7") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn8") as Spatial).translation,
 	]
 
 
@@ -80,13 +85,19 @@ func _add_new_player(device : int) -> void:
 	
 	_controller_player_dict[device] = new_player
 	
-	print("Added " + new_player.name + " with joystick id " + String(device) + " at position " + String(_new_player_spawn_locations[device]))
+	emit_signal("add_player", new_player)
+	
+#	print("Added " + new_player.name + " with joystick id " + String(device) + " at position " + String(_new_player_spawn_locations[device]))
 
 
 func _remove_player(device : int) -> void:
-	print("Removed " + _controller_player_dict[device].name + " with joystick id " + String(device))
+	var player : Node = _controller_player_dict[device]
 	
-	_controller_player_dict[device].queue_free()
+	emit_signal("remove_player", player)
+	
+	print("Removed " + player.name + " with joystick id " + String(device))
+	
+	player.queue_free()
 	
 	if not _controller_player_dict.erase(device):
-		printerr("Error removing " + _controller_player_dict[device].name + " with joystick id " + String(device))
+		printerr("Error removing " + player.name + " with joystick id " + String(device))
