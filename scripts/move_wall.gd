@@ -6,7 +6,6 @@ export var upper_bound : float = 25
 export var lower_bound : float = -25
 
 var _wall_movement_direction : Vector3 = Vector3.ZERO
-
 var _registered_players : Array
 var _wall_node : Spatial
 var _game_manager : Node
