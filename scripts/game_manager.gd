@@ -101,3 +101,8 @@ func _remove_player(device : int) -> void:
 	
 	if not _controller_player_dict.erase(device):
 		printerr("Error removing " + player.name + " with joystick id " + String(device))
+
+func _input(event : InputEvent) -> void:
+	if event is InputEventKey and (event as InputEventKey).pressed:
+		if (event as InputEventKey).scancode == KEY_ESCAPE:
+			get_tree().quit()
