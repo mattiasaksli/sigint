@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/themes/default.theme" type="Theme" id=1]
+[ext_resource path="res://scripts/pause_menu.gd" type="Script" id=2]
+
+[node name="PauseMenuControl" type="Control"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TransparentBGPanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="OpaquePanelContainer" type="PanelContainer" parent="TransparentBGPanel"]
+anchor_left = 0.35
+anchor_top = 0.25
+anchor_right = 0.648
+anchor_bottom = 0.75
+margin_left = 2.0
+margin_top = 1.52588e-05
+margin_right = 0.560059
+rect_min_size = Vector2( 200, 200 )
+rect_pivot_offset = Vector2( 200, 200 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="TransparentBGPanel/OpaquePanelContainer"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 377.0
+margin_bottom = 397.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 60
+custom_constants/margin_left = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSplitContainer" type="VSplitContainer" parent="TransparentBGPanel/OpaquePanelContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 60.0
+margin_right = 364.0
+margin_bottom = 394.0
+custom_constants/separation = 50
+
+[node name="PausedLabel" type="Label" parent="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer"]
+margin_right = 354.0
+margin_bottom = 44.0
+text = "PAUSED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer"]
+margin_top = 94.0
+margin_right = 354.0
+margin_bottom = 334.0
+rect_min_size = Vector2( 100, 75 )
+rect_pivot_offset = Vector2( 200, 200 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResumeBtn" type="Button" parent="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox"]
+margin_right = 354.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 150, 50 )
+focus_neighbour_top = NodePath("../MainMenuBtn")
+focus_neighbour_bottom = NodePath("../RestartLevelBtn")
+text = "RESUME"
+
+[node name="RestartLevelBtn" type="Button" parent="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox"]
+margin_top = 75.0
+margin_right = 354.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 150, 50 )
+focus_neighbour_top = NodePath("../ResumeBtn")
+focus_neighbour_bottom = NodePath("../MainMenuBtn")
+text = "RESTART LEVEL"
+
+[node name="MainMenuBtn" type="Button" parent="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox"]
+margin_top = 150.0
+margin_right = 354.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 150, 50 )
+focus_neighbour_top = NodePath("../RestartLevelBtn")
+focus_neighbour_bottom = NodePath("../ResumeBtn")
+text = "MAIN MENU"
+[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/ResumeBtn" to="." method="resume_game"]
+[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/RestartLevelBtn" to="." method="restart_level"]
+[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/MainMenuBtn" to="." method="go_to_main_menu"]

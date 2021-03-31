@@ -31,7 +31,7 @@ func _process(_delta : float) -> void:
 
 # Sets the new level's spawn locations
 func initialize_variables() -> void:
-	var root_3d : Spatial = $"/root".get_child($"/root".get_child_count() - 1)
+	var root_3d : Spatial = $"../".get_child($"../".get_child_count() - 1)
 	
 	_new_player_spawn_locations = [
 		(root_3d.get_node("PlayerSpawnLocations/Spawn1") as Spatial).translation,
@@ -41,7 +41,7 @@ func initialize_variables() -> void:
 		(root_3d.get_node("PlayerSpawnLocations/Spawn5") as Spatial).translation,
 		(root_3d.get_node("PlayerSpawnLocations/Spawn6") as Spatial).translation,
 		(root_3d.get_node("PlayerSpawnLocations/Spawn7") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn8") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn8") as Spatial).translation
 	]
 
 
@@ -81,7 +81,7 @@ func _add_new_player(device : int) -> void:
 	new_player.translation = _new_player_spawn_locations[device]
 	
 	# Add new player to scene
-	$"/root/Players".add_child(new_player)
+	$"../Players".add_child(new_player)
 	
 	_controller_player_dict[device] = new_player
 	
@@ -101,8 +101,3 @@ func _remove_player(device : int) -> void:
 	
 	if not _controller_player_dict.erase(device):
 		printerr("Error removing " + player.name + " with joystick id " + String(device))
-
-func _input(event : InputEvent) -> void:
-	if event is InputEventKey and (event as InputEventKey).pressed:
-		if (event as InputEventKey).scancode == KEY_ESCAPE:
-			get_tree().quit()

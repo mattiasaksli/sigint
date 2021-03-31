@@ -13,7 +13,7 @@ onready var _timer : Timer = $Timer
 
 func _enter_tree():
 	# Set up signal for the current level
-	_game_manager = $"/root/GameManager"
+	_game_manager = $"/root/Main/GameManager"
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("add_player", self, "new_player_spawned")
 	# warning-ignore:return_value_discarded
@@ -52,8 +52,10 @@ func on_timer_timeout():
 	
 	# Swaps old Root3D node for the newly loaded one
 	var next_scene : Spatial = _level_loader_thread.get_level(next_level_path).instance()
-	$"/root/Root3D".queue_free()
-	$"/root".add_child(next_scene)
+	_level_loader_thread.stop_thread()
+	
+	$"/root/Main/Root3D".queue_free()
+	$"/root/Main".add_child(next_scene)
 	
 	emit_signal("level_loaded")
 

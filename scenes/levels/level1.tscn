@@ -1,14 +1,17 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/move_wall.gd" type="Script" id=1]
 [ext_resource path="res://scripts/move_bridge.gd" type="Script" id=2]
 [ext_resource path="res://meshes/light/electrical_junctionbox_small.material" type="Material" id=3]
 [ext_resource path="res://scenes/level_misc/bridge_obstacle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/game_manager.gd" type="Script" id=6]
 [ext_resource path="res://materials/walls.material" type="Material" id=7]
 [ext_resource path="res://materials/divider.material" type="Material" id=8]
 [ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/level_misc/win_area.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/menus/pause_menu.tscn" type="PackedScene" id=11]
+
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 7 )
@@ -61,40 +64,60 @@ surfaces/0 = {
 "vertex_count": 98
 }
 
-[node name="Root3D" type="Spatial"]
+[node name="Main" type="Node"]
 
-[node name="PlayerSpawnLocations" type="Spatial" parent="."]
+[node name="GameManager" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 6 )
 
-[node name="Spawn1" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
+cull_mask = 3
+current = true
+near = 40.0
+far = 47.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Players" type="Spatial" parent="."]
+
+[node name="PauseMenuControl" parent="." instance=ExtResource( 11 )]
+
+[node name="Root3D" type="Spatial" parent="."]
+
+[node name="PlayerSpawnLocations" type="Spatial" parent="Root3D"]
+
+[node name="Spawn1" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -27.5, 0 )
 
-[node name="Spawn2" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn2" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, -27.5, 0 )
 
-[node name="Spawn3" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn3" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -27.5, 0 )
 
-[node name="Spawn4" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn4" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35, -27.5, 0 )
 
-[node name="Spawn5" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn5" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -27.5, 0 )
 
-[node name="Spawn6" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn6" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -27.5, 0 )
 
-[node name="Spawn7" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn7" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -27.5, 0 )
 
-[node name="Spawn8" type="Spatial" parent="PlayerSpawnLocations"]
+[node name="Spawn8" type="Spatial" parent="Root3D/PlayerSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -27.5, 0 )
 
-[node name="LeftRoom" type="Spatial" parent="."]
+[node name="LeftRoom" type="Spatial" parent="Root3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
 
-[node name="FloorMeshes" type="Spatial" parent="LeftRoom"]
+[node name="FloorMeshes" type="Spatial" parent="Root3D/LeftRoom"]
 
-[node name="LeftFloor" type="MeshInstance" parent="LeftRoom/FloorMeshes"]
+[node name="LeftFloor" type="MeshInstance" parent="Root3D/LeftRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 mesh = SubResource( 1 )
 material/0 = null
@@ -102,163 +125,163 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="InvisibleWalls" type="StaticBody" parent="LeftRoom"]
+[node name="InvisibleWalls" type="StaticBody" parent="Root3D/LeftRoom"]
 collision_layer = 4
 collision_mask = 2
 
-[node name="Left" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+[node name="Left" type="CollisionPolygon" parent="Root3D/LeftRoom/InvisibleWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -16, 0, 0 )
 depth = 60.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Right" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+[node name="Right" type="CollisionPolygon" parent="Root3D/LeftRoom/InvisibleWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 14.5, 0, 0 )
 depth = 60.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Up" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+[node name="Up" type="CollisionPolygon" parent="Root3D/LeftRoom/InvisibleWalls"]
 transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, 30, 0 )
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Down" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+[node name="Down" type="CollisionPolygon" parent="Root3D/LeftRoom/InvisibleWalls"]
 transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, -30, 0 )
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Interactables" type="Spatial" parent="LeftRoom"]
+[node name="Interactables" type="Spatial" parent="Root3D/LeftRoom"]
 
-[node name="BridgeLever" parent="LeftRoom/Interactables" instance=ExtResource( 9 )]
+[node name="BridgeLever" parent="Root3D/LeftRoom/Interactables" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.72939, 0 )
 script = ExtResource( 2 )
-bridge_obstacle_node_path = NodePath("../../../RightRoom/BridgeObstacle")
+bridge_obstacle_node_path = NodePath("../../../../../Main/Root3D/RightRoom/BridgeObstacle")
 
-[node name="WallLever" parent="LeftRoom/Interactables" instance=ExtResource( 9 )]
+[node name="WallLever" parent="Root3D/LeftRoom/Interactables" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32601, 0 )
 script = ExtResource( 1 )
-wall_node_path = NodePath("../../../MiddleRoom/RightDivider/MovableRightWall")
+wall_node_path = NodePath("../../../../../Main/Root3D/MiddleRoom/RightDivider/MovableRightWall")
 
-[node name="MiddleRoom" type="Spatial" parent="."]
+[node name="MiddleRoom" type="Spatial" parent="Root3D"]
 
-[node name="FloorMeshes" type="Spatial" parent="MiddleRoom"]
+[node name="FloorMeshes" type="Spatial" parent="Root3D/MiddleRoom"]
 
-[node name="MiddleFloor" type="MeshInstance" parent="MiddleRoom/FloorMeshes"]
+[node name="MiddleFloor" type="MeshInstance" parent="Root3D/MiddleRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="Guards" type="Spatial" parent="MiddleRoom"]
+[node name="Guards" type="Spatial" parent="Root3D/MiddleRoom"]
 
-[node name="CameraGuard" parent="MiddleRoom/Guards" instance=ExtResource( 5 )]
+[node name="CameraGuard" parent="Root3D/MiddleRoom/Guards" instance=ExtResource( 5 )]
 transform = Transform( -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0, 1, -13, -7.19317, 0 )
 direction = Vector3( 0, 1, 0 )
 
-[node name="LeftDivider" type="Spatial" parent="MiddleRoom"]
+[node name="LeftDivider" type="Spatial" parent="Root3D/MiddleRoom"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, -0.5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MovableLeftWall" type="Spatial" parent="MiddleRoom/LeftDivider"]
+[node name="MovableLeftWall" type="Spatial" parent="Root3D/MiddleRoom/LeftDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.32074, 0 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Top" type="MeshInstance" parent="MiddleRoom/LeftDivider/MovableLeftWall"]
+[node name="Top" type="MeshInstance" parent="Root3D/MiddleRoom/LeftDivider/MovableLeftWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Right" type="MeshInstance" parent="MiddleRoom/LeftDivider/MovableLeftWall"]
+[node name="Right" type="MeshInstance" parent="Root3D/MiddleRoom/LeftDivider/MovableLeftWall"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1, 0, 1 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Up" type="MeshInstance" parent="MiddleRoom/LeftDivider/MovableLeftWall"]
+[node name="Up" type="MeshInstance" parent="Root3D/MiddleRoom/LeftDivider/MovableLeftWall"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 3, 1 )
 mesh = SubResource( 3 )
 material/0 = null
 
-[node name="Down" type="MeshInstance" parent="MiddleRoom/LeftDivider/MovableLeftWall"]
+[node name="Down" type="MeshInstance" parent="Root3D/MiddleRoom/LeftDivider/MovableLeftWall"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -3, 1 )
 mesh = SubResource( 3 )
 material/0 = null
 
-[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/LeftDivider/MovableLeftWall"]
+[node name="FOVCollider" type="StaticBody" parent="Root3D/MiddleRoom/LeftDivider/MovableLeftWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1 )
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/LeftDivider/MovableLeftWall/FOVCollider"]
+[node name="CollisionPolygon" type="CollisionPolygon" parent="Root3D/MiddleRoom/LeftDivider/MovableLeftWall/FOVCollider"]
 depth = 2.0
 polygon = PoolVector2Array( 0, -3, 0, 3 )
 
-[node name="Top" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
+[node name="Top" type="MeshInstance" parent="Root3D/MiddleRoom/LeftDivider"]
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="Right" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
+[node name="Right" type="MeshInstance" parent="Root3D/MiddleRoom/LeftDivider"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1, 0, -1 )
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="RightDivider" type="Spatial" parent="MiddleRoom"]
+[node name="RightDivider" type="Spatial" parent="Root3D/MiddleRoom"]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, -0.5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MovableRightWall" type="Spatial" parent="MiddleRoom/RightDivider"]
+[node name="MovableRightWall" type="Spatial" parent="Root3D/MiddleRoom/RightDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -23.2125, 0 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Top" type="MeshInstance" parent="MiddleRoom/RightDivider/MovableRightWall"]
+[node name="Top" type="MeshInstance" parent="Root3D/MiddleRoom/RightDivider/MovableRightWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Left" type="MeshInstance" parent="MiddleRoom/RightDivider/MovableRightWall"]
+[node name="Left" type="MeshInstance" parent="Root3D/MiddleRoom/RightDivider/MovableRightWall"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1, 0, 1 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Up" type="MeshInstance" parent="MiddleRoom/RightDivider/MovableRightWall"]
+[node name="Up" type="MeshInstance" parent="Root3D/MiddleRoom/RightDivider/MovableRightWall"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -3, 1 )
 mesh = SubResource( 3 )
 material/0 = null
 
-[node name="Down" type="MeshInstance" parent="MiddleRoom/RightDivider/MovableRightWall"]
+[node name="Down" type="MeshInstance" parent="Root3D/MiddleRoom/RightDivider/MovableRightWall"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 3, 1 )
 mesh = SubResource( 3 )
 material/0 = null
 
-[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/RightDivider/MovableRightWall"]
+[node name="FOVCollider" type="StaticBody" parent="Root3D/MiddleRoom/RightDivider/MovableRightWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1 )
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/RightDivider/MovableRightWall/FOVCollider"]
+[node name="CollisionPolygon" type="CollisionPolygon" parent="Root3D/MiddleRoom/RightDivider/MovableRightWall/FOVCollider"]
 depth = 2.0
 polygon = PoolVector2Array( 0, -3, 0, 3 )
 
-[node name="Top" type="MeshInstance" parent="MiddleRoom/RightDivider"]
+[node name="Top" type="MeshInstance" parent="Root3D/MiddleRoom/RightDivider"]
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="Left" type="MeshInstance" parent="MiddleRoom/RightDivider"]
+[node name="Left" type="MeshInstance" parent="Root3D/MiddleRoom/RightDivider"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1, 0, -1 )
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="RightRoom" type="Spatial" parent="."]
+[node name="RightRoom" type="Spatial" parent="Root3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
 
-[node name="FloorMeshes" type="Spatial" parent="RightRoom"]
+[node name="FloorMeshes" type="Spatial" parent="Root3D/RightRoom"]
 
-[node name="RightFloor" type="MeshInstance" parent="RightRoom/FloorMeshes"]
+[node name="RightFloor" type="MeshInstance" parent="Root3D/RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.5, -1.5 )
 mesh = SubResource( 5 )
 material/0 = null
@@ -266,7 +289,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RightFloor2" type="MeshInstance" parent="RightRoom/FloorMeshes"]
+[node name="RightFloor2" type="MeshInstance" parent="Root3D/RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.5, -1.5 )
 mesh = SubResource( 6 )
 material/0 = null
@@ -274,72 +297,72 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="InvisibleWalls" type="StaticBody" parent="RightRoom"]
+[node name="InvisibleWalls" type="StaticBody" parent="Root3D/RightRoom"]
 collision_layer = 4
 collision_mask = 2
 
-[node name="Left" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+[node name="Left" type="CollisionPolygon" parent="Root3D/RightRoom/InvisibleWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -14.5, 0, 0 )
 depth = 60.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Right" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+[node name="Right" type="CollisionPolygon" parent="Root3D/RightRoom/InvisibleWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 16, 0, 0 )
 depth = 60.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Up" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+[node name="Up" type="CollisionPolygon" parent="Root3D/RightRoom/InvisibleWalls"]
 transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, 30, 0 )
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="Down" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+[node name="Down" type="CollisionPolygon" parent="Root3D/RightRoom/InvisibleWalls"]
 transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, -30, 0 )
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="BridgeObstacle" parent="RightRoom" instance=ExtResource( 4 )]
+[node name="BridgeObstacle" parent="Root3D/RightRoom" instance=ExtResource( 4 )]
 
-[node name="OuterWalls" type="Spatial" parent="."]
+[node name="OuterWalls" type="Spatial" parent="Root3D"]
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="LeftWall" type="MeshInstance" parent="OuterWalls"]
+[node name="LeftWall" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -48, 0, 0 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="RightWall" type="MeshInstance" parent="OuterWalls"]
+[node name="RightWall" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48, 0, 0 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="DownWall" type="MeshInstance" parent="OuterWalls"]
+[node name="DownWall" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, 0 )
 mesh = SubResource( 8 )
 material/0 = null
 
-[node name="LeftRim" type="MeshInstance" parent="OuterWalls"]
+[node name="LeftRim" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, 0, 1.5 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="RightRim" type="MeshInstance" parent="OuterWalls"]
+[node name="RightRim" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 0, 1.5 )
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="DownRim" type="MeshInstance" parent="OuterWalls"]
+[node name="DownRim" type="MeshInstance" parent="Root3D/OuterWalls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.5, 1.5 )
 mesh = SubResource( 9 )
 material/0 = null
 
-[node name="WinArea" parent="." instance=ExtResource( 10 )]
+[node name="WinArea" parent="Root3D" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
+[node name="DirectionalLight" type="DirectionalLight" parent="Root3D"]
 transform = Transform( 0.6743, -0.549869, -0.492914, 0.732855, 0.580354, 0.355124, 0.090793, -0.600694, 0.794307, 0, 0, 0 )
 light_cull_mask = 4293918721
 __meta__ = {
@@ -347,15 +370,15 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="electrical_junctionbox_small" type="Spatial" parent="."]
+[node name="electrical_junctionbox_small" type="Spatial" parent="Root3D"]
 transform = Transform( 2.65432e-13, -1.62921e-06, 10, -10, -1.62921e-06, 0, 1.62921e-06, -10, -1.62921e-06, -47.8563, 8.881, 0 )
 
-[node name="electrical_junctionbox_small" type="MeshInstance" parent="electrical_junctionbox_small"]
+[node name="electrical_junctionbox_small" type="MeshInstance" parent="Root3D/electrical_junctionbox_small"]
 transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 2, -0.000257254, 0, 0 )
 mesh = SubResource( 10 )
 material/0 = null
 
-[node name="OmniLight" type="SpotLight" parent="electrical_junctionbox_small"]
+[node name="OmniLight" type="SpotLight" parent="Root3D/electrical_junctionbox_small"]
 transform = Transform( -0.1, 1.77636e-15, -3.25841e-08, 1.77636e-15, 0.1, 0, 3.25841e-08, 0, -0.1, 0, -5.87704e-09, 0.0360713 )
 light_cull_mask = 4293918721
 shadow_enabled = true

@@ -12,7 +12,7 @@ var _game_manager : Node
 
 
 func _enter_tree() -> void:
-	_game_manager = $"/root/GameManager"
+	_game_manager = $"/root/Main/GameManager"
 
 
 func _ready() -> void:
