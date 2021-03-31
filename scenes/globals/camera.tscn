@@ -2,7 +2,7 @@
 
 [node name="Camera" type="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
-cull_mask = 1
+cull_mask = 3
 current = true
 near = 40.0
 far = 47.0

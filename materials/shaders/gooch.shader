@@ -26,10 +26,10 @@ vec3 gooch_shading(lowp vec3 light_dir, lowp vec3 dir_towards_camera, lowp vec3 
 }
 
 void light() {
-	DIFFUSE_LIGHT = gooch_shading(LIGHT, VIEW, NORMAL);
+	DIFFUSE_LIGHT += gooch_shading(LIGHT, VIEW, NORMAL) * ATTENUATION;
 	
 	lowp vec3 h = normalize(LIGHT + VIEW);
 	lowp float specular = pow(max(0.0, dot(NORMAL, h)), specular_power);
 	
-	SPECULAR_LIGHT = min(specular_color.rgb * specular, 1.0);
+	SPECULAR_LIGHT += min(specular_color.rgb * specular, 1.0) * ATTENUATION;
 }

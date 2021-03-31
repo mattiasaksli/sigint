@@ -22,5 +22,5 @@ void fragment() {
 void light() {
 	DIFFUSE_LIGHT += max(dot(NORMAL, LIGHT), 0.0) * ALBEDO;
 	vec3 h = normalize(LIGHT + VIEW);
-	SPECULAR_LIGHT = pow(max(0.0, dot(NORMAL, h)), specular_power) * ATTENUATION * ALBEDO;
+	SPECULAR_LIGHT += pow(max(0.0, dot(NORMAL, h)), specular_power) * ATTENUATION * ALBEDO;
 }

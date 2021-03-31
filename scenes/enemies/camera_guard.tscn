@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/camera_guard.gd" type="Script" id=1]
 [ext_resource path="res://materials/enemy.material" type="Material" id=2]
-[ext_resource path="res://mesh_shapes/fov_cone.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://materials/fov_cone.material" type="Material" id=4]
+[ext_resource path="res://scripts/render_fov_cone.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleMesh" id=1]
 material = ExtResource( 2 )
@@ -35,14 +36,15 @@ collision_mask = 2
 transform = Transform( -1.62921e-07, -1.62921e-07, -1, -1, 2.65432e-14, 1.62921e-07, 0, 1, -1.62921e-07, 9.53674e-07, 10.9776, 0 )
 shape = SubResource( 2 )
 
-[node name="ConeMesh" type="MeshInstance" parent="FOV"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 1.26049, -7.62939e-06, 0 )
-mesh = ExtResource( 3 )
-material/0 = null
+[node name="ImmediateGeometry" type="ImmediateGeometry" parent="FOV"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26, 0, 0 )
+layers = 2
+material_override = ExtResource( 4 )
+cast_shadow = 0
+script = ExtResource( 5 )
 
 [node name="DetectionTimer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 1.25
 one_shot = true
 
 [node name="MovementPauseTimer" type="Timer" parent="."]

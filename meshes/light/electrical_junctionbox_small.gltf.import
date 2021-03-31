@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/fov_cone.glb-a45fcca978436628d9bec41a9635b3bf.scn"
+path="res://.import/electrical_junctionbox_small.gltf-324f7a841fd4974522f939754550765d.scn"
 
 [deps]
 
-source_file="res://mesh_shapes/fov_cone.glb"
-dest_files=[ "res://.import/fov_cone.glb-a45fcca978436628d9bec41a9635b3bf.scn" ]
+source_file="res://meshes/light/electrical_junctionbox_small.gltf"
+dest_files=[ "res://.import/electrical_junctionbox_small.gltf-324f7a841fd4974522f939754550765d.scn" ]
 
 [params]
 

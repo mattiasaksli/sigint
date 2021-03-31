@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
-[ext_resource path="res://mesh_shapes/player_capsulemesh.tres" type="CapsuleMesh" id=2]
+[ext_resource path="res://meshes/player_capsulemesh.tres" type="CapsuleMesh" id=2]
+
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 1.25, 0, 0.5, 0.85, 0.85, 0.5, 0, 1.25, 0.5, -0.85, 0.85, 0.5, -1.25, 0, 0.5, -0.85, -0.85, 0.5, 0, -1.25, 0.5, 0.85, -0.85, 0.5, 1.25, 0, -0.5, 0.85, 0.85, -0.5, 0, 1.25, -0.5, -0.85, 0.85, -0.5, -1.25, 0, -0.5, -0.85, -0.85, -0.5, 0, -1.25, -0.5, 0.85, -0.85, -0.5 )
