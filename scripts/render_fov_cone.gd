@@ -20,7 +20,7 @@ const far_vertices : Array = [
 #	Vector2(0.295, 0.990)
 #]
 
-const current_pass_vertices : Array = [
+var current_pass_vertices : Array = [
 	Vector3(29.3444, 6.23735, 0),
 	Vector3(29.708, 4.17519, 0),
 	Vector3(29.9269, 2.09269, 0),
