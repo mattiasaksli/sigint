@@ -8,6 +8,7 @@ export var acceleration : float = 100
 var _game_manager : Node
 var _velocity : Vector3
 var _player_input_prefix : String
+var _can_handle_input : bool = true
 
 
 func _enter_tree() -> void:
@@ -19,6 +20,8 @@ func _ready() -> void:
 	
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
+	# warning-ignore:return_value_discarded
+	_game_manager.connect("enable_player_input", self, "on_enable_input")
 
 
 #func _process(delta):
@@ -51,8 +54,8 @@ func _handle_movement(delta : float) -> void:
 		_apply_movement(Vector3(acceleration_vector.x, acceleration_vector.y, 0), move_direction_magnitude)
 	else:
 		# Decrease _velocity gradually
-		_velocity = _velocity.linear_interpolate(Vector3.ZERO, 0.05)
-#		_apply_friction(0.5 * acceleration * delta)
+#		_velocity = _velocity.linear_interpolate(Vector3.ZERO, 0.05)
+		_apply_friction(0.5 * acceleration * delta)
 	
 #	translation += Vector3(_velocity.x * delta, _velocity.y * delta, 0.0)
 	_velocity = move_and_slide(_velocity)
@@ -72,6 +75,9 @@ func _apply_friction(deceleration: float) -> void:
 
 
 func _get_move_direction_input() -> Vector2:
+	if not _can_handle_input:
+		return Vector2.ZERO
+	
 	# Player translation input
 	var direction : Vector2 = Vector2()
 	
@@ -83,8 +89,9 @@ func _get_move_direction_input() -> Vector2:
 	return direction
 
 
+func on_enable_input() -> void:
+	_can_handle_input = true
+
+
 func on_game_over() -> void:
-	# TODO: finish function
-	
-	# Stop script
-	set_script(null)
+	_can_handle_input = false

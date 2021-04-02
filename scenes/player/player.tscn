@@ -3,9 +3,8 @@
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://meshes/player_capsulemesh.tres" type="CapsuleMesh" id=2]
 
-
 [sub_resource type="ConvexPolygonShape" id=1]
-points = PoolVector3Array( 1.25, 0, 0.5, 0.85, 0.85, 0.5, 0, 1.25, 0.5, -0.85, 0.85, 0.5, -1.25, 0, 0.5, -0.85, -0.85, 0.5, 0, -1.25, 0.5, 0.85, -0.85, 0.5, 1.25, 0, -0.5, 0.85, 0.85, -0.5, 0, 1.25, -0.5, -0.85, 0.85, -0.5, -1.25, 0, -0.5, -0.85, -0.85, -0.5, 0, -1.25, -0.5, 0.85, -0.85, -0.5 )
+points = PoolVector3Array( 1.25, 0, 1.5, 0.85, 0.85, 1.5, 0, 1.25, 1.5, -0.85, 0.85, 1.5, -1.25, 0, 1.5, -0.85, -0.85, 1.5, 0, -1.25, 1.5, 0.85, -0.85, 1.5, 1.25, 0, -1, 0.85, 0.85, -1, 0, 1.25, -1, -0.85, 0.85, -1, -1.25, 0, -1, -0.85, -0.85, -1, 0, -1.25, -1, 0.85, -0.85, -1 )
 
 [node name="Player1" type="KinematicBody" groups=[
 "players",

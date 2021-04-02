@@ -22,11 +22,11 @@ func _ready() -> void:
 	var actual_bridge_path : String = ""
 	for i in range(bridge_obstacle_node_path.get_name_count()):
 		actual_bridge_path += bridge_obstacle_node_path.get_name(i) + "/"
-	actual_bridge_path += "/Bridge"
+	actual_bridge_path += "Bridge"
 	
 	_bridge_node = get_node(actual_bridge_path) as StaticBody
 	_bridge_end_collider = _bridge_node.get_node("EndCollider") as CollisionShape
-	_bridge_opposite_collider = _bridge_node.get_node("../InvisibleWalls/OtherSideInvisibleWall/OppositeCollider") as CollisionShape
+	_bridge_opposite_collider = _bridge_node.get_node("../InvisibleWalls/OppositeCollider") as CollisionShape
 	
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://materials/divider.material" type="Material" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+material = ExtResource( 1 )
+size = Vector3( 7.5, 1.5, 2.5 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -3.75, 0.75, 1.25, 3.75, 0.75, -1.25, 3.75, 0.75, 1.25, -3.75, 0.75, -1.25, -3.75, -0.75, 1.25, 3.75, -0.75, -1.25, 3.75, -0.75, 1.25, -3.75, -0.75, -1.25, 3.75, 0.75, 1.25, -3.75, 0.75, -1.25, 3.75, 0.75, -1.25, -3.75, 0.75, 1.25, 3.75, -0.75, 1.25, -3.75, -0.75, -1.25, 3.75, -0.75, -1.25, -3.75, -0.75, 1.25, 3.75, 0.75, 1.25, -3.75, -0.75, 1.25, -3.75, 0.75, 1.25, 3.75, -0.75, 1.25, 3.75, 0.75, -1.25, -3.75, -0.75, -1.25, -3.75, 0.75, -1.25, 3.75, -0.75, -1.25 )
+
+[node name="ToggleDoorObstacle" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -1.5 )
+
+[node name="MiddleWall" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1.5 )
+use_collision = true
+collision_layer = 12
+collision_mask = 2
+width = 25.0
+depth = 3.0
+material = ExtResource( 1 )
+
+[node name="Door" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 1.25 )
+
+[node name="Mesh" type="MeshInstance" parent="Door"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Collider" type="StaticBody" parent="Door"]
+collision_layer = 12
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Door/Collider"]
+shape = SubResource( 2 )
+
+[node name="ClosedPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 1.25 )
+
+[node name="OpenPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1.25 )
+
+[node name="Tween" type="Tween" parent="."]
+playback_process_mode = 0

@@ -10,12 +10,16 @@ export var speed : float = 6
 export var top_bound : float = 20
 export var bottom_bound : float = -20
 
+export var normal_fov_color : Color = Color("#8cdec301")
+export var busted_fov_color : Color = Color("#cc973500")
+
 var _players_nearby : Array
 var _visible_players : Array
 var _game_manager : Node
 
-onready var _detection_timer : Timer = $DetectionTimer as Timer
+onready var _detection_timer : Timer = $DetectionTimer as Timer           # The detection timer does not reset even if a player is no longer detected
 onready var _movement_pause_timer : Timer = $MovementPauseTimer as Timer
+onready var _immediate_geometry : ImmediateGeometry = $FOV/ImmediateGeometry as ImmediateGeometry
 
 
 func _enter_tree() -> void:
@@ -24,17 +28,29 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
-	self.connect("player_busted", _game_manager, "on_player_busted")	# Send game over to game manager
+	self.connect("player_busted", _game_manager, "on_player_busted")  # Send game over to game manager
 	# warning-ignore:return_value_discarded
-	_game_manager.connect("game_over", self, "on_game_over")	# Do game over logic when the signal comes from game manager
+	_game_manager.connect("game_over", self, "on_game_over")          # Do game over logic when the signal comes from game manager
+	
+	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = normal_fov_color
+
+
+func _process(_delta : float) -> void:
+	if not _detection_timer.paused:
+		# Interpolates the colors in reverse, to avoid extra math with _detection_timer.time_left
+		(_immediate_geometry.material_override as SpatialMaterial).albedo_color = lerp(
+			busted_fov_color,
+			normal_fov_color,
+			_detection_timer.time_left / _detection_timer.wait_time
+		)
 
 
 func _physics_process(delta : float) -> void:
 	if not _players_nearby.empty():
 		_check_for_players()
-	elif not _detection_timer.is_stopped():
+	elif not _detection_timer.paused:
 		# Otherwise detection timer will continue when no players are in the area
-		_detection_timer.stop()
+		_stop_detecting()
 	
 	if _movement_pause_timer.is_stopped():
 		translation += direction * (speed * delta)
@@ -69,10 +85,20 @@ func _check_for_players() -> void:
 		if collider.collision_layer == PLAYER_LAYER and not _visible_players.has(collider):
 			_visible_players.append(collider)
 	
-	if not _visible_players.empty() and _detection_timer.is_stopped():
+	if not _visible_players.empty() and _detection_timer.paused:
+		_start_detecting()
+	elif _visible_players.empty() and not _detection_timer.paused:
+		_stop_detecting()
+
+
+func _start_detecting() -> void:
+	if _detection_timer.is_stopped():
 		_detection_timer.start()
-	elif _visible_players.empty() and not _detection_timer.is_stopped():
-		_detection_timer.stop()
+	else:
+		_detection_timer.paused = false
+
+func _stop_detecting() -> void:
+	_detection_timer.paused = true
 
 
 func body_entered_area(body : Node) -> void:
@@ -84,6 +110,8 @@ func body_exited_area(body : Node) -> void:
 
 
 func trigger_game_over() -> void:
+	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = busted_fov_color
+	
 	# TODO: finish function
 	
 	var caught : String = ""

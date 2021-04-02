@@ -4,3 +4,7 @@
 
 [resource]
 background_sky = SubResource( 1 )
+fog_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+fog_depth_begin = 50.0
+fog_depth_end = 80.0
+fog_depth_curve = 25.0

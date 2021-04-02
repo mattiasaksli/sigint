@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/cone_uv.png-4f82ee637d0f141e05e21c452b7731ae.s3tc.stex"
-path.etc="res://.import/cone_uv.png-4f82ee637d0f141e05e21c452b7731ae.etc.stex"
+path.s3tc="res://.import/spiked_crusher_texture.png-1bbe12c95cf0d1220c4e85b4e4248105.s3tc.stex"
+path.etc="res://.import/spiked_crusher_texture.png-1bbe12c95cf0d1220c4e85b4e4248105.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://meshes/fov_cone/cone_uv.png"
-dest_files=[ "res://.import/cone_uv.png-4f82ee637d0f141e05e21c452b7731ae.s3tc.stex", "res://.import/cone_uv.png-4f82ee637d0f141e05e21c452b7731ae.etc.stex" ]
+source_file="res://meshes/spiked_crusher/spiked_crusher_texture.png"
+dest_files=[ "res://.import/spiked_crusher_texture.png-1bbe12c95cf0d1220c4e85b4e4248105.s3tc.stex", "res://.import/spiked_crusher_texture.png-1bbe12c95cf0d1220c4e85b4e4248105.etc.stex" ]
 
 [params]
 

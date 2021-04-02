@@ -103,5 +103,5 @@ focus_neighbour_top = NodePath("../RestartLevelBtn")
 focus_neighbour_bottom = NodePath("../ResumeBtn")
 text = "MAIN MENU"
 [connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/ResumeBtn" to="." method="resume_game"]
-[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/RestartLevelBtn" to="." method="restart_level"]
-[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/MainMenuBtn" to="." method="go_to_main_menu"]
+[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/RestartLevelBtn" to="." method="restart_level_pressed"]
+[connection signal="pressed" from="TransparentBGPanel/OpaquePanelContainer/MarginContainer/VSplitContainer/ButtonsVBox/MainMenuBtn" to="." method="main_menu_pressed"]

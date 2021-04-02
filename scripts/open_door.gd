@@ -22,9 +22,9 @@ func _ready() -> void:
 		actual_door_path += double_doors_obstacle_path.get_name(i) + "/"
 	
 	if is_left_door:
-		actual_door_path += "/Left/LeftDoor"
+		actual_door_path += "Left/Door"
 	else:
-		actual_door_path += "/Right/RightDoor"
+		actual_door_path += "Right/Door"
 	
 	
 	_door_node = get_node(actual_door_path) as Spatial

@@ -1,37 +1,37 @@
 extends Area
 
-signal start_loading_level
-signal cancel_loading_level
-signal go_to_next_level
+signal level_loaded
+
+export var main_menu_path : String
 
 var _players_in_win_area : Dictionary
+var _level_loader_thread : LevelLoader
 var _game_manager : Node
 
 onready var _timer : Timer = $Timer
 
 
 func _enter_tree():
-	# Set up signals for the current level
+	# Set up signal for the current level
 	_game_manager = $"/root/Main/GameManager"
-	
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("add_player", self, "new_player_spawned")
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("remove_player", self, "player_despawned")
 	# warning-ignore:return_value_discarded
-	self.connect("start_loading_level", _game_manager, "on_start_loading_next_level")
-	# warning-ignore:return_value_discarded
-	self.connect("cancel_loading_level", _game_manager, "on_cancel_loading_next_level")
-	# warning-ignore:return_value_discarded
-	self.connect("go_to_next_level", _game_manager, "on_go_to_next_level")
+	self.connect("level_loaded", _game_manager, "on_new_level_loaded")
+
+
+func _ready() -> void:
+	_level_loader_thread = preload("res://scripts/level_loader.gd").new()
+	_level_loader_thread.start()
 
 
 func on_player_entered(body: Node) -> void:
 	_players_in_win_area[body] = true
 	
 	if _are_all_players_in_win_area():
-		emit_signal("start_loading_level")
-		_timer.start()
+		_start_loading_level()
 
 
 func on_player_exited(body: Node) -> void:
@@ -41,12 +41,23 @@ func on_player_exited(body: Node) -> void:
 	
 	# Not all players are in the win area, stopping timer and level loading
 	if not _timer.is_stopped():
-		emit_signal("cancel_loading_level")
 		_timer.stop()
+		_level_loader_thread.cancel_loading_level()
 
 
 func on_timer_timeout():
-	emit_signal("go_to_next_level")
+	# Cannot refer to _game_manager by static type due to Godot parser bug
+	# warning-ignore:unsafe_property_access
+	_game_manager._can_handle_joystick_connections = false
+	
+	# Swaps old Root3D node for the newly loaded one
+	var next_scene : Control = _level_loader_thread.get_level(main_menu_path).instance()
+	_level_loader_thread.stop_thread()
+	
+	$"/root/Main".queue_free()
+	$"/root".add_child(next_scene)
+	
+	emit_signal("level_loaded")
 
 
 func new_player_spawned(new_player : Node):
@@ -75,3 +86,10 @@ func _are_all_players_in_win_area() -> bool:
 			return false
 	
 	return true
+
+
+func _start_loading_level() -> void:
+	print("Started loading new level")
+	
+	_level_loader_thread.queue_level(main_menu_path)
+	_timer.start()

@@ -47,8 +47,6 @@ func queue_level(path : String) -> void:
 		_post("queue_levels") # Allow thread process to continue
 		_unlock("queue_levels")
 		
-		print("Started loading level " + path)
-		
 		return
 
 

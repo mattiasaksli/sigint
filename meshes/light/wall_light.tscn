@@ -2,7 +2,7 @@
 
 [ext_resource path="res://meshes/light/electrical_junctionbox_small.material" type="Material" id=1]
 
-[sub_resource type="ArrayMesh" id=12]
+[sub_resource type="ArrayMesh" id=9]
 resource_name = "electrical_junctionbox_small"
 surfaces/0 = {
 "aabb": AABB( -0.0759687, -0.01905, -0.0134564, 0.15241, 0.0381, 0.03175 ),
@@ -17,12 +17,7 @@ surfaces/0 = {
 "vertex_count": 98
 }
 
-[node name="electrical_junctionbox_small" type="Spatial"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
-
-[node name="electrical_junctionbox_small" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000257254, 0, 0 )
-mesh = SubResource( 12 )
+[node name="electrical_junctionbox_small" type="MeshInstance"]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 2, -0.000257254, 0, 0 )
+mesh = SubResource( 9 )
 material/0 = null
-
-[node name="OmniLight" type="OmniLight" parent="."]

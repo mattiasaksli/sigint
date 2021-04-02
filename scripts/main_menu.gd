@@ -1,7 +1,7 @@
 extends Control
 
-const level1 : String = "res://scenes/levels/level1.tscn"
-const tutorial : String = "res://scenes/levels/tutorial.tscn"
+const LEVEL_GLOBALS_AND_LEVEL1_PATH : String = "res://scenes/levels/level_globals_and_level1.tscn"
+const TUTORIAL_PATH : String = "res://scenes/levels/TUTORIAL_PATH.tscn"
 
 
 func _ready() -> void:
@@ -9,13 +9,13 @@ func _ready() -> void:
 
 
 func on_new_game_started() -> void:
-	var level1_scene : Node = (ResourceLoader.load(level1) as PackedScene).instance()
-	$"/root".add_child(level1_scene)
+	var level_globals_and_level1_scene : Node = (ResourceLoader.load(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
+	$"/root".add_child(level_globals_and_level1_scene)
 	self.queue_free()
 
 
 func on_tutorial_started() -> void:
-	var tutorial_scene : Node = (ResourceLoader.load(tutorial) as PackedScene).instance()
+	var tutorial_scene : Node = (ResourceLoader.load(TUTORIAL_PATH) as PackedScene).instance()
 	$"/root".add_child(tutorial_scene)
 	self.queue_free()
 
