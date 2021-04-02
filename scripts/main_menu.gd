@@ -1,11 +1,13 @@
 extends Control
 
 const LEVEL_GLOBALS_AND_LEVEL1_PATH : String = "res://scenes/levels/level_globals_and_level1.tscn"
-const TUTORIAL_PATH : String = "res://scenes/levels/TUTORIAL_PATH.tscn"
+const TUTORIAL_PATH : String = "res://scenes/levels/tutorial.tscn"
 
 
 func _ready() -> void:
 	($Panel/VBoxContainer/NewGameBtn as Control).grab_focus()
+	
+	# TODO: disable input for a bit to stop immediate nwe game start
 
 
 func on_new_game_started() -> void:

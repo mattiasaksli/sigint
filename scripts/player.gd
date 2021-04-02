@@ -18,10 +18,17 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_player_input_prefix = self.name.to_lower() + "_"
 	
-	# warning-ignore:return_value_discarded
-	_game_manager.connect("game_over", self, "on_game_over")
-	# warning-ignore:return_value_discarded
-	_game_manager.connect("enable_player_input", self, "on_enable_input")
+	var tutorial_node : Control = get_node_or_null("/root/Main/TutorialControl")
+	
+	# Check if the current level is a tutorial
+	if not tutorial_node:
+		# warning-ignore:return_value_discarded
+		_game_manager.connect("game_over", self, "on_game_over")
+		# warning-ignore:return_value_discarded
+		_game_manager.connect("enable_player_input", self, "on_enable_input")
+	else:
+		# warning-ignore:return_value_discarded
+		tutorial_node.connect("disable_player_movement", self, "on_disable_input")
 
 
 #func _process(delta):
@@ -93,5 +100,9 @@ func on_enable_input() -> void:
 	_can_handle_input = true
 
 
-func on_game_over() -> void:
+func on_disable_input() -> void:
 	_can_handle_input = false
+
+
+func on_game_over() -> void:
+	on_disable_input()

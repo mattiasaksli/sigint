@@ -1,6 +1,6 @@
 extends Spatial
 
-signal player_busted
+signal tutorial_player_busted
 
 const PLAYER_AND_HIDABLE_ENV_LAYERS : int = 0b1010
 const PLAYER_LAYER : int = 0b10
@@ -17,15 +17,13 @@ export var busted_fov_color : Color = Color("#cc973500")
 
 var _players_nearby : Array
 var _visible_players : Array
-var _game_manager : Node
+var _movement_is_stopped : bool = true
+var _can_change_cone_color : bool = true
 
 onready var _detection_timer : Timer = $DetectionTimer as Timer           # The detection timer does not reset even if a player is no longer detected
 onready var _movement_pause_timer : Timer = $MovementPauseTimer as Timer
 onready var _immediate_geometry : ImmediateGeometry = $FOV/ImmediateGeometry as ImmediateGeometry
-
-
-func _enter_tree() -> void:
-	_game_manager = $"/root/Main/GameManager"
+onready var _tutorial_script : Control = $"/root/Main/TutorialControl" as Control
 
 
 func _ready() -> void:
@@ -33,15 +31,15 @@ func _ready() -> void:
 	_movement_pause_timer.wait_time = movement_pause_time
 	
 	# warning-ignore:return_value_discarded
-	self.connect("player_busted", _game_manager, "on_player_busted")  # Send game over to game manager
+	self.connect("tutorial_player_busted", $"/root/Main/TutorialControl", "on_player_got_caught")  # Send game over to game manager
 	# warning-ignore:return_value_discarded
-	_game_manager.connect("game_over", self, "on_game_over")          # Do game over logic when the signal comes from game manager
+	_tutorial_script.connect("activate_enemy", self, "_activate_tutorial_enemy")
 	
 	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = normal_fov_color
 
 
 func _process(_delta : float) -> void:
-	if not _detection_timer.paused:
+	if not _detection_timer.paused and _can_change_cone_color:
 		# Interpolates the colors in reverse, to avoid extra math with _detection_timer.time_left
 		(_immediate_geometry.material_override as SpatialMaterial).albedo_color = lerp(
 			busted_fov_color,
@@ -57,8 +55,9 @@ func _physics_process(delta : float) -> void:
 		# Otherwise detection timer will continue when no players are in the area
 		_stop_detecting()
 	
-	if _movement_pause_timer.is_stopped():
+	if not _movement_is_stopped and _movement_pause_timer.is_stopped():
 		translation += direction * (speed * delta)
+		
 		_check_bounds()
 
 
@@ -102,8 +101,13 @@ func _start_detecting() -> void:
 	else:
 		_detection_timer.paused = false
 
+
 func _stop_detecting() -> void:
 	_detection_timer.paused = true
+
+
+func _activate_tutorial_enemy() -> void:
+	_movement_is_stopped = false
 
 
 func body_entered_area(body : Node) -> void:
@@ -117,24 +121,7 @@ func body_exited_area(body : Node) -> void:
 func trigger_game_over() -> void:
 	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = busted_fov_color
 	
-	# TODO: finish function
+	_movement_is_stopped = true
+	_can_change_cone_color = false
 	
-	var caught : String = ""
-	for player in _visible_players:
-		caught += player.name + " "
-	caught += "got caught"
-	
-	print_debug(caught)
-	
-	emit_signal("player_busted")
-
-
-func on_game_over() -> void:
-	# TODO: finish function
-	
-	# Disconnect signals used by FOVArea to stop warnings
-	$FOV/FOVArea.disconnect("body_entered", self, "body_entered_area")
-	$FOV/FOVArea.disconnect("body_exited", self, "body_exited_area")
-	
-	# Stop script
-	set_script(null)
+	emit_signal("tutorial_player_busted")

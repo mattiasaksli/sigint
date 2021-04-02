@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://meshes/personal_computer/PersonalComputer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/icons/a_button.png" type="Texture" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.354, 1.148, 2 )
@@ -23,6 +24,13 @@ material/0 = null
 
 [node name="PersonalComputer" parent="MeshInstance" instance=ExtResource( 1 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.980714 )
+
+[node name="ButtonSprite3D" type="Sprite3D" parent="MeshInstance"]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0, 0, 6 )
+visible = false
+billboard = 1
+double_sided = false
+texture = ExtResource( 2 )
 
 [node name="InteractionArea" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0 )

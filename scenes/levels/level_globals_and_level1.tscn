@@ -19,7 +19,7 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
 cull_mask = 3
 current = true
-near = 40.0
+near = 37.5
 far = 62.0
 __meta__ = {
 "_edit_lock_": true

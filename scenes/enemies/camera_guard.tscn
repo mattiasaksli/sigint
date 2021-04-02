@@ -11,7 +11,7 @@ radial_segments = 8
 rings = 2
 
 [sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( 0, 0, 0, 29.3444, 0, -6.23735, 29.3444, 0, 6.23735, 30.457, 0.001, 0 )
+points = PoolVector3Array( 0, 0, 0, 29, 0, -6.237, 29, 0, 6.237, 29.5, 0.001, 0 )
 
 [node name="CameraGuard" type="Spatial"]
 script = ExtResource( 1 )

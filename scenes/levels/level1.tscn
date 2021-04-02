@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://meshes/spiked_crusher/spiked_crusher.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://meshes/light/wall_light.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/move_wall.gd" type="Script" id=6]
 [ext_resource path="res://scripts/move_bridge.gd" type="Script" id=7]
+[ext_resource path="res://scenes/level_misc/bridge_obstacle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://meshes/light/electrical_junctionbox_small.material" type="Material" id=9]
 [ext_resource path="res://materials/shaders/gooch.shader" type="Shader" id=10]
 [ext_resource path="res://scripts/new_level_loaded.gd" type="Script" id=11]
@@ -25,38 +26,6 @@ size = Vector3( 2, 6, 2 )
 [sub_resource type="CubeMesh" id=3]
 material = ExtResource( 14 )
 size = Vector3( 2, 66, 2 )
-
-[sub_resource type="QuadMesh" id=4]
-material = ExtResource( 15 )
-size = Vector2( 32, 33 )
-
-[sub_resource type="QuadMesh" id=5]
-material = ExtResource( 15 )
-size = Vector2( 32, 15 )
-
-[sub_resource type="SpatialMaterial" id=6]
-flags_unshaded = true
-albedo_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
-size = Vector2( 32, 18 )
-
-[sub_resource type="BoxShape" id=8]
-extents = Vector3( 2, 0.1, 1 )
-
-[sub_resource type="CubeMesh" id=9]
-material = ExtResource( 14 )
-size = Vector3( 4, 18, 0.5 )
-
-[sub_resource type="BoxShape" id=10]
-extents = Vector3( 7, 0.1, 1 )
-
-[sub_resource type="BoxShape" id=11]
-extents = Vector3( 0.1, 8.9, 1 )
-
-[sub_resource type="BoxShape" id=12]
-extents = Vector3( 1.8, 8.8, 1 )
 
 [sub_resource type="ShaderMaterial" id=13]
 shader = ExtResource( 10 )
@@ -80,6 +49,22 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 1172
 }
+
+[sub_resource type="QuadMesh" id=4]
+material = ExtResource( 15 )
+size = Vector2( 32, 33 )
+
+[sub_resource type="QuadMesh" id=5]
+material = ExtResource( 15 )
+size = Vector2( 32, 15 )
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_unshaded = true
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="QuadMesh" id=7]
+material = SubResource( 6 )
+size = Vector2( 32, 18 )
 
 [sub_resource type="QuadMesh" id=15]
 material = ExtResource( 15 )
@@ -249,6 +234,17 @@ material/0 = null
 [node name="RightRoom" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
 
+[node name="RightCrusher" parent="RightRoom" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 9, -16.5 )
+mesh = SubResource( 14 )
+script = ExtResource( 13 )
+angle_radians = -0.75
+
+[node name="LeftCrusher" parent="RightRoom" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 9, -16.5 )
+mesh = SubResource( 14 )
+script = ExtResource( 13 )
+
 [node name="FloorMeshes" type="Spatial" parent="RightRoom"]
 
 [node name="RightFloor" type="MeshInstance" parent="RightRoom/FloorMeshes"]
@@ -329,76 +325,8 @@ transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="BridgeObstacle" type="Spatial" parent="RightRoom"]
+[node name="BridgeObstacle" parent="RightRoom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Bridge" type="StaticBody" parent="RightRoom/BridgeObstacle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-collision_layer = 4
-collision_mask = 2147483650
-
-[node name="EndCollider" type="CollisionShape" parent="RightRoom/BridgeObstacle/Bridge"]
-shape = SubResource( 8 )
-
-[node name="MeshInstance" type="MeshInstance" parent="RightRoom/BridgeObstacle/Bridge"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -1.51 )
-mesh = SubResource( 9 )
-material/0 = null
-
-[node name="InvisibleWalls" type="StaticBody" parent="RightRoom/BridgeObstacle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-
-[node name="LeftDown" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0 )
-shape = SubResource( 10 )
-
-[node name="LeftUp" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 18, 0 )
-shape = SubResource( 10 )
-
-[node name="RightDown" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0 )
-shape = SubResource( 10 )
-
-[node name="RightUp" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 18, 0 )
-shape = SubResource( 10 )
-
-[node name="BridgeLeft" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9, 0 )
-shape = SubResource( 11 )
-
-[node name="BridgeRight" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9, 0 )
-shape = SubResource( 11 )
-
-[node name="OppositeCollider" type="CollisionShape" parent="RightRoom/BridgeObstacle/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0 )
-shape = SubResource( 8 )
-
-[node name="OnBridgeArea" type="Area" parent="RightRoom/BridgeObstacle"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 1 )
-input_ray_pickable = false
-monitorable = false
-collision_layer = 32768
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="RightRoom/BridgeObstacle/OnBridgeArea"]
-shape = SubResource( 12 )
-
-[node name="RightCrusher" parent="RightRoom/BridgeObstacle" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 9, -15 )
-mesh = SubResource( 14 )
-script = ExtResource( 13 )
-angle_radians = -0.75
-
-[node name="LeftCrusher" parent="RightRoom/BridgeObstacle" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 9, -15 )
-mesh = SubResource( 14 )
-script = ExtResource( 13 )
 
 [node name="OuterWalls" type="Spatial" parent="."]
 __meta__ = {

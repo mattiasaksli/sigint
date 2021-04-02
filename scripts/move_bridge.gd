@@ -13,6 +13,8 @@ var _bridge_end_collider : CollisionShape
 var _bridge_opposite_collider : CollisionShape
 var _game_manager : Node
 
+onready var _button_sprite_3d : Sprite3D = $MeshInstance/ButtonSprite3D as Sprite3D
+
 
 func _enter_tree() -> void:
 	_game_manager = $"/root/Main/GameManager"
@@ -94,12 +96,17 @@ func on_player_registered(body : Node) -> void:
 	var player : String = body.name.to_lower() + "_"
 	if not _registered_players.has(player):
 		_registered_players.append(player)
+		_button_sprite_3d.visible = true
+		
 
 
 func on_player_unregistered(body : Node) -> void:
 	_registered_players.erase(body.name.to_lower() + "_")
 	if _bridge_node.translation.y > lower_bound:
 		_bridge_movement_direction.y = -1
+	
+	if _registered_players.size() == 0:
+		_button_sprite_3d.visible = false
 
 
 func on_player_entered_bridge(body : Node) -> void:
