@@ -6,8 +6,11 @@ signal go_to_next_level
 
 var _players_in_win_area : Dictionary
 var _game_manager : Node
+var _is_tween_paused : bool = false
 
-onready var _timer : Timer = $Timer
+onready var _timer : Timer = $Timer as Timer
+onready var _tween : Tween = $Tween as Tween
+onready var _goal_progress_bar : TextureProgress = $GoalBar/Viewport/GoalProgressBar as TextureProgress
 
 
 func _enter_tree():
@@ -30,8 +33,7 @@ func on_player_entered(body: Node) -> void:
 	_players_in_win_area[body] = true
 	
 	if _are_all_players_in_win_area():
-		emit_signal("start_loading_level")
-		_timer.start()
+		_start_loading_next_level()
 
 
 func on_player_exited(body: Node) -> void:
@@ -41,11 +43,10 @@ func on_player_exited(body: Node) -> void:
 	
 	# Not all players are in the win area, stopping timer and level loading
 	if not _timer.is_stopped():
-		emit_signal("cancel_loading_level")
-		_timer.stop()
+		_cancel_loading_next_level()
 
 
-func on_timer_timeout():
+func on_progress_bar_full():
 	emit_signal("go_to_next_level")
 
 
@@ -75,3 +76,33 @@ func _are_all_players_in_win_area() -> bool:
 			return false
 	
 	return true
+
+
+func _start_loading_next_level() -> void:
+	emit_signal("start_loading_level")
+	_timer.start()
+	
+	if _is_tween_paused:
+		# Resumes interpolating the progress bar
+		
+		# warning-ignore:return_value_discarded
+		_tween.resume(_goal_progress_bar, "value")
+	else:
+		# Starts interpolating the progress bar
+		
+		# warning-ignore:return_value_discarded
+		_tween.interpolate_property(_goal_progress_bar, "value", 0, 100, _timer.wait_time)
+		# warning-ignore:return_value_discarded
+		_tween.start()
+
+
+func _cancel_loading_next_level() -> void:
+	emit_signal("cancel_loading_level")
+	
+	# Stop interpolating the progress bar
+	# warning-ignore:return_value_discarded
+	_tween.stop(_goal_progress_bar, "value")
+	# warning-ignore:return_value_discarded
+	_tween.reset(_goal_progress_bar, "value")
+	
+	_timer.stop()

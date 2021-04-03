@@ -36,9 +36,9 @@ func on_player_interacted_with_computer() -> void:
 	# TODO: add icon for goal area
 	_tutorial_content.bbcode_text = """[center] The door opened, move into the goal area.
 	
-	But watch out! That guard is looking for you.
+	But watch out! Those guards are looking for you.
 	
-	You can hide behind walls and objects in the room.[/center]"""
+	Stay out of their vision cones. You can hide behind walls and other objects in the room.[/center]"""
 	
 	emit_signal("activate_enemy")
 
@@ -52,7 +52,7 @@ func on_player_got_caught() -> void:
 	# TODO: add icon for goal area
 	_tutorial_content.bbcode_text = """[center]Oh no! You got caught!
 	
-	Thankfully nothing happened since this is a tutorial, but in an actual level you would be penalized.
+	Thankfully nothing happened since this is a tutorial, but in an actual level you would lose time.
 	
 	Keep moving to the goal area.[/center]"""
 
@@ -78,6 +78,9 @@ func on_trigger_next_win_area_text() -> void:
 		_tutorial_win_texts.remove(0)
 		_tutorial_content.bbcode_text = _tutorial_win_texts[0]
 	else:
+		# TODO: change to screen transition
+		yield(get_tree().create_timer(1.0), "timeout")
+		
 		emit_signal("load_main_menu")
 
 

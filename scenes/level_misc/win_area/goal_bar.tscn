@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/icons/goal.png" type="Texture" id=1]
+[ext_resource path="res://scripts/goal_bar_fill.gd" type="Script" id=2]
+[ext_resource path="res://ui/icons/goal_finished.png" type="Texture" id=3]
+
+[node name="GoalBar" type="Sprite3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49 )
+pixel_size = 0.125
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 768, 48 )
+transparent_bg = true
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+
+[node name="GoalProgressBar" type="TextureProgress" parent="Viewport"]
+anchor_right = 0.6
+anchor_bottom = 0.06
+margin_right = -728.0
+margin_bottom = -8.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

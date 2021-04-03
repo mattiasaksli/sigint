@@ -3,7 +3,7 @@
 [ext_resource path="res://meshes/spiked_crusher/spiked_crusher.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/level_misc/win_area.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
 [ext_resource path="res://meshes/light/wall_light.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/move_wall.gd" type="Script" id=6]
 [ext_resource path="res://scripts/move_bridge.gd" type="Script" id=7]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scripts/rotate.gd" type="Script" id=13]
 [ext_resource path="res://materials/divider.material" type="Material" id=14]
 [ext_resource path="res://materials/walls.material" type="Material" id=15]
+
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 15 )

@@ -81,22 +81,6 @@ func on_cancel_loading_next_level() -> void:
 	_level_loader_thread.cancel_loading_level()
 
 
-func on_go_to_next_level() -> void:
-	if LEVELS_QUEUE.size() == 1:
-		_finish_game()
-		return
-	
-	_can_handle_joystick_connections = false
-	
-	# Swaps old Root3D node for the newly loaded one
-	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_QUEUE[1]).instance()
-	
-	$"/root/Main/Root3D".queue_free()
-	$"/root/Main".add_child(next_scene)
-	
-	LEVELS_QUEUE.remove(0)
-
-
 func on_new_level_loaded() -> void:
 	_can_handle_joystick_connections = true
 	
@@ -139,22 +123,3 @@ func _remove_player(device : int) -> void:
 	
 	if not _controller_player_dict.erase(device):
 		printerr("Error removing " + player.name + " with joystick id " + String(device))
-
-
-func on_restart_level() -> void:
-	_can_handle_joystick_connections = false
-	
-	# Swaps old Root3D node for the newly loaded one
-	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_QUEUE[0]).instance()
-	
-	$"/root/Main/Root3D".queue_free()
-	$"/root/Main".add_child(current_scene)
-
-
-func _finish_game() -> void:
-	var elapsed_time : float = ($"/root/Main/ElapsedTimeTracker" as TimeTracker).get_elapsed_time_and_stop_tracking()
-	
-	var seconds : float = fmod(elapsed_time, 60)
-	var minutes : float = fmod(elapsed_time, 3600) / 60
-	var str_elapsed : String = "%03d : %02d" % [minutes, seconds]
-	print("elapsed : ", str_elapsed)

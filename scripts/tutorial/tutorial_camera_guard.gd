@@ -27,15 +27,17 @@ onready var _tutorial_script : Control = $"/root/Main/TutorialControl" as Contro
 
 
 func _ready() -> void:
+	# Sets defaults
 	_detection_timer.wait_time = detection_time
 	_movement_pause_timer.wait_time = movement_pause_time
+	_immediate_geometry.visible = false
+	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = normal_fov_color
 	
+	# Connects signals
 	# warning-ignore:return_value_discarded
 	self.connect("tutorial_player_busted", $"/root/Main/TutorialControl", "on_player_got_caught")  # Send game over to game manager
 	# warning-ignore:return_value_discarded
 	_tutorial_script.connect("activate_enemy", self, "_activate_tutorial_enemy")
-	
-	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = normal_fov_color
 
 
 func _process(_delta : float) -> void:
@@ -107,6 +109,7 @@ func _stop_detecting() -> void:
 
 
 func _activate_tutorial_enemy() -> void:
+	_immediate_geometry.visible = true
 	_movement_is_stopped = false
 
 

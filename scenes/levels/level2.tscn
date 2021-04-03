@@ -6,7 +6,8 @@
 [ext_resource path="res://materials/walls.material" type="Material" id=7]
 [ext_resource path="res://materials/divider.material" type="Material" id=8]
 [ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/level_misc/win_area.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=10]
+
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 7 )

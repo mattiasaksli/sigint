@@ -8,12 +8,16 @@ export var main_menu_path : String
 
 var _players_in_win_area : Dictionary
 var _level_loader_thread : LevelLoader
+# The game manager does not handle level loading in the tutorial
 var _game_manager : Node
 
 var _first_player_entered_win_area : bool = false
+var _is_tween_paused : bool = false
 
-onready var _timer : Timer = $Timer
-onready var _tutorial_control : Control = $"/root/Main/TutorialControl"
+onready var _timer : Timer = $Timer as Timer
+onready var _tween : Tween = $Tween as Tween
+onready var _goal_progress_bar : TextureProgress = $GoalBar/Viewport/GoalProgressBar as TextureProgress
+onready var _tutorial_control : Control = $"/root/Main/TutorialControl" as Control
 
 
 func _enter_tree():
@@ -37,7 +41,7 @@ func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	self.connect("end_tutorial", _tutorial_control, "on_tutorial_end")
 	# warning-ignore:return_value_discarded
-	_tutorial_control.connect("load_main_menu", self, "load_main_menu")
+	_tutorial_control.connect("load_main_menu", self, "on_switch_tutorial_for_main_menu")
 
 
 func on_player_entered(body: Node) -> void:
@@ -58,11 +62,10 @@ func on_player_exited(body: Node) -> void:
 	
 	# Not all players are in the win area, stopping timer and level loading
 	if not _timer.is_stopped():
-		_timer.stop()
-		_level_loader_thread.cancel_loading_level()
+		_stop_loading_main_menu()
 
 
-func on_timer_timeout() -> void:
+func on_progress_bar_full() -> void:
 	# Cannot refer to _game_manager by static type due to Godot parser bug
 	# warning-ignore:unsafe_property_access
 	_game_manager._can_handle_joystick_connections = false
@@ -70,7 +73,7 @@ func on_timer_timeout() -> void:
 	emit_signal("end_tutorial")
 
 
-func load_main_menu() -> void:
+func on_switch_tutorial_for_main_menu() -> void:
 	# Swaps old Root3D node for the newly loaded one
 	var next_scene : Control = _level_loader_thread.get_level(main_menu_path).instance()
 	_level_loader_thread.stop_thread()
@@ -110,5 +113,30 @@ func _are_all_players_in_win_area() -> bool:
 func _start_loading_main_menu() -> void:
 	emit_signal("all_players_entered_win_area")
 	
+	if _is_tween_paused:
+		# Resumes interpolating the progress bar
+		
+		# warning-ignore:return_value_discarded
+		_tween.resume(_goal_progress_bar, "value")
+	else:
+		# Starts interpolating the progress bar
+		
+		# warning-ignore:return_value_discarded
+		_tween.interpolate_property(_goal_progress_bar, "value", 0, 100, _timer.wait_time)
+		# warning-ignore:return_value_discarded
+		_tween.start()
+	
 	_level_loader_thread.queue_level(main_menu_path)
 	_timer.start()
+
+
+func _stop_loading_main_menu() -> void:
+	_timer.stop()
+	
+	# Stop interpolating the progress bar
+	# warning-ignore:return_value_discarded
+	_tween.stop(_goal_progress_bar, "value")
+	# warning-ignore:return_value_discarded
+	_tween.reset(_goal_progress_bar, "value")
+	
+	_level_loader_thread.cancel_loading_level()
