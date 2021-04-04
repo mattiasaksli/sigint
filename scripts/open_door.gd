@@ -11,6 +11,8 @@ var _registered_players : Array
 var _door_node : Spatial
 var _game_manager : Node
 
+onready var _button_sprite_3d : Sprite3D = $MeshInstance/ButtonSprite3D as Sprite3D
+
 
 func _enter_tree() -> void:
 	_game_manager = $"/root/Main/GameManager"
@@ -70,12 +72,16 @@ func on_player_registered(body : Node) -> void:
 	var player : String = body.name.to_lower() + "_"
 	if not _registered_players.has(player):
 		_registered_players.append(player)
+		_button_sprite_3d.visible = true
 
 
 func on_player_unregistered(body : Node) -> void:
 	_registered_players.erase(body.name.to_lower() + "_")
 	if _door_node.translation.x < closed_bound:
 		_door_movement_direction.x = 1
+	
+	if _registered_players.size() == 0:
+		_button_sprite_3d.visible = false
 
 
 func on_game_over() -> void:

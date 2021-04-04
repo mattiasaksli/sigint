@@ -28,6 +28,10 @@ func _input(event : InputEvent) -> void:
 			_menu.show()
 			_menu_state = MENU_OPEN
 			(_menu.get_node("NewGameBtn") as Control).grab_focus()
+		elif event.is_action_pressed("ui_up"):
+			(_leaderboard.get_node("ScrollContainer") as ScrollContainer).scroll_vertical -= 55
+		elif event.is_action_pressed("ui_down"):
+			(_leaderboard.get_node("ScrollContainer") as ScrollContainer).scroll_vertical += 55
 
 
 func on_new_game_started() -> void:
@@ -71,6 +75,11 @@ func _update_leaderboard_ui() -> void:
 	var leaderboard_element_packed : PackedScene = preload(LEADERBOARD_ELEMENT_PATH)
 	var leaderboard_element_node : Control
 	
+	# Clear previous elements
+	for leaderboard_element in _leaderboard.get_node("ScrollContainer/VBoxContainer").get_children():
+		leaderboard_element.queue_free()
+	
+	# Add new element for each leaderboard entry
 	for leaderboard_entry in leaderboard_state:
 		# Get data from leaderboard
 		var team_name : String = leaderboard_entry["team_name"]

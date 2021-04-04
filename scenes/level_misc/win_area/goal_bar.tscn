@@ -7,15 +7,17 @@
 [node name="GoalBar" type="Sprite3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49 )
 pixel_size = 0.125
+double_sided = false
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 768, 48 )
 transparent_bg = true
-disable_3d = true
+handle_input_locally = false
 usage = 0
 render_target_v_flip = true
+gui_disable_input = true
 
 [node name="GoalProgressBar" type="TextureProgress" parent="Viewport"]
 anchor_right = 0.6

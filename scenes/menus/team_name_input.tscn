@@ -1,14 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://ui/fonts/gnu_unifont_full_pm9p.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/themes/team_name_input.theme" type="Theme" id=2]
 [ext_resource path="res://scripts/team_name_input.gd" type="Script" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 35
-extra_spacing_bottom = 4
-extra_spacing_char = 1
-font_data = ExtResource( 1 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -29,13 +22,13 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Panel"]
 anchor_left = 0.369
-anchor_top = 0.05
+anchor_top = 0.062
 anchor_right = 0.631
-anchor_bottom = 0.105
+anchor_bottom = 0.118
 margin_left = 0.180023
-margin_top = -3.8147e-06
+margin_top = 0.399998
 margin_right = -0.180054
-margin_bottom = 2.28882e-05
+margin_bottom = -0.399986
 text = "Enter team name:"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -55,14 +48,13 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="Panel"]
-anchor_left = 0.344
-anchor_top = 0.219
-anchor_right = 0.656
-anchor_bottom = 0.906
-margin_left = -0.319977
-margin_top = -0.200012
-margin_right = 0.319946
-margin_bottom = 0.199951
+anchor_left = 0.335
+anchor_top = 0.225
+anchor_right = 0.665
+anchor_bottom = 0.912
+margin_left = 0.200012
+margin_right = -0.200012
+margin_bottom = 0.399902
 custom_constants/vseparation = 10
 custom_constants/hseparation = 20
 columns = 3
@@ -71,367 +63,338 @@ __meta__ = {
 }
 
 [node name="A" type="Button" parent="Panel/GridContainer"]
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../C")
 focus_neighbour_top = NodePath("../Delete")
 focus_neighbour_right = NodePath("../B")
 focus_neighbour_bottom = NodePath("../D")
-custom_fonts/font = SubResource( 1 )
 text = "A"
 
 [node name="B" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
-margin_right = 260.0
+margin_left = 151.0
+margin_right = 282.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../A")
 focus_neighbour_top = NodePath("../Submit")
 focus_neighbour_right = NodePath("../C")
 focus_neighbour_bottom = NodePath("../E")
-custom_fonts/font = SubResource( 1 )
 text = "B"
 
 [node name="C" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
-margin_right = 400.0
+margin_left = 302.0
+margin_right = 422.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../B")
 focus_neighbour_top = NodePath("../Space")
 focus_neighbour_right = NodePath("../A")
-focus_neighbour_bottom = NodePath("../Space")
-custom_fonts/font = SubResource( 1 )
+focus_neighbour_bottom = NodePath("../F")
 text = "C"
 
 [node name="D" type="Button" parent="Panel/GridContainer"]
 margin_top = 56.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 102.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../F")
 focus_neighbour_top = NodePath("../A")
 focus_neighbour_right = NodePath("../E")
 focus_neighbour_bottom = NodePath("../G")
-custom_fonts/font = SubResource( 1 )
 text = "D"
 
 [node name="E" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 56.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 102.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../D")
 focus_neighbour_top = NodePath("../B")
 focus_neighbour_right = NodePath("../F")
 focus_neighbour_bottom = NodePath("../H")
-custom_fonts/font = SubResource( 1 )
 text = "E"
 
 [node name="F" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 56.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 102.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../E")
 focus_neighbour_top = NodePath("../C")
 focus_neighbour_right = NodePath("../D")
 focus_neighbour_bottom = NodePath("../I")
-custom_fonts/font = SubResource( 1 )
 text = "F"
 
 [node name="G" type="Button" parent="Panel/GridContainer"]
 margin_top = 112.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 158.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../I")
 focus_neighbour_top = NodePath("../D")
 focus_neighbour_right = NodePath("../H")
 focus_neighbour_bottom = NodePath("../J")
-custom_fonts/font = SubResource( 1 )
 text = "G"
 
 [node name="H" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 112.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 158.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../G")
 focus_neighbour_top = NodePath("../E")
 focus_neighbour_right = NodePath("../I")
 focus_neighbour_bottom = NodePath("../K")
-custom_fonts/font = SubResource( 1 )
 text = "H"
 
 [node name="I" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 112.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 158.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../H")
 focus_neighbour_top = NodePath("../F")
 focus_neighbour_right = NodePath("../G")
 focus_neighbour_bottom = NodePath("../L")
-custom_fonts/font = SubResource( 1 )
 text = "I"
 
 [node name="J" type="Button" parent="Panel/GridContainer"]
 margin_top = 168.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 214.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../L")
 focus_neighbour_top = NodePath("../G")
 focus_neighbour_right = NodePath("../K")
 focus_neighbour_bottom = NodePath("../M")
-custom_fonts/font = SubResource( 1 )
 text = "J"
 
 [node name="K" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 168.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 214.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../J")
 focus_neighbour_top = NodePath("../H")
 focus_neighbour_right = NodePath("../L")
 focus_neighbour_bottom = NodePath("../N")
-custom_fonts/font = SubResource( 1 )
 text = "K"
 
 [node name="L" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 168.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 214.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../K")
 focus_neighbour_top = NodePath("../I")
 focus_neighbour_right = NodePath("../J")
 focus_neighbour_bottom = NodePath("../O")
-custom_fonts/font = SubResource( 1 )
 text = "L"
 
 [node name="M" type="Button" parent="Panel/GridContainer"]
 margin_top = 224.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 270.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../O")
 focus_neighbour_top = NodePath("../J")
 focus_neighbour_right = NodePath("../N")
 focus_neighbour_bottom = NodePath("../P")
-custom_fonts/font = SubResource( 1 )
 text = "M"
 
 [node name="N" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 224.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 270.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../M")
 focus_neighbour_top = NodePath("../K")
 focus_neighbour_right = NodePath("../O")
 focus_neighbour_bottom = NodePath("../Q")
-custom_fonts/font = SubResource( 1 )
 text = "N"
 
 [node name="O" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 224.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 270.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../N")
 focus_neighbour_top = NodePath("../L")
 focus_neighbour_right = NodePath("../M")
 focus_neighbour_bottom = NodePath("../R")
-custom_fonts/font = SubResource( 1 )
 text = "O"
 
 [node name="P" type="Button" parent="Panel/GridContainer"]
 margin_top = 280.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 326.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../R")
 focus_neighbour_top = NodePath("../M")
 focus_neighbour_right = NodePath("../Q")
 focus_neighbour_bottom = NodePath("../S")
-custom_fonts/font = SubResource( 1 )
 text = "P"
 
 [node name="Q" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 280.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 326.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../P")
 focus_neighbour_top = NodePath("../N")
 focus_neighbour_right = NodePath("../R")
 focus_neighbour_bottom = NodePath("../T")
-custom_fonts/font = SubResource( 1 )
 text = "Q"
 
 [node name="R" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 280.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 326.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../Q")
 focus_neighbour_top = NodePath("../O")
 focus_neighbour_right = NodePath("../P")
 focus_neighbour_bottom = NodePath("../U")
-custom_fonts/font = SubResource( 1 )
 text = "R"
 
 [node name="S" type="Button" parent="Panel/GridContainer"]
 margin_top = 336.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 382.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../U")
 focus_neighbour_top = NodePath("../P")
 focus_neighbour_right = NodePath("../T")
 focus_neighbour_bottom = NodePath("../V")
-custom_fonts/font = SubResource( 1 )
 text = "S"
 
 [node name="T" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 336.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 382.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../S")
 focus_neighbour_top = NodePath("../Q")
 focus_neighbour_right = NodePath("../U")
 focus_neighbour_bottom = NodePath("../W")
-custom_fonts/font = SubResource( 1 )
 text = "T"
 
 [node name="U" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 336.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 382.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../T")
 focus_neighbour_top = NodePath("../R")
 focus_neighbour_right = NodePath("../S")
 focus_neighbour_bottom = NodePath("../X")
-custom_fonts/font = SubResource( 1 )
 text = "U"
 
 [node name="V" type="Button" parent="Panel/GridContainer"]
 margin_top = 392.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 438.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../X")
 focus_neighbour_top = NodePath("../S")
 focus_neighbour_right = NodePath("../W")
 focus_neighbour_bottom = NodePath("../Y")
-custom_fonts/font = SubResource( 1 )
 text = "V"
 
 [node name="W" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 392.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 438.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../V")
 focus_neighbour_top = NodePath("../T")
 focus_neighbour_right = NodePath("../X")
 focus_neighbour_bottom = NodePath("../Z")
-custom_fonts/font = SubResource( 1 )
 text = "W"
 
 [node name="X" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 392.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 438.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../W")
 focus_neighbour_top = NodePath("../U")
 focus_neighbour_right = NodePath("../V")
 focus_neighbour_bottom = NodePath("../Space")
-custom_fonts/font = SubResource( 1 )
 text = "X"
 
 [node name="Y" type="Button" parent="Panel/GridContainer"]
 margin_top = 448.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 494.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../Space")
 focus_neighbour_top = NodePath("../V")
 focus_neighbour_right = NodePath("../Z")
 focus_neighbour_bottom = NodePath("../Delete")
-custom_fonts/font = SubResource( 1 )
 text = "Y"
 
 [node name="Z" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 448.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 494.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../Y")
 focus_neighbour_top = NodePath("../W")
 focus_neighbour_right = NodePath("../Space")
 focus_neighbour_bottom = NodePath("../Submit")
-custom_fonts/font = SubResource( 1 )
 text = "Z"
 
 [node name="Space" type="Button" parent="Panel/GridContainer"]
-margin_left = 280.0
+margin_left = 302.0
 margin_top = 448.0
-margin_right = 400.0
+margin_right = 422.0
 margin_bottom = 494.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../Z")
 focus_neighbour_top = NodePath("../X")
 focus_neighbour_right = NodePath("../Y")
 focus_neighbour_bottom = NodePath("../C")
-custom_fonts/font = SubResource( 1 )
 text = "Space"
 
 [node name="Delete" type="Button" parent="Panel/GridContainer"]
 margin_top = 504.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 550.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../Submit")
 focus_neighbour_top = NodePath("../Y")
 focus_neighbour_right = NodePath("../Submit")
 focus_neighbour_bottom = NodePath("../A")
-custom_fonts/font = SubResource( 1 )
 text = "Delete"
 
 [node name="Submit" type="Button" parent="Panel/GridContainer"]
-margin_left = 140.0
+margin_left = 151.0
 margin_top = 504.0
-margin_right = 260.0
+margin_right = 282.0
 margin_bottom = 550.0
 rect_min_size = Vector2( 120, 0 )
 focus_neighbour_left = NodePath("../Delete")
 focus_neighbour_top = NodePath("../Z")
 focus_neighbour_right = NodePath("../Delete")
 focus_neighbour_bottom = NodePath("../B")
-custom_fonts/font = SubResource( 1 )
 text = "Submit"
 [connection signal="pressed" from="Panel/GridContainer/A" to="." method="on_a_pressed"]
 [connection signal="pressed" from="Panel/GridContainer/B" to="." method="on_b_pressed"]

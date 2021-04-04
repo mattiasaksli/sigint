@@ -39,6 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SIGINT"
+config/description="A cooperative puzzle game for the Raspberry Pi."
 run/main_scene="res://scenes/menus/main_menu.tscn"
 config/icon="res://.project_meta_files/icon.png"
 
@@ -48,7 +49,6 @@ LeaderboardManager="*res://scripts/leaderboard_manager.gd"
 
 [debug]
 
-settings/fps/force_fps=30
 settings/stdout/print_fps=true
 gdscript/warnings/unused_class_variable=true
 gdscript/warnings/unsafe_property_access=true
@@ -61,6 +61,7 @@ gdscript/warnings/unsafe_call_argument=true
 window/size/width=1280
 window/size/height=800
 window/size/resizable=false
+window/vsync/use_vsync=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -379,6 +380,266 @@ player4_interact_right={
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+player5_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player5_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player5_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player5_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player5_look_up={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player5_look_down={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player5_look_left={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player5_look_right={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":4,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player5_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":4,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player5_interact_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":4,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player5_interact_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":4,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player5_interact_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":4,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player5_interact_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":4,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player6_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player6_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player6_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player6_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player6_look_up={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player6_look_down={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player6_look_left={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player6_look_right={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":5,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player6_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":5,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player6_interact_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":5,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player6_interact_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":5,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player6_interact_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":5,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player6_interact_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":5,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player7_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player7_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player7_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player7_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player7_look_up={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player7_look_down={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player7_look_left={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player7_look_right={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":6,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player7_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":6,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player7_interact_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":6,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player7_interact_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":6,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player7_interact_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":6,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player7_interact_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":6,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player8_move_up={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+player8_move_down={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+player8_move_left={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+player8_move_right={
+"deadzone": 0.4,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+player8_look_up={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":3,"axis_value":-1.0,"script":null)
+ ]
+}
+player8_look_down={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":3,"axis_value":1.0,"script":null)
+ ]
+}
+player8_look_left={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":2,"axis_value":-1.0,"script":null)
+ ]
+}
+player8_look_right={
+"deadzone": 0.15,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":7,"axis":2,"axis_value":1.0,"script":null)
+ ]
+}
+player8_interact_A={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":7,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player8_interact_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":7,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player8_interact_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":7,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player8_interact_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":7,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+player8_interact_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":7,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -398,17 +659,21 @@ player4_interact_right={
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=3
 threads/thread_model=0
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-quality/directional_shadow/size=2048
-quality/directional_shadow/size.mobile=1024
-quality/shadow_atlas/size=2048
-quality/shadow_atlas/size.mobile=1024
+quality/directional_shadow/size=1024
+quality/directional_shadow/size.mobile=512
+quality/shadow_atlas/size=1024
+quality/shadow_atlas/size.mobile=512
 quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false
 quality/reflections/irradiance_max_size=32
-batching/options/single_rect_fallback=true
+quality/shading/force_lambert_over_burley=true
+quality/shading/force_blinn_over_ggx=true
+quality/depth_prepass/enable=false
+quality/filters/use_nearest_mipmap_filter=true
 limits/buffers/canvas_polygon_buffer_size_kb=64
 limits/buffers/canvas_polygon_index_buffer_size_kb=64
 limits/buffers/immediate_buffer_size_kb=1024
@@ -416,3 +681,4 @@ quality/reflections/atlas_size=1024
 quality/reflections/atlas_subdiv=4
 quality/depth/hdr=false
 environment/default_environment="res://environments/default_env.tres"
+quality/dynamic_fonts/use_oversampling=false

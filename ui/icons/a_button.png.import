@@ -2,32 +2,30 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/a_button.png-da5b1419e44005030038b92a46d5b6ed.s3tc.stex"
-path.etc="res://.import/a_button.png-da5b1419e44005030038b92a46d5b6ed.etc.stex"
+path="res://.import/a_button.png-da5b1419e44005030038b92a46d5b6ed.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://ui/icons/a_button.png"
-dest_files=[ "res://.import/a_button.png-da5b1419e44005030038b92a46d5b6ed.s3tc.stex", "res://.import/a_button.png-da5b1419e44005030038b92a46d5b6ed.etc.stex" ]
+dest_files=[ "res://.import/a_button.png-da5b1419e44005030038b92a46d5b6ed.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=0
 flags/filter=false
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
-process/premult_alpha=true
+process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
