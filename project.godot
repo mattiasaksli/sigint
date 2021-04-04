@@ -42,6 +42,10 @@ config/name="SIGINT"
 run/main_scene="res://scenes/menus/main_menu.tscn"
 config/icon="res://.project_meta_files/icon.png"
 
+[autoload]
+
+LeaderboardManager="*res://scripts/leaderboard_manager.gd"
+
 [debug]
 
 settings/fps/force_fps=30

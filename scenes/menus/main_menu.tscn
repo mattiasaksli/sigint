@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/themes/main_menu.theme" type="Theme" id=1]
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
+[ext_resource path="res://ui/fonts/gnu_unifont_full_pm9p.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+extra_spacing_bottom = 4
+extra_spacing_char = 1
+font_data = ExtResource( 3 )
 
 [node name="MainMenuControl" type="Control"]
 anchor_right = 1.0
@@ -20,7 +27,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="MenuButtonsVBox" type="VBoxContainer" parent="Panel"]
 anchor_left = 0.344
 anchor_top = 0.25
 anchor_right = 0.656
@@ -34,7 +41,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NewGameBtn" type="Button" parent="Panel/VBoxContainer"]
+[node name="NewGameBtn" type="Button" parent="Panel/MenuButtonsVBox"]
 margin_top = 45.0
 margin_right = 400.0
 margin_bottom = 95.0
@@ -42,7 +49,7 @@ focus_neighbour_top = NodePath("../QuitBtn")
 focus_neighbour_bottom = NodePath("../TutorialBtn")
 text = "NEW GAME"
 
-[node name="TutorialBtn" type="Button" parent="Panel/VBoxContainer"]
+[node name="TutorialBtn" type="Button" parent="Panel/MenuButtonsVBox"]
 margin_top = 110.0
 margin_right = 400.0
 margin_bottom = 160.0
@@ -50,7 +57,7 @@ focus_neighbour_top = NodePath("../NewGameBtn")
 focus_neighbour_bottom = NodePath("../LeaderboardBtn")
 text = "TUTORIAL"
 
-[node name="LeaderboardBtn" type="Button" parent="Panel/VBoxContainer"]
+[node name="LeaderboardBtn" type="Button" parent="Panel/MenuButtonsVBox"]
 margin_top = 175.0
 margin_right = 400.0
 margin_bottom = 225.0
@@ -58,7 +65,7 @@ focus_neighbour_top = NodePath("../TutorialBtn")
 focus_neighbour_bottom = NodePath("../OptionsBtn")
 text = "LEADERBOARD"
 
-[node name="OptionsBtn" type="Button" parent="Panel/VBoxContainer"]
+[node name="OptionsBtn" type="Button" parent="Panel/MenuButtonsVBox"]
 margin_top = 240.0
 margin_right = 400.0
 margin_bottom = 290.0
@@ -66,15 +73,104 @@ focus_neighbour_top = NodePath("../LeaderboardBtn")
 focus_neighbour_bottom = NodePath("../QuitBtn")
 text = "OPTIONS"
 
-[node name="QuitBtn" type="Button" parent="Panel/VBoxContainer"]
+[node name="QuitBtn" type="Button" parent="Panel/MenuButtonsVBox"]
 margin_top = 305.0
 margin_right = 400.0
 margin_bottom = 355.0
 focus_neighbour_top = NodePath("../OptionsBtn")
 focus_neighbour_bottom = NodePath("../NewGameBtn")
 text = "QUIT"
-[connection signal="pressed" from="Panel/VBoxContainer/NewGameBtn" to="." method="on_new_game_started"]
-[connection signal="pressed" from="Panel/VBoxContainer/TutorialBtn" to="." method="on_tutorial_started"]
-[connection signal="pressed" from="Panel/VBoxContainer/LeaderboardBtn" to="." method="on_leaderboard_opened"]
-[connection signal="pressed" from="Panel/VBoxContainer/OptionsBtn" to="." method="on_options_opened"]
-[connection signal="pressed" from="Panel/VBoxContainer/QuitBtn" to="." method="on_quit_game"]
+
+[node name="Leaderboard" type="Control" parent="Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -6.10352e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/Leaderboard"]
+anchor_left = 0.012
+anchor_top = 0.02
+anchor_right = 0.987
+anchor_bottom = 0.1
+margin_left = 0.639999
+margin_top = -1.90735e-06
+margin_right = 0.639893
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Leaderboard/CenterContainer"]
+margin_left = 16.0
+margin_top = 4.0
+margin_right = 1231.0
+margin_bottom = 59.0
+custom_constants/separation = 120
+
+[node name="TeamName" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]
+margin_right = 325.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 325, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Team name"
+align = 1
+valign = 1
+
+[node name="TimeElapsed" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]
+margin_left = 445.0
+margin_right = 770.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 325, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Time elapsed"
+align = 1
+valign = 1
+
+[node name="Finished" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]
+margin_left = 890.0
+margin_right = 1215.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 325, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Finished"
+align = 1
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Leaderboard"]
+anchor_left = 0.012
+anchor_top = 0.12
+anchor_right = 0.987
+anchor_bottom = 0.89
+margin_left = 0.639999
+margin_right = 0.640015
+margin_bottom = -6.10352e-05
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Leaderboard/ScrollContainer"]
+custom_constants/separation = 60
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Leaderboard"]
+anchor_left = 0.837
+anchor_top = 0.91
+anchor_right = 0.956
+anchor_bottom = 0.97
+margin_left = 0.640015
+margin_right = 0.319946
+bbcode_enabled = true
+bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
+text = "Back "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Panel/MenuButtonsVBox/NewGameBtn" to="." method="on_new_game_started"]
+[connection signal="pressed" from="Panel/MenuButtonsVBox/TutorialBtn" to="." method="on_tutorial_started"]
+[connection signal="pressed" from="Panel/MenuButtonsVBox/LeaderboardBtn" to="." method="on_leaderboard_opened"]
+[connection signal="pressed" from="Panel/MenuButtonsVBox/OptionsBtn" to="." method="on_options_opened"]
+[connection signal="pressed" from="Panel/MenuButtonsVBox/QuitBtn" to="." method="on_quit_game"]

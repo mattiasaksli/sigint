@@ -12,6 +12,7 @@ const LEVELS_QUEUE : Array = [
 	"res://scenes/levels/level1.tscn",
 	"res://scenes/levels/level2.tscn"
 ]
+const MAIN_MENU_PATH : String = "res://scenes/menus/main_menu.tscn"
 
 var _new_player_spawn_locations : Array
 
@@ -47,6 +48,10 @@ func _process(_delta : float) -> void:
 		for key in _unhandled_joystick_connections.keys():
 			on_controller_connection_changed(key, _unhandled_joystick_connections[key])
 		_unhandled_joystick_connections.clear()
+
+
+func _exit_tree() -> void:
+	_level_loader_thread.stop_thread()
 
 
 # Sets the new level's spawn locations
@@ -126,6 +131,16 @@ func on_player_busted() -> void:
 	on_restart_level()
 
 
+func on_restart_level() -> void:
+	_can_handle_joystick_connections = false
+	
+	# Swaps old Root3D node for the newly loaded one
+	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_QUEUE[0]).instance()
+	
+	$"/root/Main/Root3D".queue_free()
+	$"/root/Main".add_child(current_scene)
+
+
 func _add_new_player(device : int) -> void:
 	# Instance new player
 	var new_player : Spatial = preload("res://scenes/player/player.tscn").instance() as Spatial
@@ -155,20 +170,57 @@ func _remove_player(device : int) -> void:
 		printerr("Error removing " + player.name + " with joystick id " + String(device))
 
 
-func on_restart_level() -> void:
-	_can_handle_joystick_connections = false
-	
-	# Swaps old Root3D node for the newly loaded one
-	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_QUEUE[0]).instance()
-	
-	$"/root/Main/Root3D".queue_free()
-	$"/root/Main".add_child(current_scene)
-
-
 func _finish_game() -> void:
 	var elapsed_time : float = ($"/root/Main/ElapsedTimeTracker" as TimeTracker).get_elapsed_time_and_stop_tracking()
+	var formatted_elapsed_time : String = _format_elapsed_time(elapsed_time)
+	
+	var time : Dictionary = OS.get_datetime()
+	var finished_time : String = "%02d.%02d.%04d %02d:%02d" % [time.day, time.month, time.year, time.hour, time.minute]
+	
+	print(finished_time)
+	
+	var team_name_ui_node : Control = _show_team_name_screen()
+	var team_name : String = yield(team_name_ui_node, "team_name_entered")
+	
+	print("got team name: " + team_name)
+	
+	LeaderboardManager.save_to_file(team_name, formatted_elapsed_time, finished_time)
+	
+	# TODO: make screen transition
+	_level_loader_thread.queue_level(MAIN_MENU_PATH)
+	yield(get_tree().create_timer(1.0), "timeout")
+	_go_to_main_menu()
+
+
+func _format_elapsed_time(elapsed_time : float) -> String:
+	if elapsed_time > 3600:
+		return "59 min 59 sec"
 	
 	var seconds : float = fmod(elapsed_time, 60)
 	var minutes : float = fmod(elapsed_time, 3600) / 60
-	var str_elapsed : String = "%03d : %02d" % [minutes, seconds]
-	print("elapsed : ", str_elapsed)
+	return "%02d min %02d sec" % [minutes, seconds]
+
+
+func _show_team_name_screen() -> Control:
+	_remove_level_gameplay_nodes()
+	
+	# Load team name UI
+	var team_name_ui_node : Control = preload("res://scenes/menus/team_name_input.tscn").instance()
+	$"/root/Main".add_child(team_name_ui_node)
+	
+	return team_name_ui_node
+
+
+func _remove_level_gameplay_nodes() -> void:
+	var main : Node = $"/root/Main"
+	main.get_node("ElapsedTimeTracker").queue_free()
+	main.get_node("Camera").queue_free()
+	main.get_node("Players").queue_free()
+	main.get_node("PauseMenuControl").queue_free()
+	main.get_node("Root3D").queue_free()
+
+
+func _go_to_main_menu() -> void:
+	var main_menu_node : Control = _level_loader_thread.get_level(MAIN_MENU_PATH).instance() as Control
+	$"/root".add_child(main_menu_node)
+	$"/root/Main".queue_free()
