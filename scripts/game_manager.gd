@@ -8,9 +8,10 @@ signal can_pause_enabled
 signal can_pause_disabled
 
 # The current level is always at index 0
-const LEVELS_QUEUE : Array = [
+const LEVELS_STACK : Array = [
 	"res://scenes/levels/level1.tscn",
-	"res://scenes/levels/level2.tscn"
+	"res://scenes/levels/level2.tscn",
+	"res://scenes/levels/level3.tscn"
 ]
 const MAIN_MENU_PATH : String = "res://scenes/menus/main_menu.tscn"
 
@@ -82,8 +83,8 @@ func on_controller_connection_changed(device : int, connected : bool) -> void:
 
 
 func on_start_loading_next_level() -> void:
-	if LEVELS_QUEUE.size() > 1:
-		_level_loader_thread.queue_level(LEVELS_QUEUE[1])
+	if LEVELS_STACK.size() > 1:
+		_level_loader_thread.queue_level(LEVELS_STACK[1])
 
 
 func on_cancel_loading_next_level() -> void:
@@ -91,19 +92,19 @@ func on_cancel_loading_next_level() -> void:
 
 
 func on_go_to_next_level() -> void:
-	if LEVELS_QUEUE.size() == 1:
+	if LEVELS_STACK.size() == 1:
 		_finish_game()
 		return
 	
 	_can_handle_joystick_connections = false
 	
 	# Swaps old Root3D node for the newly loaded one
-	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_QUEUE[1]).instance()
+	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[1]).instance()
 	
 	$"/root/Main/Root3D".queue_free()
 	$"/root/Main".add_child(next_scene)
 	
-	LEVELS_QUEUE.remove(0)
+	LEVELS_STACK.remove(0)
 
 
 func on_new_level_loaded() -> void:
@@ -135,7 +136,7 @@ func on_restart_level() -> void:
 	_can_handle_joystick_connections = false
 	
 	# Swaps old Root3D node for the newly loaded one
-	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_QUEUE[0]).instance()
+	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[0]).instance()
 	
 	$"/root/Main/Root3D".queue_free()
 	$"/root/Main".add_child(current_scene)

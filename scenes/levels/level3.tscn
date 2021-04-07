@@ -1,0 +1,247 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/level_misc/sync_puzzle/sync_interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/sync_doors_puzzle.gd" type="Script" id=3]
+[ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/new_level_loaded.gd" type="Script" id=11]
+[ext_resource path="res://materials/divider.material" type="Material" id=14]
+[ext_resource path="res://materials/walls.material" type="Material" id=15]
+
+[sub_resource type="QuadMesh" id=1]
+material = ExtResource( 15 )
+size = Vector2( 32, 66 )
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 14 )
+size = Vector3( 2, 66, 5 )
+
+[sub_resource type="QuadMesh" id=3]
+material = ExtResource( 15 )
+size = Vector2( 5, 66 )
+
+[node name="Root3D" type="Spatial"]
+script = ExtResource( 11 )
+
+[node name="PlayerSpawnLocations" type="Spatial" parent="."]
+
+[node name="Spawn1" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -27.5, 0 )
+
+[node name="Spawn2" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, -27.5, 0 )
+
+[node name="Spawn3" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -27.5, 0 )
+
+[node name="Spawn4" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -27.5, 0 )
+
+[node name="Spawn5" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35, -27.5, 0 )
+
+[node name="Spawn6" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -27.5, 0 )
+
+[node name="Spawn7" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -27.5, 0 )
+
+[node name="Spawn8" type="Spatial" parent="PlayerSpawnLocations"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -27.5, 0 )
+
+[node name="LeftRoom" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
+
+[node name="FloorMeshes" type="Spatial" parent="LeftRoom"]
+
+[node name="LeftFloor" type="MeshInstance" parent="LeftRoom/FloorMeshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
+mesh = SubResource( 1 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="InvisibleWalls" type="StaticBody" parent="LeftRoom"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Left" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -16, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Right" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 14.5, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Up" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, 30, 0 )
+depth = 30.5
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Down" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, -30, 0 )
+depth = 30.5
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="MiddleRoom" type="Spatial" parent="."]
+
+[node name="FloorMeshes" type="Spatial" parent="MiddleRoom"]
+
+[node name="MiddleFloor" type="MeshInstance" parent="MiddleRoom/FloorMeshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="InvisibleWalls" type="StaticBody" parent="MiddleRoom"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Left" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -15.5, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Right" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 15.5, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Up" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0, 30, 0 )
+depth = 31.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Down" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0, -30, 0 )
+depth = 31.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="LeftDivider" type="Spatial" parent="MiddleRoom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 2 )
+
+[node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="RightDivider" type="Spatial" parent="MiddleRoom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 2 )
+
+[node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/RightDivider"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="RightRoom" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
+
+[node name="FloorMeshes" type="Spatial" parent="RightRoom"]
+
+[node name="RightFloor" type="MeshInstance" parent="RightRoom/FloorMeshes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="InvisibleWalls" type="StaticBody" parent="RightRoom"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Left" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -14.5, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Right" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 16, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Up" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, 30, 0 )
+depth = 30.5
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Down" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, -30, 0 )
+depth = 30.5
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="OuterWalls" type="Spatial" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftWall" type="MeshInstance" parent="OuterWalls"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -48, 0, 1 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="RightWall" type="MeshInstance" parent="OuterWalls"]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48, 0, 1 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="LeftRim" type="MeshInstance" parent="OuterWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50.5, 0, 3.5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="RightRim" type="MeshInstance" parent="OuterWalls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50.5, 0, 3.5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="WinArea" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.6743, -0.549869, -0.492914, 0.732855, 0.580354, 0.355124, 0.090793, -0.600694, 0.794307, 0, 0, 0 )
+light_cull_mask = 4293918721
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}
+
+[node name="SyncDoors" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="Doors" type="Spatial" parent="SyncDoors"]
+
+[node name="LeftDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.665, -32, 15, -1.5 )
+
+[node name="MiddleDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.665, 0, 15, -1.5 )
+
+[node name="RightDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.665, 32, 15, -1.5 )
+
+[node name="Interactables" type="Spatial" parent="SyncDoors"]
+
+[node name="Interactable" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, 0 )
+
+[node name="Interactable2" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 3, 0 )
+
+[node name="Interactable3" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0 )
+
+[node name="Interactable4" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 3, 0 )
+
+[node name="Interactable5" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 3, 0 )
+
+[node name="Interactable6" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0 )
+
+[node name="Interactable7" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 3, 0 )
+
+[node name="Interactable8" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 3, 0 )
