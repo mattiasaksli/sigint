@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.85098, 0, 1, 1 )
+
+[node name="PanelLines" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="Panel" parent="."]
+anchor_left = 0.321
+anchor_right = 0.329
+anchor_bottom = 1.0
+margin_left = 0.120026
+margin_right = -0.119995
+custom_styles/panel = SubResource( 2 )
+
+[node name="Right" type="Panel" parent="."]
+anchor_left = 0.67
+anchor_right = 0.677
+anchor_bottom = 1.0
+margin_left = -0.599976
+margin_right = 0.440002
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
