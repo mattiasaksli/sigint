@@ -35,7 +35,6 @@ func on_player_interacted_with_computer() -> void:
 	
 	_player_interacted_with_computer = true
 	
-	# TODO: add icon for goal area
 	_tutorial_content.bbcode_text = """[center] The door opened, move into the goal area.
 	
 	But watch out! Those guards are looking for you.
@@ -51,7 +50,6 @@ func on_player_got_caught() -> void:
 	
 	_player_interacted_got_caught = true
 	
-	# TODO: add icon for goal area
 	_tutorial_content.bbcode_text = """[center]Oh no! You got caught!
 	
 	Thankfully nothing happened since this is a tutorial, but in an actual level you would lose time.
@@ -82,6 +80,8 @@ func on_trigger_next_win_area_text() -> void:
 	else:
 		# TODO: change to screen transition
 		yield(get_tree().create_timer(1.0), "timeout")
+		
+		print("Tutorial ended, going to main menu")
 		
 		emit_signal("go_to_main_menu")
 

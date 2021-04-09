@@ -35,15 +35,26 @@ func _input(event : InputEvent) -> void:
 
 
 func on_new_game_started() -> void:
-	var level_globals_and_level1_scene : Node = (ResourceLoader.load(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
+	print("Starting new game")
+	
+	# Add level 1 node
+	var level_globals_and_level1_scene : Node = (load(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
 	$"/root".add_child(level_globals_and_level1_scene)
-	self.queue_free()
+	
+	# Remove main menu node
+	$"/root".remove_child(self)
+	self.call_deferred("free")
 
 
 func on_tutorial_started() -> void:
-	var tutorial_scene : Node = (ResourceLoader.load(TUTORIAL_PATH) as PackedScene).instance()
+	print("Starting tutorial")
+	
+	var tutorial_scene : Node = (load(TUTORIAL_PATH) as PackedScene).instance()
 	$"/root".add_child(tutorial_scene)
-	self.queue_free()
+	
+	# Remove main menu node
+	$"/root".remove_child(self)
+	self.call_deferred("free")
 
 
 func on_leaderboard_opened() -> void:
@@ -59,7 +70,7 @@ func on_options_opened() -> void:
 #	_menu.hide()
 #	_options.show()
 	
-	print("options")
+	print("Opened options")
 
 
 func on_quit_game() -> void:

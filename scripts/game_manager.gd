@@ -38,7 +38,7 @@ func _ready() -> void:
 	_level_loader_thread = preload("res://scripts/level_loader.gd").new()
 	_level_loader_thread.start()
 	
-	initialize_variables()
+	_set_spawn_locations()
 	
 	var _controllers = Input.get_connected_joypads()
 	for controller in _controllers:
@@ -55,22 +55,6 @@ func _process(_delta : float) -> void:
 
 func _exit_tree() -> void:
 	_level_loader_thread.stop_thread()
-
-
-# Sets the new level's spawn locations
-func initialize_variables() -> void:
-	var root_3d : Spatial = $"/root/Main/Root3D"
-	
-	_new_player_spawn_locations = [
-		(root_3d.get_node("PlayerSpawnLocations/Spawn1") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn2") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn3") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn4") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn5") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn6") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn7") as Spatial).translation,
-		(root_3d.get_node("PlayerSpawnLocations/Spawn8") as Spatial).translation
-	]
 
 
 func on_controller_connection_changed(device : int, connected : bool) -> void:
@@ -98,39 +82,11 @@ func on_go_to_next_level() -> void:
 		_finish_game()
 		return
 	
+	print("Going to level " + LEVELS_STACK[1])
+	
 	_swap_scenes()
 	
 	_level_loaded()
-
-
-func _swap_scenes() -> void:
-	_can_handle_joystick_connections = false
-	
-	# Remove old Root3D node
-	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
-	$"/root/Main".remove_child(old_scene)
-	old_scene.call_deferred("free")
-	
-	# Add newly loaded Root3D node
-	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[1]).instance()
-	$"/root/Main".add_child(next_scene)
-	
-	LEVELS_STACK.remove(0)
-
-
-func _level_loaded() -> void:
-	_can_handle_joystick_connections = true
-	
-	initialize_variables()
-	
-	# Move all players into their initial positions in the newly loaded level
-	var index : int
-	for player in _controller_player_dict.values():
-		index = player.name[6].to_int()
-		player.translation = _new_player_spawn_locations[index - 1]
-	
-	emit_signal("can_pause_enabled")
-	emit_signal("enable_player_input")
 
 
 func on_player_busted(caught_players : Array) -> void:
@@ -174,6 +130,51 @@ func get_controller_indices() -> Array:
 	return _controller_player_dict.keys()
 
 
+func _set_spawn_locations() -> void:
+	var root_3d : Spatial = $"/root/Main/Root3D"
+	
+	_new_player_spawn_locations = [
+		(root_3d.get_node("PlayerSpawnLocations/Spawn1") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn2") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn3") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn4") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn5") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn6") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn7") as Spatial).translation,
+		(root_3d.get_node("PlayerSpawnLocations/Spawn8") as Spatial).translation
+	]
+
+
+func _swap_scenes() -> void:
+	_can_handle_joystick_connections = false
+	
+	# Remove old Root3D node
+	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
+	$"/root/Main".remove_child(old_scene)
+	old_scene.call_deferred("free")
+	
+	# Add newly loaded Root3D node
+	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[1]).instance()
+	$"/root/Main".add_child(next_scene)
+	
+	LEVELS_STACK.remove(0)
+
+
+func _level_loaded() -> void:
+	_can_handle_joystick_connections = true
+	
+	_set_spawn_locations()
+	
+	# Move all players into their initial positions in the newly loaded level
+	var index : int
+	for player in _controller_player_dict.values():
+		index = player.name[6].to_int()
+		player.translation = _new_player_spawn_locations[index - 1]
+	
+	emit_signal("can_pause_enabled")
+	emit_signal("enable_player_input")
+
+
 func _vibrate_controller(device : int, duration : float) -> void:
 	Input.start_joy_vibration(device, 0, 1, duration)
 
@@ -192,14 +193,12 @@ func _add_new_player(device : int) -> void:
 	_controller_player_dict[device] = new_player
 	
 	emit_signal("add_player", new_player)
-#	print("Added " + new_player.name + " with joystick id " + String(device) + " at position " + String(_new_player_spawn_locations[device]))
 
 
 func _remove_player(device : int) -> void:
 	var player : Node = _controller_player_dict[device]
 	
 	emit_signal("remove_player", player)
-#	print("Removed " + player.name + " with joystick id " + String(device))
 	
 	player.queue_free()
 	
@@ -214,18 +213,19 @@ func _finish_game() -> void:
 	var time : Dictionary = OS.get_datetime()
 	var finished_time : String = "%02d.%02d.%04d %02d:%02d" % [time.day, time.month, time.year, time.hour, time.minute]
 	
-	print(finished_time)
+	print("Game finished, showing team name screen")
 	
 	var team_name_ui_node : Control = _show_team_name_screen()
 	var team_name : String = yield(team_name_ui_node, "team_name_entered")
-	
-	print("got team name: " + team_name)
 	
 	LeaderboardManager.save_to_file(team_name, formatted_elapsed_time, finished_time)
 	
 	# TODO: make screen transition
 	_level_loader_thread.queue_level(MAIN_MENU_PATH)
 	yield(get_tree().create_timer(1.0), "timeout")
+	
+	print("Saving info to leaderboard, going to main menu")
+	
 	on_go_to_main_menu()
 
 

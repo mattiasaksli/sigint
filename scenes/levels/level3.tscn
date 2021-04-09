@@ -6,16 +6,13 @@
 [ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=6]
-[ext_resource path="res://materials/divider.material" type="Material" id=14]
+[ext_resource path="res://scenes/level_misc/solid_wall_divider.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/level_misc/three_room_side_invisible_walls.tscn" type="PackedScene" id=8]
 [ext_resource path="res://materials/walls.material" type="Material" id=15]
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 15 )
 size = Vector2( 32, 66 )
-
-[sub_resource type="CubeMesh" id=2]
-material = ExtResource( 14 )
-size = Vector3( 2, 66, 4 )
 
 [node name="Root3D" type="Spatial"]
 
@@ -46,7 +43,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -27.5, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -27.5, 0 )
 
 [node name="LeftRoom" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5, 0, 0 )
 
 [node name="FloorMeshes" type="Spatial" parent="LeftRoom"]
 
@@ -58,29 +55,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="InvisibleWalls" type="StaticBody" parent="LeftRoom"]
-collision_layer = 4
-collision_mask = 2
-
-[node name="Left" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -16, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Right" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 14.5, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Up" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, 30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Down" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, -30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
+[node name="InvisibleWalls" parent="LeftRoom" instance=ExtResource( 8 )]
 
 [node name="MiddleRoom" type="Spatial" parent="."]
 
@@ -91,48 +66,37 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 mesh = SubResource( 1 )
 material/0 = null
 
+[node name="LeftDivider" parent="MiddleRoom" instance=ExtResource( 7 )]
+
+[node name="RightDivider" parent="MiddleRoom" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 1.5 )
+
 [node name="InvisibleWalls" type="StaticBody" parent="MiddleRoom"]
 collision_layer = 4
 collision_mask = 2
 
 [node name="Left" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -15.5, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -15, 0, 0 )
 depth = 60.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
 [node name="Right" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 15.5, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 15, 0, 0 )
 depth = 60.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
 [node name="Up" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
 transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0, 30, 0 )
-depth = 31.0
+depth = 30.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
 [node name="Down" type="CollisionPolygon" parent="MiddleRoom/InvisibleWalls"]
 transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0, -30, 0 )
-depth = 31.0
+depth = 30.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="LeftDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 1.5 )
-
-[node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="RightDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 1.5 )
-
-[node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/RightDivider"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-mesh = SubResource( 2 )
-material/0 = null
-
 [node name="RightRoom" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, 0, 0 )
 
 [node name="FloorMeshes" type="Spatial" parent="RightRoom"]
 
@@ -141,29 +105,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="InvisibleWalls" type="StaticBody" parent="RightRoom"]
-collision_layer = 4
-collision_mask = 2
-
-[node name="Left" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -14.5, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Right" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 16, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Up" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, 30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Down" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, -30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
+[node name="InvisibleWalls" parent="RightRoom" instance=ExtResource( 8 )]
 
 [node name="OuterWalls" parent="." instance=ExtResource( 5 )]
 
@@ -184,12 +126,13 @@ script = ExtResource( 3 )
 [node name="Doors" type="Spatial" parent="SyncDoors"]
 
 [node name="LeftDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 15, -1.5 )
+transform = Transform( 1.04, 0, 0, 0, 1, 0, 0, 0, 1, -31.5, 15, -1.5 )
 
 [node name="MiddleDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 15, -1.5 )
 
 [node name="RightDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 15, -1.5 )
+transform = Transform( 1.04, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 15, -1.5 )
 
 [node name="Interactables" type="Spatial" parent="SyncDoors"]
 

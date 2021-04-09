@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=2]
@@ -11,12 +11,13 @@
 [ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scripts/open_toggle_door.gd" type="Script" id=12]
+[ext_resource path="res://scenes/level_misc/two_room_invisible_walls_side.tscn" type="PackedScene" id=13]
 [ext_resource path="res://materials/divider.material" type="Material" id=14]
 [ext_resource path="res://materials/walls.material" type="Material" id=15]
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 15 )
-size = Vector2( 32, 66 )
+size = Vector2( 36, 66 )
 
 [sub_resource type="CubeMesh" id=2]
 material = ExtResource( 14 )
@@ -79,7 +80,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -27.5, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -27.5, 0 )
 
 [node name="LeftRoom" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 0 )
 
 [node name="FloorMeshes" type="Spatial" parent="LeftRoom"]
 
@@ -91,29 +92,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="InvisibleWalls" type="StaticBody" parent="LeftRoom"]
-collision_layer = 4
-collision_mask = 2
-
-[node name="Left" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -16, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Right" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 14.5, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Up" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, 30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Down" type="CollisionPolygon" parent="LeftRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, -0.75, -30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
+[node name="InvisibleWalls" parent="LeftRoom" instance=ExtResource( 13 )]
 
 [node name="Interactables" type="Spatial" parent="LeftRoom"]
 
@@ -151,7 +130,7 @@ top_bound = 21.0
 bottom_bound = -7.0
 
 [node name="LeftDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 0.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 0.5 )
 
 [node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
@@ -209,7 +188,7 @@ depth = 4.0
 polygon = PoolVector2Array( 0, -3, 0, 3 )
 
 [node name="RightDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 0.5 )
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 0.5 )
 
 [node name="StaticWall" type="Spatial" parent="MiddleRoom/RightDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.12967, 0 )
@@ -257,7 +236,7 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="RightRoom" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 0 )
 
 [node name="FloorMeshes" type="Spatial" parent="RightRoom"]
 
@@ -294,7 +273,7 @@ __meta__ = {
 }
 
 [node name="RightFloor5" type="MeshInstance" parent="RightRoom/FloorMeshes"]
-transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -16, 8, -9 )
+transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -14, 8, -9 )
 mesh = SubResource( 6 )
 material/0 = null
 __meta__ = {
@@ -315,34 +294,12 @@ visible = false
 mesh = SubResource( 8 )
 material/0 = null
 
-[node name="InvisibleWalls" type="StaticBody" parent="RightRoom"]
-collision_layer = 4
-collision_mask = 2
-
-[node name="Left" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -14.5, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Right" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 16, 0, 0 )
-depth = 60.0
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Up" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, 30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
-
-[node name="Down" type="CollisionPolygon" parent="RightRoom/InvisibleWalls"]
-transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0.75, -30, 0 )
-depth = 30.5
-polygon = PoolVector2Array( 0, -1, 0, 1 )
+[node name="InvisibleWalls" parent="RightRoom" instance=ExtResource( 13 )]
 
 [node name="Interactables" type="Spatial" parent="RightRoom"]
 
 [node name="LeftWallInteractable" parent="RightRoom/Interactables" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -7, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -7, 0 )
 script = ExtResource( 6 )
 movable_wall_node_path = NodePath("../../../MiddleRoom/LeftDivider/MovableWall")
 speed = 2.0
@@ -353,7 +310,7 @@ lower_bound = -8.0
 texture = ExtResource( 5 )
 
 [node name="LeftToggleDoorInteractable" parent="RightRoom/Interactables" instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -13, 21.0039, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -12, 21.0039, 0 )
 script = ExtResource( 12 )
 toggle_door_obstacle_path = NodePath("../../../LeftRoom/ToggleDoorObstacle")
 duration = 1.5

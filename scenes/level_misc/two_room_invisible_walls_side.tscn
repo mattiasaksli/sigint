@@ -1,0 +1,25 @@
+[gd_scene format=2]
+
+[node name="InvisibleWalls" type="StaticBody"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Left" type="CollisionPolygon" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -14, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Right" type="CollisionPolygon" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 14, 0, 0 )
+depth = 60.0
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Up" type="CollisionPolygon" parent="."]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0, 30, 0 )
+depth = 30.5
+polygon = PoolVector2Array( 0, -1, 0, 1 )
+
+[node name="Down" type="CollisionPolygon" parent="."]
+transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e-07, 0, -1, -1.62921e-07, 0, -30, 0 )
+depth = 30.5
+polygon = PoolVector2Array( 0, -1, 0, 1 )
