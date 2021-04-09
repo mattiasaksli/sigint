@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level_misc/sync_puzzle/sync_interactable.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scripts/new_level_loaded.gd" type="Script" id=11]
 [ext_resource path="res://materials/divider.material" type="Material" id=14]
 [ext_resource path="res://materials/walls.material" type="Material" id=15]
 
@@ -19,7 +18,6 @@ material = ExtResource( 14 )
 size = Vector3( 2, 66, 4 )
 
 [node name="Root3D" type="Spatial"]
-script = ExtResource( 11 )
 
 [node name="PlayerSpawnLocations" type="Spatial" parent="."]
 

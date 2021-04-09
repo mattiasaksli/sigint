@@ -98,18 +98,27 @@ func on_go_to_next_level() -> void:
 		_finish_game()
 		return
 	
+	_swap_scenes()
+	
+	_level_loaded()
+
+
+func _swap_scenes() -> void:
 	_can_handle_joystick_connections = false
 	
-	# Swaps old Root3D node for the newly loaded one
-	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[1]).instance()
+	# Remove old Root3D node
+	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
+	$"/root/Main".remove_child(old_scene)
+	old_scene.call_deferred("free")
 	
-	$"/root/Main/Root3D".queue_free()
+	# Add newly loaded Root3D node
+	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[1]).instance()
 	$"/root/Main".add_child(next_scene)
 	
 	LEVELS_STACK.remove(0)
 
 
-func on_new_level_loaded() -> void:
+func _level_loaded() -> void:
 	_can_handle_joystick_connections = true
 	
 	initialize_variables()
@@ -142,17 +151,22 @@ func on_player_busted(caught_players : Array) -> void:
 func on_restart_level() -> void:
 	_can_handle_joystick_connections = false
 	
-	# Swaps old Root3D node for the newly loaded one
-	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[0]).instance()
+	# Remove old Root3D node
+	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
+	$"/root/Main".remove_child(old_scene)
+	old_scene.call_deferred("free")
 	
-	$"/root/Main/Root3D".queue_free()
+	# Add current Root3D node back to scene tree
+	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[0]).instance()
 	$"/root/Main".add_child(current_scene)
+	
+	_level_loaded()
 
 
 func on_go_to_main_menu() -> void:
-	var main_menu_node : Control = _level_loader_thread.get_level(MAIN_MENU_PATH).instance() as Control
-	$"/root".add_child(main_menu_node)
-	$"/root/Main".queue_free()
+	var status : int = get_tree().change_scene_to(_level_loader_thread.get_level(MAIN_MENU_PATH))
+	if status == ERR_CANT_CREATE:
+		printerr("Cannot change scene to main menu!")
 
 
 # Each controller corresponds to an integer id, this function returns an array of them.
