@@ -13,7 +13,7 @@ var _bridge_end_collider : CollisionShape
 var _bridge_opposite_collider : CollisionShape
 var _game_manager : Node
 
-onready var _button_sprite_3d : Sprite3D = $MeshInstance/ButtonSprite3D as Sprite3D
+onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
 
 
 func _enter_tree() -> void:

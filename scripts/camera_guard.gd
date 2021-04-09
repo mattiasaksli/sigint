@@ -1,6 +1,8 @@
+class_name CameraGuard
+
 extends Spatial
 
-signal player_busted
+signal player_busted(caught_players)
 
 const PLAYER_AND_HIDABLE_ENV_LAYERS : int = 0b1010
 const PLAYER_LAYER : int = 0b10
@@ -18,6 +20,8 @@ export var busted_fov_color : Color = Color("#cc973500")
 var _players_nearby : Array
 var _visible_players : Array
 var _game_manager : Node
+
+var is_movement_stopped : bool = false
 
 onready var _detection_timer : Timer = $DetectionTimer as Timer           # The detection timer does not reset even if a player is no longer detected
 onready var _movement_pause_timer : Timer = $MovementPauseTimer as Timer
@@ -37,6 +41,8 @@ func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")          # Do game over logic when the signal comes from game manager
 	
+	# HACK: to reset fov cone color when a new level has been loaded
+	yield(get_tree().create_timer(0.05), "timeout")
 	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = normal_fov_color
 
 
@@ -57,7 +63,7 @@ func _physics_process(delta : float) -> void:
 		# Otherwise detection timer will continue when no players are in the area
 		_stop_detecting()
 	
-	if _movement_pause_timer.is_stopped():
+	if not is_movement_stopped and _movement_pause_timer.is_stopped():
 		translation += direction * (speed * delta)
 		_check_bounds()
 
@@ -76,7 +82,7 @@ func _check_bounds() -> void:
 
 func _check_for_players() -> void:
 	_visible_players.clear()
-	var collider : PhysicsBody
+	var collider : Spatial
 	var raycast_hit : Dictionary
 	var space_state : PhysicsDirectSpaceState = get_world().direct_space_state
 	var player : Spatial
@@ -85,10 +91,12 @@ func _check_for_players() -> void:
 	for i in range(_players_nearby.size()):
 		player = _players_nearby[i]
 		raycast_hit = space_state.intersect_ray(self.global_transform.origin, player.global_transform.origin, [], PLAYER_AND_HIDABLE_ENV_LAYERS)
-		# A hit is guaranteed, since a player has to be inside FOVArea for a raycast to occur.
-		collider = raycast_hit.collider
-		if collider.collision_layer == PLAYER_LAYER and not _visible_players.has(collider):
-			_visible_players.append(collider)
+		
+		if (raycast_hit.size() != 0):
+			collider = raycast_hit.collider
+			# warning-ignore:unsafe_property_access
+			if collider.collision_layer == PLAYER_LAYER and not _visible_players.has(collider):
+				_visible_players.append(collider)
 	
 	if not _visible_players.empty() and _detection_timer.paused:
 		_start_detecting()
@@ -117,20 +125,16 @@ func body_exited_area(body : Node) -> void:
 func trigger_game_over() -> void:
 	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = busted_fov_color
 	
-	# TODO: finish function
-	
-	var caught : String = ""
+	var caught : Array = []
 	for player in _visible_players:
-		caught += player.name + " "
-	caught += "got caught"
+		caught.append(player)
 	
-	print_debug(caught)
-	
-	emit_signal("player_busted")
+	emit_signal("player_busted", caught)
 
 
 func on_game_over() -> void:
-	# TODO: finish function
+	self.set_physics_process(false)
+	self.set_process(false)
 	
 	# Disconnect signals used by FOVArea to stop warnings
 	$FOV/FOVArea.disconnect("body_entered", self, "body_entered_area")

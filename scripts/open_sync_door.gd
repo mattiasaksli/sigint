@@ -10,7 +10,7 @@ var _registered_players : Array = []
 
 onready var active_light : MeshInstance = $ActiveLight as MeshInstance
 onready var sync_puzzle_controller : Node = $"../../"
-onready var _button_sprite_3d : Sprite3D = $MeshInstance/ButtonSprite3D as Sprite3D
+onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
 
 
 func _ready() -> void:

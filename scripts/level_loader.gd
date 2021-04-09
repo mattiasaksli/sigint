@@ -91,7 +91,7 @@ func _wait_for_level() -> void:
 	_unlock("wait_for_levels")
 	while true:
 		VisualServer.sync()
-		OS.delay_usec(16000) # Wait approximately 1 frame.
+		OS.delay_usec(16666) # Wait approximately 1 frame.
 		_lock("wait_for_levels")
 		
 		var status : int = _interactive_loader.poll()

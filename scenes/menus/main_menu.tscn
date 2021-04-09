@@ -156,16 +156,28 @@ __meta__ = {
 custom_constants/separation = 60
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/Leaderboard"]
+[node name="BackButtonLabel" type="RichTextLabel" parent="Panel/Leaderboard"]
 anchor_left = 0.837
 anchor_top = 0.91
 anchor_right = 0.956
 anchor_bottom = 0.97
-margin_left = 0.640015
-margin_right = 0.319946
+margin_left = 32.64
+margin_right = 32.3199
 bbcode_enabled = true
 bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
 text = "Back "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollButtonsLabel" type="RichTextLabel" parent="Panel/Leaderboard"]
+anchor_left = 0.025
+anchor_top = 0.91
+anchor_right = 0.3
+anchor_bottom = 0.97
+bbcode_enabled = true
+bbcode_text = "Scroll up/down [img]res://ui/icons/dpad_up_down.png[/img]"
+text = "Scroll up/down "
 __meta__ = {
 "_edit_use_anchors_": false
 }

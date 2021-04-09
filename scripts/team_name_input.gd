@@ -129,11 +129,11 @@ func on_done_pressed() -> void:
 
 
 func _add_letter_to_name(letter : String) -> void:
-	if _character_index < 15:
+	if _character_index < 14:
 		_name += letter
 		_character_index += 1
 		_name_label.text = _name + "_"
-	elif _character_index == 15:
+	elif _character_index == 14:
 		_name += letter
 		_character_index += 1
 		_name_label.text = _name

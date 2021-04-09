@@ -1,7 +1,8 @@
 extends Spatial
 
+enum DoorSide {LEFT_DOOR, RIGHT_DOOR}
+export(DoorSide) var side
 export var double_doors_obstacle_path : NodePath
-export var is_left_door : bool
 export var speed : float = 3
 export var closed_bound : float = 13.75
 export var open_bound : float = 6.75
@@ -11,7 +12,7 @@ var _registered_players : Array
 var _door_node : Spatial
 var _game_manager : Node
 
-onready var _button_sprite_3d : Sprite3D = $MeshInstance/ButtonSprite3D as Sprite3D
+onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
 
 
 func _enter_tree() -> void:
@@ -23,9 +24,9 @@ func _ready() -> void:
 	for i in range(double_doors_obstacle_path.get_name_count()):
 		actual_door_path += double_doors_obstacle_path.get_name(i) + "/"
 	
-	if is_left_door:
+	if side == DoorSide.LEFT_DOOR:
 		actual_door_path += "Left/Door"
-	else:
+	elif side == DoorSide.RIGHT_DOOR:
 		actual_door_path += "Right/Door"
 	
 	

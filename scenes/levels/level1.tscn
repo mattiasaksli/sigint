@@ -1,12 +1,17 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
+[ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/icons/dpad_up_down.png" type="Texture" id=5]
 [ext_resource path="res://scripts/move_wall.gd" type="Script" id=6]
 [ext_resource path="res://scripts/move_bridge.gd" type="Script" id=7]
 [ext_resource path="res://scenes/level_misc/bridge_obstacle.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scripts/new_level_loaded.gd" type="Script" id=11]
+[ext_resource path="res://scripts/open_toggle_door.gd" type="Script" id=12]
 [ext_resource path="res://materials/divider.material" type="Material" id=14]
 [ext_resource path="res://materials/walls.material" type="Material" id=15]
 
@@ -16,39 +21,35 @@ size = Vector2( 32, 66 )
 
 [sub_resource type="CubeMesh" id=2]
 material = ExtResource( 14 )
-size = Vector3( 2, 6, 2 )
+size = Vector3( 2, 66, 2 )
 
 [sub_resource type="CubeMesh" id=3]
 material = ExtResource( 14 )
-size = Vector3( 2, 66, 2 )
+size = Vector3( 2, 0.5, 1 )
 
-[sub_resource type="QuadMesh" id=4]
-material = ExtResource( 15 )
-size = Vector2( 32, 33 )
+[sub_resource type="CubeMesh" id=4]
+material = ExtResource( 14 )
+size = Vector3( 2, 6, 2 )
 
 [sub_resource type="QuadMesh" id=5]
 material = ExtResource( 15 )
+size = Vector2( 32, 33 )
+
+[sub_resource type="QuadMesh" id=6]
+material = ExtResource( 15 )
 size = Vector2( 32, 15 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=7]
 flags_unshaded = true
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
-size = Vector2( 32, 18 )
-
 [sub_resource type="QuadMesh" id=8]
-material = ExtResource( 15 )
-size = Vector2( 3, 66 )
+material = SubResource( 7 )
+size = Vector2( 32, 18 )
 
 [sub_resource type="QuadMesh" id=9]
 material = ExtResource( 15 )
-size = Vector2( 96, 3 )
-
-[sub_resource type="QuadMesh" id=10]
-material = ExtResource( 15 )
-size = Vector2( 102, 3 )
+size = Vector2( 96, 4 )
 
 [node name="Root3D" type="Spatial"]
 script = ExtResource( 11 )
@@ -119,14 +120,14 @@ polygon = PoolVector2Array( 0, -1, 0, 1 )
 [node name="Interactables" type="Spatial" parent="LeftRoom"]
 
 [node name="RightBridgeInteractable" parent="LeftRoom/Interactables" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.72939, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 5, -7.72939, 0 )
 script = ExtResource( 7 )
 bridge_obstacle_node_path = NodePath("../../../RightRoom/BridgeObstacle")
 
-[node name="LeftWallInteractable" parent="LeftRoom/Interactables" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32601, 0 )
-script = ExtResource( 6 )
-wall_node_path = NodePath("../../../MiddleRoom/LeftDivider/MovableWall")
+[node name="ButtonSprite3D" parent="LeftRoom/Interactables/RightBridgeInteractable" instance=ExtResource( 9 )]
+
+[node name="ToggleDoorObstacle" parent="LeftRoom" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, -1.5 )
 
 [node name="MiddleRoom" type="Spatial" parent="."]
 
@@ -140,53 +141,121 @@ material/0 = null
 [node name="Guards" type="Spatial" parent="MiddleRoom"]
 
 [node name="CameraGuard" parent="MiddleRoom/Guards" instance=ExtResource( 2 )]
-transform = Transform( -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0, 1, -12, 9.209, 0 )
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 11, 0 )
+speed = 10.0
+top_bound = 17.0
+bottom_bound = -14.0
 
 [node name="CameraGuard2" parent="MiddleRoom/Guards" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -7, 0 )
-top_bound = -6.5
-bottom_bound = -7.5
+direction = Vector3( 0, 1, 0 )
+top_bound = 21.0
+bottom_bound = -7.0
 
 [node name="LeftDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 0.5 )
+
+[node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="UpperStopperMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.25, 0.5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="LowerStopperMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.25, 0.5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticWall" type="Spatial" parent="MiddleRoom/LeftDivider"]
+transform = Transform( 1, 0, 0, 0, 2, -8.74228e-08, 0, 1.74846e-07, 1, 0, 26.5, 0 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
+[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider/StaticWall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/LeftDivider/StaticWall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/LeftDivider/StaticWall/FOVCollider"]
+depth = 4.0
+polygon = PoolVector2Array( 0, -3, 0, 3 )
+
 [node name="MovableWall" type="Spatial" parent="MiddleRoom/LeftDivider"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.32074, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1459, 0 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="WallMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider/MovableWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="FOVCollider" type="StaticBody" parent="MiddleRoom/LeftDivider/MovableWall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/LeftDivider/MovableWall/FOVCollider"]
-depth = 2.0
+depth = 4.0
 polygon = PoolVector2Array( 0, -3, 0, 3 )
 
-[node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-mesh = SubResource( 3 )
+[node name="RightDivider" type="Spatial" parent="MiddleRoom"]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 0.5 )
+
+[node name="StaticWall" type="Spatial" parent="MiddleRoom/RightDivider"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.12967, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/RightDivider/StaticWall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+mesh = SubResource( 4 )
 material/0 = null
 
-[node name="RightDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 0 )
+[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/RightDivider/StaticWall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/RightDivider/StaticWall/FOVCollider"]
+depth = 4.0
+polygon = PoolVector2Array( 0, -3, 0, 3 )
+
+[node name="StaticWall2" type="Spatial" parent="MiddleRoom/RightDivider"]
+transform = Transform( 1, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, 25.5, 0 )
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
+
+[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/RightDivider/StaticWall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/RightDivider/StaticWall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/RightDivider/StaticWall2/FOVCollider"]
+depth = 4.0
+polygon = PoolVector2Array( 0, -3, 0, 3 )
 
 [node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/RightDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="RightRoom" type="Spatial" parent="."]
@@ -196,7 +265,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 0 )
 
 [node name="RightFloor" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.5, -1.5 )
-mesh = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -204,7 +273,7 @@ __meta__ = {
 
 [node name="RightFloor2" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.5, -1.5 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -212,7 +281,7 @@ __meta__ = {
 
 [node name="RightFloor3" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 18, -9 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -220,7 +289,7 @@ __meta__ = {
 
 [node name="RightFloor4" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 2.65431e-14, -1.62921e-07, -1, -1, -1.62921e-07, 0, -1.62921e-07, 1, -1.62921e-07, 16, 8, -9 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -228,7 +297,7 @@ __meta__ = {
 
 [node name="RightFloor5" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -16, 8, -9 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -236,7 +305,7 @@ __meta__ = {
 
 [node name="RightFloor6" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, -9 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -245,7 +314,7 @@ __meta__ = {
 [node name="RightFloor7" type="MeshInstance" parent="RightRoom/FloorMeshes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -16.5 )
 visible = false
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="InvisibleWalls" type="StaticBody" parent="RightRoom"]
@@ -272,43 +341,40 @@ transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
+[node name="Interactables" type="Spatial" parent="RightRoom"]
+
+[node name="LeftWallInteractable" parent="RightRoom/Interactables" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -7, 0 )
+script = ExtResource( 6 )
+movable_wall_node_path = NodePath("../../../MiddleRoom/LeftDivider/MovableWall")
+speed = 2.0
+upper_bound = 12.0
+lower_bound = -8.0
+
+[node name="ButtonSprite3D" parent="RightRoom/Interactables/LeftWallInteractable" instance=ExtResource( 9 )]
+texture = ExtResource( 5 )
+
+[node name="LeftToggleDoorInteractable" parent="RightRoom/Interactables" instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -13, 21.0039, 0 )
+script = ExtResource( 12 )
+toggle_door_obstacle_path = NodePath("../../../LeftRoom/ToggleDoorObstacle")
+duration = 1.5
+
+[node name="ButtonSprite3D" parent="RightRoom/Interactables/LeftToggleDoorInteractable" instance=ExtResource( 9 )]
+
 [node name="BridgeObstacle" parent="RightRoom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
 
-[node name="OuterWalls" type="Spatial" parent="."]
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-
-[node name="LeftWall" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -48, 0, 0 )
-mesh = SubResource( 8 )
-material/0 = null
-
-[node name="RightWall" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48, 0, 0 )
-mesh = SubResource( 8 )
-material/0 = null
+[node name="OuterWalls" parent="." instance=ExtResource( 1 )]
 
 [node name="DownWall" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, 0.5 )
 mesh = SubResource( 9 )
 material/0 = null
 
-[node name="LeftRim" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, 0, 1.5 )
-mesh = SubResource( 8 )
-material/0 = null
-
-[node name="RightRim" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 0, 1.5 )
-mesh = SubResource( 8 )
-material/0 = null
-
 [node name="DownRim" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -31.5, 1.5 )
-mesh = SubResource( 10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 2.5 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="WinArea" parent="." instance=ExtResource( 4 )]

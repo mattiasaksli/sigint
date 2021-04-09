@@ -1,7 +1,7 @@
 extends Control
 
 const LEVEL_GLOBALS_AND_LEVEL1_PATH : String = "res://scenes/levels/level_globals_and_level1.tscn"
-const TUTORIAL_PATH : String = "res://scenes/levels/tutorial.tscn"
+const TUTORIAL_PATH : String = "res://scenes/levels/tutorial_globals_and_level.tscn"
 const LEADERBOARD_ELEMENT_PATH : String = "res://scenes/menus/leaderboard_element.tscn"
 
 enum {

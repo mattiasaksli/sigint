@@ -2,19 +2,16 @@
 
 [ext_resource path="res://materials/divider.material" type="Material" id=1]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=2]
 material = ExtResource( 1 )
 size = Vector3( 2, 6, 2 )
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="CubeMesh" id=3]
 material = ExtResource( 1 )
 size = Vector3( 2, 66, 2 )
 
 [node name="Divider" type="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 0.5 )
 
 [node name="MovableWall" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.32074, 0 )
@@ -24,19 +21,19 @@ __meta__ = {
 
 [node name="WallMesh" type="MeshInstance" parent="MovableWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="FOVCollider" type="StaticBody" parent="MovableWall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="MovableWall/FOVCollider"]
-depth = 2.0
+depth = 4.0
 polygon = PoolVector2Array( 0, -3, 0, 3 )
 
 [node name="DividerMesh" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null

@@ -1,3 +1,5 @@
+class_name GameManager
+
 extends Node
 
 signal add_player(player)
@@ -122,7 +124,12 @@ func on_new_level_loaded() -> void:
 	emit_signal("enable_player_input")
 
 
-func on_player_busted() -> void:
+func on_player_busted(caught_players : Array) -> void:
+	for player_node in caught_players:
+		for controller_num in _controller_player_dict.keys():
+			if player_node == _controller_player_dict[controller_num]:
+				_vibrate_controller(controller_num, 0.5)
+	
 	emit_signal("can_pause_disabled")
 	emit_signal("game_over")
 	
@@ -140,6 +147,21 @@ func on_restart_level() -> void:
 	
 	$"/root/Main/Root3D".queue_free()
 	$"/root/Main".add_child(current_scene)
+
+
+func on_go_to_main_menu() -> void:
+	var main_menu_node : Control = _level_loader_thread.get_level(MAIN_MENU_PATH).instance() as Control
+	$"/root".add_child(main_menu_node)
+	$"/root/Main".queue_free()
+
+
+# Each controller corresponds to an integer id, this function returns an array of them.
+func get_controller_indices() -> Array:
+	return _controller_player_dict.keys()
+
+
+func _vibrate_controller(device : int, duration : float) -> void:
+	Input.start_joy_vibration(device, 0, 1, duration)
 
 
 func _add_new_player(device : int) -> void:
@@ -190,7 +212,7 @@ func _finish_game() -> void:
 	# TODO: make screen transition
 	_level_loader_thread.queue_level(MAIN_MENU_PATH)
 	yield(get_tree().create_timer(1.0), "timeout")
-	_go_to_main_menu()
+	on_go_to_main_menu()
 
 
 func _format_elapsed_time(elapsed_time : float) -> String:
@@ -219,9 +241,3 @@ func _remove_level_gameplay_nodes() -> void:
 	main.get_node("Players").queue_free()
 	main.get_node("PauseMenuControl").queue_free()
 	main.get_node("Root3D").queue_free()
-
-
-func _go_to_main_menu() -> void:
-	var main_menu_node : Control = _level_loader_thread.get_level(MAIN_MENU_PATH).instance() as Control
-	$"/root".add_child(main_menu_node)
-	$"/root/Main".queue_free()

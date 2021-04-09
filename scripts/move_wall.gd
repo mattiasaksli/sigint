@@ -1,6 +1,6 @@
 extends Spatial
 
-export var wall_node_path : NodePath
+export var movable_wall_node_path : NodePath
 export var speed : float = 6
 export var upper_bound : float = 25
 export var lower_bound : float = -25
@@ -10,7 +10,9 @@ var _registered_players : Array
 var _wall_node : Spatial
 var _game_manager : Node
 
-onready var _button_sprite_3d : Sprite3D = $MeshInstance/ButtonSprite3D as Sprite3D
+var _is_guard_investigating : bool = false
+
+onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
 
 
 func _enter_tree() -> void:
@@ -18,10 +20,16 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	_wall_node = get_node(wall_node_path) as Spatial
+	_wall_node = get_node(movable_wall_node_path) as Spatial
 	
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
+	
+	# TODO: change this to unspaghettify code
+	# "Disable" CameraGuard2
+	var guard : CameraGuard = $"../../../MiddleRoom/Guards/CameraGuard2" as CameraGuard
+	(guard.get_node("FOV/ImmediateGeometry") as ImmediateGeometry).visible = false
+	guard.is_movement_stopped = true
 
 
 func _process(_delta : float) -> void:
@@ -35,6 +43,10 @@ func _physics_process(delta : float) -> void:
 
 
 func _handle_player_input(prefix : String) -> void:
+	# TODO: change this to unspaghettify code
+	if not _is_guard_investigating and (Input.is_action_pressed(prefix + "interact_up") or Input.is_action_pressed(prefix + "interact_down")):
+		_make_guard_investigate()
+	
 	if Input.is_action_pressed(prefix + "interact_up"):
 		_wall_movement_direction.y = 1
 	elif Input.is_action_pressed(prefix + "interact_down"):
@@ -69,10 +81,18 @@ func on_player_unregistered(body : Node) -> void:
 
 
 func on_game_over() -> void:
-	# TODO: finish function
+	self.set_physics_process(false)
+	self.set_process(false)
 	
 	$InteractionArea.disconnect("body_entered", self, "on_player_registered")
 	$InteractionArea.disconnect("body_exited", self, "on_player_unregistered")
 	
 	# Stop script
 	set_script(null)
+
+
+func _make_guard_investigate() -> void:
+	_is_guard_investigating = true
+	var guard : CameraGuard = $"../../../MiddleRoom/Guards/CameraGuard2" as CameraGuard
+	(guard.get_node("FOV/ImmediateGeometry") as ImmediateGeometry).visible = true
+	guard.is_movement_stopped = false

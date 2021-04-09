@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level_misc/sync_puzzle/sync_interactable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/sync_doors_puzzle.gd" type="Script" id=3]
 [ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/new_level_loaded.gd" type="Script" id=11]
 [ext_resource path="res://materials/divider.material" type="Material" id=14]
 [ext_resource path="res://materials/walls.material" type="Material" id=15]
@@ -14,11 +16,7 @@ size = Vector2( 32, 66 )
 
 [sub_resource type="CubeMesh" id=2]
 material = ExtResource( 14 )
-size = Vector3( 2, 66, 5 )
-
-[sub_resource type="QuadMesh" id=3]
-material = ExtResource( 15 )
-size = Vector2( 5, 66 )
+size = Vector3( 2, 66, 4 )
 
 [node name="Root3D" type="Spatial"]
 script = ExtResource( 11 )
@@ -120,7 +118,7 @@ depth = 31.0
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
 [node name="LeftDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 1.5 )
 
 [node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
@@ -128,7 +126,7 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="RightDivider" type="Spatial" parent="MiddleRoom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 1.5 )
 
 [node name="DividerMesh" type="MeshInstance" parent="MiddleRoom/RightDivider"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
@@ -169,31 +167,7 @@ transform = Transform( -1.62921e-07, -1.62921e-07, 1, -1, 2.65433e-14, -1.62921e
 depth = 30.5
 polygon = PoolVector2Array( 0, -1, 0, 1 )
 
-[node name="OuterWalls" type="Spatial" parent="."]
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-
-[node name="LeftWall" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -48, 0, 1 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="RightWall" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 48, 0, 1 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="LeftRim" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50.5, 0, 3.5 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="RightRim" type="MeshInstance" parent="OuterWalls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50.5, 0, 3.5 )
-mesh = SubResource( 3 )
-material/0 = null
+[node name="OuterWalls" parent="." instance=ExtResource( 5 )]
 
 [node name="WinArea" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
@@ -212,36 +186,51 @@ script = ExtResource( 3 )
 [node name="Doors" type="Spatial" parent="SyncDoors"]
 
 [node name="LeftDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.665, -32, 15, -1.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 15, -1.5 )
 
 [node name="MiddleDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.665, 0, 15, -1.5 )
 
 [node name="RightDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.665, 32, 15, -1.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 15, -1.5 )
 
 [node name="Interactables" type="Spatial" parent="SyncDoors"]
 
 [node name="Interactable" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, 0 )
 
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable" instance=ExtResource( 6 )]
+
 [node name="Interactable2" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 3, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable2" instance=ExtResource( 6 )]
 
 [node name="Interactable3" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0 )
 
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable3" instance=ExtResource( 6 )]
+
 [node name="Interactable4" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 3, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable4" instance=ExtResource( 6 )]
 
 [node name="Interactable5" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 3, 0 )
 
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable5" instance=ExtResource( 6 )]
+
 [node name="Interactable6" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable6" instance=ExtResource( 6 )]
 
 [node name="Interactable7" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 3, 0 )
 
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable7" instance=ExtResource( 6 )]
+
 [node name="Interactable8" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 3, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable8" instance=ExtResource( 6 )]

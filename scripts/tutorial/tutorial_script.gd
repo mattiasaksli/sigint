@@ -3,7 +3,7 @@ extends Control
 signal activate_enemy
 signal disable_player_movement
 signal disable_game_pause_functionality
-signal load_main_menu
+signal go_to_main_menu
 
 const _tutorial_win_texts : Array = [
 	"""[center]The goal is to complete all of levels like this. The total time it takes to complete all levels (excluding when the game is paused) is tracked and can be entered into the leaderboard at the end of the game.
@@ -15,16 +15,18 @@ const _tutorial_win_texts : Array = [
 	Press [img]res://ui/icons/a_button.png[/img] to return to the main menu.[/center]"""
 ]
 
-onready var _tutorial_content : RichTextLabel = $Panel/TutorialContent as RichTextLabel
-
 var _player_interacted_with_computer : bool = false
 var _player_interacted_got_caught : bool = false
 var _player_can_advance_win_area_text : bool = false
+
+onready var _tutorial_content : RichTextLabel = $Panel/TutorialContent as RichTextLabel
 
 
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	self.connect("disable_game_pause_functionality", $"../PauseMenuControl", "on_pause_disabled")
+	# warning-ignore:return_value_discarded
+	self.connect("go_to_main_menu", $"../GameManager", "on_go_to_main_menu")
 
 
 func on_player_interacted_with_computer() -> void:
@@ -81,7 +83,7 @@ func on_trigger_next_win_area_text() -> void:
 		# TODO: change to screen transition
 		yield(get_tree().create_timer(1.0), "timeout")
 		
-		emit_signal("load_main_menu")
+		emit_signal("go_to_main_menu")
 
 
 func _input(event : InputEvent) -> void:

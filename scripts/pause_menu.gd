@@ -1,3 +1,5 @@
+class_name PauseMenu
+
 extends Control
 
 signal restart_level

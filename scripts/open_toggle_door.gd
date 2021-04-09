@@ -1,7 +1,5 @@
 extends Spatial
 
-signal player_interacted
-
 export var toggle_door_obstacle_path : NodePath
 export var duration : float = 2
 
@@ -10,9 +8,14 @@ var _door_node : Spatial
 var _open_point : Spatial
 var _closed_point : Spatial
 var _tween : Tween
+var _game_manager : Node
 var _can_play_animation : bool = true
 
 onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
+
+
+func _enter_tree() -> void:
+	_game_manager = $"/root/Main/GameManager"
 
 
 func _ready() -> void:
@@ -26,7 +29,7 @@ func _ready() -> void:
 	_tween = get_node(toggle_door_obstacle_path_string + "Tween") as Tween
 	
 	# warning-ignore:return_value_discarded
-	self.connect("player_interacted", $"/root/Main/TutorialControl", "on_player_interacted_with_computer")
+	_game_manager.connect("game_over", self, "on_game_over")
 
 
 func _physics_process(_delta : float) -> void:
@@ -37,7 +40,6 @@ func _physics_process(_delta : float) -> void:
 
 func _handle_player_input(prefix : String) -> void:
 	if _can_play_animation and Input.is_action_pressed(prefix + "interact_A"):
-		emit_signal("player_interacted")
 		_can_play_animation = false
 		_button_sprite_3d.visible = false
 		
