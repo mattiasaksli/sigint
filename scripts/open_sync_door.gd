@@ -14,7 +14,6 @@ onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
 
 
 func _ready() -> void:
-	# warning-ignore:return_value_discarded
 	self.connect("sync_interacted", sync_puzzle_controller, "on_interacted")
 
 

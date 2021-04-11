@@ -8,6 +8,7 @@ const RIGHT_ROOM_INTERACTABLE_INDEXES : Array = [1, 4, 7]
 var _interactable_nodes : Array = []
 var _next_active_node_indices_stack : Array = []
 var _max_interactable_nodes : int
+var _are_doors_open : bool = false
 
 onready var _game_manager : GameManager = $"/root/Main/GameManager" as GameManager
 
@@ -61,11 +62,17 @@ func on_interacted(interacted_node : Node) -> void:
 
 
 func on_add_player(_player : Node) -> void:
+	if _are_doors_open:
+		return
+	
 	_max_interactable_nodes += 1
 	_reset_progress()
 
 
 func on_remove_player(_player : Node) -> void:
+	if _are_doors_open:
+		return
+	
 	_max_interactable_nodes -= 1
 	_reset_progress()
 
@@ -118,6 +125,11 @@ func _set_active_nodes_order() -> Array:
 
 
 func _open_doors() -> void:
+	if _are_doors_open:
+		return
+	
+	_are_doors_open = true
+	
 	var tween : Tween
 	var door_moving_part : Spatial
 	var closed_point : Spatial
@@ -131,7 +143,6 @@ func _open_doors() -> void:
 		closed_point = door.get_node("ClosedPoint")
 		open_point = door.get_node("OpenPoint")
 		
-		# warning-ignore:return_value_discarded
 		tween.interpolate_property(
 			door_moving_part,
 			"translation",
@@ -140,5 +151,4 @@ func _open_doors() -> void:
 			opening_duration, Tween.TRANS_BOUNCE,
 			Tween.EASE_OUT
 		)
-		# warning-ignore:return_value_discarded
 		tween.start()

@@ -12,11 +12,8 @@ onready var _tutorial_control : Control = $"/root/Main/TutorialControl" as Contr
 
 
 func _ready() -> void:
-	# warning-ignore:return_value_discarded
 	self.connect("first_player_entered_win_area", _tutorial_control, "on_first_player_entered_win_area")
-	# warning-ignore:return_value_discarded
 	self.connect("all_players_entered_win_area", _tutorial_control, "on_all_players_entered_win_area")
-	# warning-ignore:return_value_discarded
 	self.connect("end_tutorial", _tutorial_control, "on_tutorial_end")
 
 

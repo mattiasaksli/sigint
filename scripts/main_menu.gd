@@ -19,6 +19,8 @@ onready var _leaderboard : Control = $Panel/Leaderboard as Control
 func _ready() -> void:
 	_menu_state = MENU_OPEN
 	(_menu.get_node("NewGameBtn") as Control).grab_focus()
+	
+	yield(ScreenTransition.fade_in(), "completed")
 
 
 func _input(event : InputEvent) -> void:
@@ -37,6 +39,8 @@ func _input(event : InputEvent) -> void:
 func on_new_game_started() -> void:
 	print("Starting new game")
 	
+	yield(ScreenTransition.fade_out(), "completed")
+	
 	# Add level 1 node
 	var level_globals_and_level1_scene : Node = (load(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
 	$"/root".add_child(level_globals_and_level1_scene)
@@ -48,6 +52,8 @@ func on_new_game_started() -> void:
 
 func on_tutorial_started() -> void:
 	print("Starting tutorial")
+	
+	yield(ScreenTransition.fade_out(), "completed")
 	
 	var tutorial_scene : Node = (load(TUTORIAL_PATH) as PackedScene).instance()
 	$"/root".add_child(tutorial_scene)

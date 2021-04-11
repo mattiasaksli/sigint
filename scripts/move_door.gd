@@ -29,10 +29,8 @@ func _ready() -> void:
 	elif side == DoorSide.RIGHT_DOOR:
 		actual_door_path += "Right/Door"
 	
-	
 	_door_node = get_node(actual_door_path) as Spatial
 	
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
 
 

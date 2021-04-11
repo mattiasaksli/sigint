@@ -30,13 +30,10 @@ func _ready() -> void:
 	_bridge_end_collider = _bridge_node.get_node("EndCollider") as CollisionShape
 	_bridge_opposite_collider = _bridge_node.get_node("../InvisibleWalls/OppositeCollider") as CollisionShape
 	
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
 	
 	var bridge_area : Area = _bridge_node.get_node("../OnBridgeArea") as Area
-	# warning-ignore:return_value_discarded
 	bridge_area.connect("body_entered", self, "on_player_entered_bridge")
-	# warning-ignore:return_value_discarded
 	bridge_area.connect("body_exited", self, "on_player_exited_bridge")
 
 
@@ -119,11 +116,8 @@ func on_player_exited_bridge(body : Node) -> void:
 
 
 func on_game_over() -> void:
-	# TODO: finish function
-	
 	$InteractionArea.disconnect("body_entered", self, "on_player_registered")
 	$InteractionArea.disconnect("body_exited", self, "on_player_unregistered")
 	
 	# Stop script
 	set_script(null)
-

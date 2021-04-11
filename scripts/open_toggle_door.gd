@@ -28,7 +28,6 @@ func _ready() -> void:
 	_closed_point = get_node(toggle_door_obstacle_path_string + "ClosedPoint") as Spatial
 	_tween = get_node(toggle_door_obstacle_path_string + "Tween") as Tween
 	
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
 
 
@@ -43,7 +42,6 @@ func _handle_player_input(prefix : String) -> void:
 		_can_play_animation = false
 		_button_sprite_3d.visible = false
 		
-		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(
 			_door_node,
 			"translation",
@@ -52,7 +50,6 @@ func _handle_player_input(prefix : String) -> void:
 			duration, Tween.TRANS_BOUNCE,
 			Tween.EASE_OUT
 		)
-		# warning-ignore:return_value_discarded
 		_tween.start()
 
 

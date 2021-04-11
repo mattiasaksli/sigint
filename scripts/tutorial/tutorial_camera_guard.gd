@@ -34,9 +34,7 @@ func _ready() -> void:
 	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = normal_fov_color
 	
 	# Connects signals
-	# warning-ignore:return_value_discarded
 	self.connect("tutorial_player_busted", $"/root/Main/TutorialControl", "on_player_got_caught")  # Send game over to game manager
-	# warning-ignore:return_value_discarded
 	_tutorial_script.connect("activate_enemy", self, "_activate_tutorial_enemy")
 
 

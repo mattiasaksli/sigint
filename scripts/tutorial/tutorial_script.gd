@@ -23,9 +23,7 @@ onready var _tutorial_content : RichTextLabel = $Panel/TutorialContent as RichTe
 
 
 func _ready() -> void:
-	# warning-ignore:return_value_discarded
 	self.connect("disable_game_pause_functionality", $"../PauseMenuControl", "on_pause_disabled")
-	# warning-ignore:return_value_discarded
 	self.connect("go_to_main_menu", $"../GameManager", "on_go_to_main_menu")
 
 

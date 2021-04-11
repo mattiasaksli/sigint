@@ -19,15 +19,10 @@ func _enter_tree():
 	# Set up signals for the current level
 	_game_manager = $"/root/Main/GameManager" as GameManager
 	
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("add_player", self, "new_player_spawned")
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("remove_player", self, "player_despawned")
-	# warning-ignore:return_value_discarded
 	self.connect("start_loading_level", _game_manager, "on_start_loading_next_level")
-	# warning-ignore:return_value_discarded
 	self.connect("cancel_loading_level", _game_manager, "on_cancel_loading_next_level")
-	# warning-ignore:return_value_discarded
 	self.connect("go_to_next_level", _game_manager, "on_go_to_next_level")
 
 
@@ -52,9 +47,13 @@ func on_player_exited(body: Node) -> void:
 		# Happens if the player is not despawned
 		_players_in_win_area[body] = false
 	
-	# Not all players are in the win area, stopping timer and level loading
+	# Not all players are in the win area, resets the timer and level loading
 	if not _timer.is_stopped():
 		_cancel_loading_next_level()
+	
+	# This passes if all of the remaining players are already in the win area
+	if _are_all_players_in_win_area():
+		_start_loading_next_level()
 
 
 func on_progress_bar_full():
@@ -74,13 +73,11 @@ func player_despawned(old_player : Node):
 	
 	if old_player in _players_in_win_area:
 		# Deletes the player from list, if the node has not been deleted yet
-		# warning-ignore:return_value_discarded
 		_players_in_win_area.erase(old_player)
 	else:
 		# The node has already been removed from the scene, deletes the null ref player from the dictionary
 		for player in _players_in_win_area:
 			if player == null:
-				# warning-ignore:return_value_discarded
 				_players_in_win_area.erase(player)
 
 
@@ -99,14 +96,11 @@ func _start_loading_next_level() -> void:
 	if _is_tween_paused:
 		# Resumes interpolating the progress bar
 		
-		# warning-ignore:return_value_discarded
 		_tween.resume(_goal_progress_bar, "value")
 	else:
 		# Starts interpolating the progress bar
 		
-		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(_goal_progress_bar, "value", 0, 100, _timer.wait_time)
-		# warning-ignore:return_value_discarded
 		_tween.start()
 
 
@@ -115,7 +109,5 @@ func _cancel_loading_next_level() -> void:
 	_timer.stop()
 	
 	# Stop interpolating the progress bar
-	# warning-ignore:return_value_discarded
 	_tween.stop(_goal_progress_bar, "value")
-	# warning-ignore:return_value_discarded
 	_tween.reset(_goal_progress_bar, "value")

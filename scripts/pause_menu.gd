@@ -3,15 +3,16 @@ class_name PauseMenu
 extends Control
 
 signal restart_level
+signal go_to_main_menu
 
 var _is_game_paused : bool = false
 var _can_pause_game : bool = true
 
 
 func _ready() -> void:
-	var game_manager = $"/root/Main/GameManager"
-	# warning-ignore:return_value_discarded
+	var game_manager : GameManager = $"/root/Main/GameManager" as GameManager
 	self.connect("restart_level", game_manager, "on_restart_level")
+	self.connect("go_to_main_menu", game_manager, "on_go_to_main_menu")
 
 
 func _input(event : InputEvent) -> void:
@@ -41,22 +42,15 @@ func resume_game() -> void:
 
 
 func restart_level_pressed() -> void:
-	# TODO: change to screen transition
-	yield(get_tree().create_timer(1.0), "timeout")
-	
 	emit_signal("restart_level")
 	_is_game_paused = false
 	resume_game()
 
 
 func main_menu_pressed() -> void:
-	var main_menu_scene : Control = (preload("res://scenes/menus/main_menu.tscn").instance() as Control)
-	$"/root".add_child(main_menu_scene)
-	
+	emit_signal("go_to_main_menu")
 	_is_game_paused = false
 	resume_game()
-	
-	$"/root/Main".queue_free()
 
 
 func on_pause_disabled() -> void:

@@ -10,6 +10,8 @@ onready var _name_label : Label = $Panel/Name as Label
 
 func _ready() -> void:
 	($Panel/GridContainer/A as Button).grab_focus()
+	
+	yield(ScreenTransition.fade_in(), "completed")
 
 
 func on_a_pressed() -> void:
@@ -125,6 +127,8 @@ func on_delete_pressed() -> void:
 
 
 func on_done_pressed() -> void:
+	yield(ScreenTransition.fade_out(), "completed")
+	
 	emit_signal("team_name_entered", _name)
 
 

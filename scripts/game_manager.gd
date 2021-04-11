@@ -27,12 +27,9 @@ var _level_loader_thread : LevelLoader
 
 
 func _ready() -> void:
-	# warning-ignore:return_value_discarded
 	Input.connect("joy_connection_changed", self, "on_controller_connection_changed")
 	
-	# warning-ignore:return_value_discarded
 	self.connect("can_pause_enabled", $"/root/Main/PauseMenuControl", "on_pause_enabled")
-	# warning-ignore:return_value_discarded
 	self.connect("can_pause_disabled", $"/root/Main/PauseMenuControl", "on_pause_disabled")
 	
 	_level_loader_thread = preload("res://scripts/level_loader.gd").new()
@@ -43,6 +40,8 @@ func _ready() -> void:
 	var _controllers = Input.get_connected_joypads()
 	for controller in _controllers:
 		_add_new_player(controller)
+	
+	yield(ScreenTransition.fade_in(), "completed")
 
 
 func _process(_delta : float) -> void:
@@ -84,8 +83,8 @@ func on_go_to_next_level() -> void:
 	
 	print("Going to level " + LEVELS_STACK[1])
 	
-	_swap_scenes()
-	
+	yield(_swap_scenes(LEVELS_STACK[1]), "completed")
+	LEVELS_STACK.remove(0)
 	_level_loaded()
 
 
@@ -98,31 +97,23 @@ func on_player_busted(caught_players : Array) -> void:
 	emit_signal("can_pause_disabled")
 	emit_signal("game_over")
 	
-	# TODO: change to screen transition
-	yield(get_tree().create_timer(1.0), "timeout")
-	
 	on_restart_level()
 
 
 func on_restart_level() -> void:
-	_can_handle_joystick_connections = false
-	
-	# Remove old Root3D node
-	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
-	$"/root/Main".remove_child(old_scene)
-	old_scene.call_deferred("free")
-	
-	# Add current Root3D node back to scene tree
-	var current_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[0]).instance()
-	$"/root/Main".add_child(current_scene)
-	
+	yield(_swap_scenes(LEVELS_STACK[0]), "completed")
 	_level_loaded()
 
 
 func on_go_to_main_menu() -> void:
-	var status : int = get_tree().change_scene_to(_level_loader_thread.get_level(MAIN_MENU_PATH))
-	if status == ERR_CANT_CREATE:
-		printerr("Cannot change scene to main menu!")
+	yield(ScreenTransition.fade_out(), "completed")
+	
+	var main_menu : Control = _level_loader_thread.get_level(MAIN_MENU_PATH).instance() as Control
+	$"/root".add_child(main_menu)
+	
+	var old_scene : Node = $"/root/Main" as Node
+	$"/root".remove_child(old_scene)
+	old_scene.call_deferred("free")
 
 
 # Each controller corresponds to an integer id, this function returns an array of them.
@@ -145,8 +136,10 @@ func _set_spawn_locations() -> void:
 	]
 
 
-func _swap_scenes() -> void:
+func _swap_scenes(level_path : String) -> void:
 	_can_handle_joystick_connections = false
+	
+	yield(ScreenTransition.fade_out(), "completed")
 	
 	# Remove old Root3D node
 	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
@@ -154,10 +147,8 @@ func _swap_scenes() -> void:
 	old_scene.call_deferred("free")
 	
 	# Add newly loaded Root3D node
-	var next_scene : Spatial = _level_loader_thread.get_level(LEVELS_STACK[1]).instance()
+	var next_scene : Spatial = _level_loader_thread.get_level(level_path).instance()
 	$"/root/Main".add_child(next_scene)
-	
-	LEVELS_STACK.remove(0)
 
 
 func _level_loaded() -> void:
@@ -170,6 +161,8 @@ func _level_loaded() -> void:
 	for player in _controller_player_dict.values():
 		index = player.name[6].to_int()
 		player.translation = _new_player_spawn_locations[index - 1]
+	
+	yield(ScreenTransition.fade_in(), "completed")
 	
 	emit_signal("can_pause_enabled")
 	emit_signal("enable_player_input")
@@ -207,29 +200,29 @@ func _remove_player(device : int) -> void:
 
 
 func _finish_game() -> void:
+	_level_loader_thread.queue_level(MAIN_MENU_PATH)
+	
 	var elapsed_time : float = ($"/root/Main/ElapsedTimeTracker" as TimeTracker).get_elapsed_time_and_stop_tracking()
-	var formatted_elapsed_time : String = _format_elapsed_time(elapsed_time)
+	var formatted_elapsed_time : String = _get_formatted_elapsed_time(elapsed_time)
 	
 	var time : Dictionary = OS.get_datetime()
 	var finished_time : String = "%02d.%02d.%04d %02d:%02d" % [time.day, time.month, time.year, time.hour, time.minute]
 	
 	print("Game finished, showing team name screen")
 	
+	yield(ScreenTransition.fade_out(), "completed")
+	
 	var team_name_ui_node : Control = _show_team_name_screen()
 	var team_name : String = yield(team_name_ui_node, "team_name_entered")
 	
 	LeaderboardManager.save_to_file(team_name, formatted_elapsed_time, finished_time)
-	
-	# TODO: make screen transition
-	_level_loader_thread.queue_level(MAIN_MENU_PATH)
-	yield(get_tree().create_timer(1.0), "timeout")
 	
 	print("Saving info to leaderboard, going to main menu")
 	
 	on_go_to_main_menu()
 
 
-func _format_elapsed_time(elapsed_time : float) -> String:
+func _get_formatted_elapsed_time(elapsed_time : float) -> String:
 	if elapsed_time > 3600:
 		return "59 min 59 sec"
 	

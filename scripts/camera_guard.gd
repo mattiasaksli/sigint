@@ -36,9 +36,7 @@ func _ready() -> void:
 	_detection_timer.wait_time = detection_time
 	_movement_pause_timer.wait_time = movement_pause_time
 	
-	# warning-ignore:return_value_discarded
 	self.connect("player_busted", _game_manager, "on_player_busted")  # Send game over to game manager
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")          # Do game over logic when the signal comes from game manager
 	
 	# HACK: to reset fov cone color when a new level has been loaded
@@ -94,7 +92,7 @@ func _check_for_players() -> void:
 		
 		if (raycast_hit.size() != 0):
 			collider = raycast_hit.collider
-			# warning-ignore:unsafe_property_access
+
 			if collider.collision_layer == PLAYER_LAYER and not _visible_players.has(collider):
 				_visible_players.append(collider)
 	

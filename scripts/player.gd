@@ -22,12 +22,9 @@ func _ready() -> void:
 	
 	# Check if the current level is a tutorial
 	if not tutorial_node:
-		# warning-ignore:return_value_discarded
 		_game_manager.connect("game_over", self, "on_game_over")
-		# warning-ignore:return_value_discarded
 		_game_manager.connect("enable_player_input", self, "on_enable_input")
 	else:
-		# warning-ignore:return_value_discarded
 		tutorial_node.connect("disable_player_movement", self, "on_disable_input")
 
 

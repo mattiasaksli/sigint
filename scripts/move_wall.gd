@@ -22,7 +22,6 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_wall_node = get_node(movable_wall_node_path) as Spatial
 	
-	# warning-ignore:return_value_discarded
 	_game_manager.connect("game_over", self, "on_game_over")
 	
 	# TODO: change this to unspaghettify code
