@@ -19,5 +19,5 @@ void fragment() {
 }
 
 void light() {
-	DIFFUSE_LIGHT += max(dot(NORMAL, LIGHT), 0.0) * ALBEDO * ATTENUATION;
+	DIFFUSE_LIGHT = max(dot(NORMAL, LIGHT), 0.0) * ATTENUATION * ALBEDO;
 }

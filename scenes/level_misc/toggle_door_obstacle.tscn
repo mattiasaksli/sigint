@@ -4,20 +4,32 @@
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 1 )
-size = Vector3( 7.5, 1.5, 3.5 )
+size = Vector3( 10, 1.5, 3.5 )
 
 [sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( -3.75, 0.75, 1.75, 3.75, 0.75, -1.75, 3.75, 0.75, 1.75, -3.75, 0.75, -1.75, -3.75, -0.75, 1.75, 3.75, -0.75, -1.75, 3.75, -0.75, 1.75, -3.75, -0.75, -1.75, 3.75, 0.75, 1.75, -3.75, 0.75, -1.75, 3.75, 0.75, -1.75, -3.75, 0.75, 1.75, 3.75, -0.75, 1.75, -3.75, -0.75, -1.75, 3.75, -0.75, -1.75, -3.75, -0.75, 1.75, 3.75, 0.75, 1.75, -3.75, -0.75, 1.75, -3.75, 0.75, 1.75, 3.75, -0.75, 1.75, 3.75, 0.75, -1.75, -3.75, -0.75, -1.75, -3.75, 0.75, -1.75, 3.75, -0.75, -1.75 )
+points = PoolVector3Array( -5, 0.75, 1.75, 5, 0.75, -1.75, 5, 0.75, 1.75, -5, 0.75, -1.75, -5, -0.75, 1.75, 5, -0.75, -1.75, 5, -0.75, 1.75, -5, -0.75, -1.75, 5, 0.75, 1.75, -5, 0.75, -1.75, 5, 0.75, -1.75, -5, 0.75, 1.75, 5, -0.75, 1.75, -5, -0.75, -1.75, 5, -0.75, -1.75, -5, -0.75, 1.75, 5, 0.75, 1.75, -5, -0.75, 1.75, -5, 0.75, 1.75, 5, -0.75, 1.75, 5, 0.75, -1.75, -5, -0.75, -1.75, -5, 0.75, -1.75, 5, -0.75, -1.75 )
 
 [node name="ToggleDoorObstacle" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -1.5 )
 
-[node name="MiddleWall" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0, 2 )
+[node name="MiddleWall2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 2 )
 use_collision = true
 collision_layer = 12
 collision_mask = 2
-width = 22.5
+width = 10.0
+depth = 4.0
+material = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MiddleWall3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 2 )
+use_collision = true
+collision_layer = 12
+collision_mask = 2
+width = 10.0
 depth = 4.0
 material = ExtResource( 1 )
 __meta__ = {
@@ -25,13 +37,15 @@ __meta__ = {
 }
 
 [node name="Door" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 2 )
 
 [node name="Mesh" type="MeshInstance" parent="Door"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Collider" type="StaticBody" parent="Door"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
 collision_layer = 12
 collision_mask = 2
 
@@ -39,10 +53,10 @@ collision_mask = 2
 shape = SubResource( 2 )
 
 [node name="ClosedPoint" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.25, 0, 1.25 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1.25 )
 
 [node name="OpenPoint" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1.25 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1.25 )
 
 [node name="Tween" type="Tween" parent="."]
 playback_process_mode = 0

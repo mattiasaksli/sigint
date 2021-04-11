@@ -7,14 +7,18 @@ const ACTIVE_COLOR : Color = Color("#ff9500")
 const COMPLETED_COLOR : Color = Color("#20ff00")
 
 var _registered_players : Array = []
+var _computer_material_path : NodePath = @"Base/PersonalComputer:material/2"
+var _computer : SpatialMaterial
 
-onready var active_light : MeshInstance = $ActiveLight as MeshInstance
 onready var sync_puzzle_controller : Node = $"../../"
 onready var _button_sprite_3d : Sprite3D = $ButtonSprite3D as Sprite3D
+onready var _light : OmniLight = $OmniLight as OmniLight
 
 
 func _ready() -> void:
 	self.connect("sync_interacted", sync_puzzle_controller, "on_interacted")
+	
+	_computer = get_node_and_resource(_computer_material_path)[1]
 
 
 func _physics_process(_delta : float) -> void:
@@ -25,15 +29,18 @@ func _physics_process(_delta : float) -> void:
 
 
 func set_active() -> void:
-	(active_light.material_override as SpatialMaterial).albedo_color = ACTIVE_COLOR
+	_computer.albedo_color = ACTIVE_COLOR
+	_light.visible = true
 
 
 func set_completed() -> void:
-	(active_light.material_override as SpatialMaterial).albedo_color = COMPLETED_COLOR
+	_computer.albedo_color = COMPLETED_COLOR
+	_light.visible = false
 
 
 func reset() -> void:
-	(active_light.material_override as SpatialMaterial).albedo_color = INACTIVE_COLOR
+	_computer.albedo_color = INACTIVE_COLOR
+	_light.visible = false
 
 
 func on_player_registered(body : Node) -> void:

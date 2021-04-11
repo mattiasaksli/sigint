@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/themes/main_menu.theme" type="Theme" id=1]
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
@@ -7,6 +7,11 @@
 [sub_resource type="DynamicFont" id=1]
 size = 50
 extra_spacing_bottom = 4
+extra_spacing_char = 1
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
 extra_spacing_char = 1
 font_data = ExtResource( 3 )
 
@@ -181,8 +186,72 @@ text = "Scroll up/down "
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="OptionsMenu" type="Control" parent="Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Label" parent="Panel/OptionsMenu"]
+anchor_left = 0.431
+anchor_top = 0.2
+anchor_right = 0.573
+anchor_bottom = 0.264
+margin_left = 0.319946
+margin_top = -1.52588e-05
+margin_right = -0.440002
+margin_bottom = -0.200012
+custom_fonts/font = SubResource( 2 )
+text = "OPTIONS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/OptionsMenu"]
+anchor_left = 0.344
+anchor_top = 0.27
+anchor_right = 0.656
+anchor_bottom = 0.77
+margin_left = -0.320007
+margin_top = -3.05176e-05
+margin_right = 0.319946
+margin_bottom = -6.10352e-05
+rect_min_size = Vector2( 200, 200 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="FullscreenCheckButton" type="CheckButton" parent="Panel/OptionsMenu/VBoxContainer"]
+margin_top = 177.0
+margin_right = 400.0
+margin_bottom = 223.0
+custom_constants/hseparation = 40
+text = "FULLSCREEN"
+align = 1
+
+[node name="BackButtonLabel" type="RichTextLabel" parent="Panel/OptionsMenu"]
+anchor_left = 0.837
+anchor_top = 0.91
+anchor_right = 0.956
+anchor_bottom = 0.97
+margin_left = 32.64
+margin_top = -6.10352e-05
+margin_right = 32.3199
+margin_bottom = -6.10352e-05
+bbcode_enabled = true
+bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
+text = "Back "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="Panel/MenuButtonsVBox/NewGameBtn" to="." method="on_new_game_started"]
 [connection signal="pressed" from="Panel/MenuButtonsVBox/TutorialBtn" to="." method="on_tutorial_started"]
 [connection signal="pressed" from="Panel/MenuButtonsVBox/LeaderboardBtn" to="." method="on_leaderboard_opened"]
 [connection signal="pressed" from="Panel/MenuButtonsVBox/OptionsBtn" to="." method="on_options_opened"]
 [connection signal="pressed" from="Panel/MenuButtonsVBox/QuitBtn" to="." method="on_quit_game"]
+[connection signal="toggled" from="Panel/OptionsMenu/VBoxContainer/FullscreenCheckButton" to="." method="_on_fullscreen_toggled"]

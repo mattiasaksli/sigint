@@ -1,0 +1,5 @@
+Godot Engine v3.2.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: NVIDIA GeForce GTX 1080 Ti/PCIe/SSE2
+ 
+**ERROR**: Node not found: /root/Main/GameManager.
+   At: scene/main/node.cpp:1381:get_node() - Condition "!node" is true. Returned: __null

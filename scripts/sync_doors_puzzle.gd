@@ -31,6 +31,9 @@ func _ready() -> void:
 	
 	_next_active_node_indices_stack = _set_active_nodes_order()
 	
+	if _next_active_node_indices_stack.empty():
+		return
+	
 	# Let the node know it is currently active
 	var current_active_node_index = _next_active_node_indices_stack[0]
 	_interactable_nodes[current_active_node_index].set_active()

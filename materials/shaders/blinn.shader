@@ -20,7 +20,12 @@ void fragment() {
 }
 
 void light() {
-	DIFFUSE_LIGHT += max(dot(NORMAL, LIGHT), 0.0) * ALBEDO;
-	vec3 h = normalize(LIGHT + VIEW);
-	SPECULAR_LIGHT += pow(max(0.0, dot(NORMAL, h)), specular_power) * ATTENUATION * ALBEDO;
+	vec3 color = mix(ALBEDO, LIGHT_COLOR, 0.2);
+	
+	DIFFUSE_LIGHT = max(dot(NORMAL, LIGHT), 0.0) * ATTENUATION * color;
+	
+	lowp vec3 h = normalize(LIGHT + VIEW);
+	lowp float specular = pow(max(0.0, dot(NORMAL, h)), specular_power);
+	
+	SPECULAR_LIGHT += min(LIGHT_COLOR * specular, 1.0) * ATTENUATION;
 }

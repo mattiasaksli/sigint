@@ -15,7 +15,8 @@ export var detection_time : float = 1
 export var movement_pause_time : float = 1
 
 export var normal_fov_color : Color = Color("#8cdec301")
-export var busted_fov_color : Color = Color("#cc973500")
+export var detecting_fov_color : Color = Color("#cc973500")
+export var caught_fov_color : Color = Color("#e1150700")
 
 var _players_nearby : Array
 var _visible_players : Array
@@ -48,7 +49,7 @@ func _process(_delta : float) -> void:
 	if not _detection_timer.paused:
 		# Interpolates the colors in reverse, to avoid extra math with _detection_timer.time_left
 		(_immediate_geometry.material_override as SpatialMaterial).albedo_color = lerp(
-			busted_fov_color,
+			detecting_fov_color,
 			normal_fov_color,
 			_detection_timer.time_left / _detection_timer.wait_time
 		)
@@ -121,7 +122,7 @@ func body_exited_area(body : Node) -> void:
 
 
 func trigger_game_over() -> void:
-	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = busted_fov_color
+	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = caught_fov_color
 	
 	var caught : Array = []
 	for player in _visible_players:

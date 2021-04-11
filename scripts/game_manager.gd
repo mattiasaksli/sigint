@@ -92,10 +92,12 @@ func on_player_busted(caught_players : Array) -> void:
 	for player_node in caught_players:
 		for controller_num in _controller_player_dict.keys():
 			if player_node == _controller_player_dict[controller_num]:
-				_vibrate_controller(controller_num, 0.5)
+				_vibrate_controller(controller_num, 0.75)
 	
 	emit_signal("can_pause_disabled")
 	emit_signal("game_over")
+	
+	yield(get_tree().create_timer(1.0), "timeout")
 	
 	on_restart_level()
 

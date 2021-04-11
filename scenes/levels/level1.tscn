@@ -148,7 +148,7 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="StaticWall" type="Spatial" parent="MiddleRoom/LeftDivider"]
-transform = Transform( 1, 0, 0, 0, 2, -8.74228e-08, 0, 1.74846e-07, 1, 0, 26.5, 0 )
+transform = Transform( 1, 0, 0, 0, 2.167, -8.7423e-08, 0, 1.89446e-07, 1, 0, 26.5, 0 )
 __meta__ = {
 "_edit_group_": true
 }

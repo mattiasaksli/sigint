@@ -14,11 +14,16 @@ var _menu_state : int
 
 onready var _menu : VBoxContainer = $Panel/MenuButtonsVBox as VBoxContainer
 onready var _leaderboard : Control = $Panel/Leaderboard as Control
+onready var _options : Control = $Panel/OptionsMenu as Control
+
+onready var _fullscreen_toggle : CheckButton = $Panel/OptionsMenu/VBoxContainer/FullscreenCheckButton as CheckButton
 
 
 func _ready() -> void:
 	_menu_state = MENU_OPEN
 	(_menu.get_node("NewGameBtn") as Control).grab_focus()
+	
+	_fullscreen_toggle.pressed = OS.window_fullscreen
 	
 	yield(ScreenTransition.fade_in(), "completed")
 
@@ -34,6 +39,12 @@ func _input(event : InputEvent) -> void:
 			(_leaderboard.get_node("ScrollContainer") as ScrollContainer).scroll_vertical -= 55
 		elif event.is_action_pressed("ui_down"):
 			(_leaderboard.get_node("ScrollContainer") as ScrollContainer).scroll_vertical += 55
+	elif _menu_state == OPTIONS_OPEN:
+		if event.is_action_pressed("ui_cancel"):
+			_options.hide()
+			_menu.show()
+			_menu_state = MENU_OPEN
+			(_menu.get_node("NewGameBtn") as Control).grab_focus()
 
 
 func on_new_game_started() -> void:
@@ -72,15 +83,19 @@ func on_leaderboard_opened() -> void:
 
 
 func on_options_opened() -> void:
-#	_menu_state = OPTIONS_OPEN
-#	_menu.hide()
-#	_options.show()
+	_menu_state = OPTIONS_OPEN
+	_menu.hide()
+	_options.show()
 	
-	print("Opened options")
+	_fullscreen_toggle.grab_focus()
 
 
 func on_quit_game() -> void:
 	get_tree().quit()
+
+
+func _on_fullscreen_toggled(is_fullscreen : bool) -> void:
+	OS.window_fullscreen = is_fullscreen
 
 
 func _update_leaderboard_ui() -> void:

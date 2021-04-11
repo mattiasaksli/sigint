@@ -22,7 +22,7 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="PersonalComputer" parent="MeshInstance" instance=ExtResource( 1 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0.980714 )
+transform = Transform( -8.74228e-08, 8.74228e-08, 2, 2, -8.74228e-08, 8.74228e-08, 8.74228e-08, 2, -8.74228e-08, -0.25, -5.75, 2.39 )
 
 [node name="InteractionArea" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0 )

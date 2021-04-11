@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://meshes/personal_computer/Material_015.material" type="Material" id=1]
 [ext_resource path="res://meshes/personal_computer/Material_022.material" type="Material" id=3]
@@ -12,7 +12,6 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 1206,
-"material": ExtResource( 3 ),
 "name": "OuterCase",
 "primitive": 4,
 "skeleton_aabb": [  ],
@@ -25,7 +24,6 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 84,
-"material": ExtResource( 3 ),
 "name": "SlotsCase",
 "primitive": 4,
 "skeleton_aabb": [  ],
@@ -38,7 +36,6 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 258,
-"material": ExtResource( 1 ),
 "name": "ScreenAndSlots",
 "primitive": 4,
 "skeleton_aabb": [  ],
@@ -51,19 +48,21 @@ surfaces/3 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 3132,
-"material": ExtResource( 1 ),
 "name": "Keyboard",
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 2088
 }
 
-[node name="PersonalComputer" type="Spatial"]
+[sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
+flags_unshaded = true
+albedo_color = Color( 0.447059, 0.447059, 0.447059, 1 )
 
-[node name="ComputerMesh" type="MeshInstance" parent="."]
+[node name="ComputerMesh" type="MeshInstance"]
 transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -0.115818, -2.883, 0.710335 )
 mesh = SubResource( 1 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
+material/0 = ExtResource( 3 )
+material/1 = ExtResource( 3 )
+material/2 = SubResource( 2 )
+material/3 = ExtResource( 1 )
