@@ -1,0 +1,19 @@
+Godot Engine v3.2.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: NVIDIA GeForce GTX 1080 Ti/PCIe/SSE2
+ 
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null
+**ERROR**: Resource: 'res://scenes/levels/level4.tscn' is already being loaded. Cyclic reference?
+   At: core/io/resource_loader.cpp:361:load() - Condition "!success" is true. Returned: RES()
+**ERROR**: Can't use get_node() with absolute paths from outside the active scene tree.
+   At: scene/main/node.cpp:1320:get_node_or_null() - Condition "!data.inside_tree && p_path.is_absolute()" is true. Returned: __null

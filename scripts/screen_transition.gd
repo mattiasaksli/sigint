@@ -11,3 +11,4 @@ func fade_in() -> void:
 func fade_out() -> void:
 	_screen_transition_animator.play("transition_out")
 	yield(_screen_transition_animator, "animation_finished")
+	yield(get_tree().create_timer(0.25), "timeout")

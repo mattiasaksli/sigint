@@ -48,12 +48,14 @@ func _input(event : InputEvent) -> void:
 
 
 func on_new_game_started() -> void:
+	$Panel/MenuButtonsVBox/NewGameBtn.disconnect("pressed", self, "on_new_game_started")
+	
 	print("Starting new game")
 	
 	yield(ScreenTransition.fade_out(), "completed")
 	
 	# Add level 1 node
-	var level_globals_and_level1_scene : Node = (load(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
+	var level_globals_and_level1_scene : Node = (preload(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
 	$"/root".add_child(level_globals_and_level1_scene)
 	
 	# Remove main menu node
@@ -62,6 +64,8 @@ func on_new_game_started() -> void:
 
 
 func on_tutorial_started() -> void:
+	$Panel/MenuButtonsVBox/NewGameBtn.disconnect("pressed", self, "on_tutorial_started")
+	
 	print("Starting tutorial")
 	
 	yield(ScreenTransition.fade_out(), "completed")

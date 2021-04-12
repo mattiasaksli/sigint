@@ -1,6 +1,7 @@
 extends Spatial
 
 enum DoorSide {LEFT_DOOR, RIGHT_DOOR}
+
 export(DoorSide) var side
 export var double_doors_obstacle_path : NodePath
 export var speed : float = 3

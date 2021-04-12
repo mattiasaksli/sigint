@@ -19,8 +19,7 @@ func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	_game_manager.connect("remove_player", self, "on_remove_player")
 	
-	# Initialize random seed
-	randomize()
+	
 	
 	# Initialize variables
 	_max_interactable_nodes = $"/root/Main/Players".get_child_count()

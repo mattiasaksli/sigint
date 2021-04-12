@@ -5,6 +5,7 @@ extends Node
 signal add_player(player)
 signal remove_player(player)
 signal enable_player_input
+signal show_player
 signal game_over
 signal can_pause_enabled
 signal can_pause_disabled
@@ -13,7 +14,8 @@ signal can_pause_disabled
 const LEVELS_STACK : Array = [
 	"res://scenes/levels/level1.tscn",
 	"res://scenes/levels/level2.tscn",
-	"res://scenes/levels/level3.tscn"
+	"res://scenes/levels/level3.tscn",
+	"res://scenes/levels/level4.tscn"
 ]
 const MAIN_MENU_PATH : String = "res://scenes/menus/main_menu.tscn"
 
@@ -155,6 +157,8 @@ func _swap_scenes(level_path : String) -> void:
 
 func _level_loaded() -> void:
 	_can_handle_joystick_connections = true
+	
+	emit_signal("show_player")
 	
 	_set_spawn_locations()
 	

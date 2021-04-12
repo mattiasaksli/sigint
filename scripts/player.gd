@@ -24,6 +24,7 @@ func _ready() -> void:
 	if not tutorial_node:
 		_game_manager.connect("game_over", self, "on_game_over")
 		_game_manager.connect("enable_player_input", self, "on_enable_input")
+		_game_manager.connect("show_player", self, "on_show_player")
 	else:
 		tutorial_node.connect("disable_player_movement", self, "on_disable_input")
 
@@ -63,6 +64,7 @@ func _handle_movement(delta : float) -> void:
 	
 #	translation += Vector3(_velocity.x * delta, _velocity.y * delta, 0.0)
 	_velocity = move_and_slide(_velocity)
+	translation.z = 0
 
 
 func _apply_movement(accel: Vector3, move_direction_magnitude : float) -> void:
@@ -99,6 +101,14 @@ func on_enable_input() -> void:
 
 func on_disable_input() -> void:
 	_can_handle_input = false
+
+
+func on_hide_player() -> void:
+	self.visible = false
+
+
+func on_show_player() -> void:
+	self.visible = true
 
 
 func on_game_over() -> void:
