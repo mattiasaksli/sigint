@@ -15,7 +15,7 @@ void fragment() {
 	float xDistance = abs(xFraction - 0.5);
 	float yDistance = abs(yFraction - 0.5);
 	
-	if ((xDistance + yDistance + UV.y) * direction < (progress * 2.0) * direction) {
+	if ((xDistance + yDistance + UV.y) * direction < (progress * 2.1) * direction) {
 		discard;
 	}
 	COLOR = vec4(COLOR.rgb, 1.0);

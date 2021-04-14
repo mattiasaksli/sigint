@@ -64,7 +64,7 @@ func on_new_game_started() -> void:
 
 
 func on_tutorial_started() -> void:
-	$Panel/MenuButtonsVBox/NewGameBtn.disconnect("pressed", self, "on_tutorial_started")
+	$Panel/MenuButtonsVBox/TutorialBtn.disconnect("pressed", self, "on_tutorial_started")
 	
 	print("Starting tutorial")
 	

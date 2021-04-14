@@ -3,7 +3,7 @@ extends Spatial
 export var bridge_obstacle_node_path : NodePath
 export var speed : float = 6
 export var upper_bound : float = 18
-export var lower_bound : float = 0
+export var lower_bound : float = 0.5
 
 var _bridge_movement_direction : Vector3 = Vector3.ZERO
 var _registered_players : Array

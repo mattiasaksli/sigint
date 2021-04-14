@@ -6,7 +6,15 @@ signal disable_game_pause_functionality
 signal go_to_main_menu
 
 const _tutorial_win_texts : Array = [
-	"""[center]The goal is to complete all of levels like this. The total time it takes to complete all levels (excluding when the game is paused) is tracked and can be entered into the leaderboard at the end of the game.
+	"""[center]Now you know how to complete levels! The total time it takes to complete all levels (except when the game is paused) is tracked and can be entered into the leaderboard at the end of the game.
+	
+	Press [img]res://ui/icons/a_button.png[/img] to continue.[/center]""",
+	
+	"""[center]The game is meant to be played with [color=#00ff00]2-4 players[/color], since you need to cooperate to get through levels. Players can join/leave the game at any time.
+	
+	Press [img]res://ui/icons/a_button.png[/img] to continue.[/center]""",
+	
+	"""[center]You have [color=#ff0000]60 seconds[/color] to complete each level. You can keep track of this by looking at the sun's direction and color. If you take longer than 60 seconds to complete a level, that level will be restarted.
 	
 	Press [img]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
@@ -50,7 +58,7 @@ func on_player_got_caught() -> void:
 	
 	_tutorial_content.bbcode_text = """[center]Oh no! You got caught!
 	
-	Thankfully nothing happened since this is a tutorial, but in an actual level you would lose time.
+	Thankfully nothing happened since this is a tutorial, but in an actual level you would be forced to restart.
 	
 	Keep moving to the goal area.[/center]"""
 

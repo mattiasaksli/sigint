@@ -69,8 +69,8 @@ config/icon="res://.project_meta_files/icon.png"
 
 [autoload]
 
-LeaderboardManager="*res://scripts/leaderboard_manager.gd"
-ScreenTransition="*res://scenes/screen_transition.tscn"
+LeaderboardManager="*res://scenes/autoloads/leaderboard_manager.tscn"
+ScreenTransition="*res://scenes/autoloads/screen_transition.tscn"
 
 [debug]
 
@@ -675,6 +675,10 @@ player8_interact_right={
 3d_physics/layer_12="interactable"
 3d_physics/layer_16="moving_platform_area"
 
+[logging]
+
+file_logging/enable_file_logging.pc=false
+
 [physics]
 
 3d/active_soft_world=false
@@ -686,10 +690,10 @@ quality/intended_usage/framebuffer_allocation=3
 threads/thread_model=0
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-quality/directional_shadow/size=1024
-quality/directional_shadow/size.mobile=512
-quality/shadow_atlas/size=1024
-quality/shadow_atlas/size.mobile=512
+quality/directional_shadow/size=2048
+quality/directional_shadow/size.mobile=1024
+quality/shadow_atlas/size=2048
+quality/shadow_atlas/size.mobile=1024
 quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false
 quality/reflections/irradiance_max_size=32
@@ -697,6 +701,7 @@ quality/shading/force_lambert_over_burley=true
 quality/shading/force_blinn_over_ggx=true
 quality/depth_prepass/enable=false
 quality/filters/use_nearest_mipmap_filter=true
+batching/options/single_rect_fallback=true
 limits/buffers/canvas_polygon_buffer_size_kb=64
 limits/buffers/canvas_polygon_index_buffer_size_kb=64
 limits/buffers/immediate_buffer_size_kb=1024

@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/rotate_sun.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=1]
+resource_name = "pass_time"
+length = 60.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 30, 60 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -22.5, -60, 0 ), Vector3( -40, 0, 0 ), Vector3( -22.5, 60, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 30, 45, 60 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.972549, 0.788235, 1 ), Color( 1, 1, 1, 1 ), Color( 0.972549, 0.623529, 0.290196, 1 ), Color( 0.592157, 0.305882, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "pass_time"
+length = 60.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 30, 60 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -20.801, -60, 0 ), Vector3( -34.471, 0, 0 ), Vector3( -20.801, 60, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 30, 45, 60 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.972549, 0.788235, 1 ), Color( 1, 1, 1, 1 ), Color( 0.972549, 0.623529, 0.290196, 1 ), Color( 1, 0.454902, 0.243137, 1 ) ]
+}
+
+[node name="Sun" type="DirectionalLight"]
+transform = Transform( 0.5, 0.331414, -0.800103, 0, 0.92388, 0.382683, 0.866025, -0.191342, 0.461939, 0, 0, 0 )
+light_color = Color( 1, 0.972549, 0.788235, 1 )
+light_cull_mask = 4293918721
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/pass_time = SubResource( 1 )
+"anims/pass_time 2" = SubResource( 2 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="on_sun_finished_rotating"]

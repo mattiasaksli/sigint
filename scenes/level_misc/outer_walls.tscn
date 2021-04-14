@@ -4,7 +4,7 @@
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 1 )
-size = Vector2( 4, 66 )
+size = Vector2( 4, 68 )
 
 [node name="OuterWalls" type="Spatial"]
 __meta__ = {

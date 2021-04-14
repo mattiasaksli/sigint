@@ -18,6 +18,16 @@ const LEVELS_STACK : Array = [
 	"res://scenes/levels/level4.tscn"
 ]
 const MAIN_MENU_PATH : String = "res://scenes/menus/main_menu.tscn"
+const PLAYER_MATERIALS : Array = [
+	preload("res://materials/player/player1.material"),
+	preload("res://materials/player/player2.material"),
+	preload("res://materials/player/player3.material"),
+	preload("res://materials/player/player4.material"),
+	preload("res://materials/player/player5.material"),
+	preload("res://materials/player/player6.material"),
+	preload("res://materials/player/player7.material"),
+	preload("res://materials/player/player8.material")
+]
 
 var _new_player_spawn_locations : Array
 
@@ -101,12 +111,12 @@ func on_player_busted(caught_players : Array) -> void:
 	
 	yield(get_tree().create_timer(1.0), "timeout")
 	
-	on_restart_level()
+	on_restart_level(true)
 
 
-func on_restart_level() -> void:
-	yield(_swap_scenes(LEVELS_STACK[0]), "completed")
-	_level_loaded()
+func on_restart_level(lost_game : bool = false) -> void:
+	yield(_swap_scenes(LEVELS_STACK[0], lost_game), "completed")
+	_level_loaded(lost_game)
 
 
 func on_go_to_main_menu() -> void:
@@ -140,10 +150,10 @@ func _set_spawn_locations() -> void:
 	]
 
 
-func _swap_scenes(level_path : String) -> void:
+func _swap_scenes(level_path : String, lost_game : bool = false) -> void:
 	_can_handle_joystick_connections = false
 	
-	yield(ScreenTransition.fade_out(), "completed")
+	yield(ScreenTransition.fade_out(lost_game), "completed")
 	
 	# Remove old Root3D node
 	var old_scene : Spatial = $"/root/Main/Root3D" as Spatial
@@ -155,7 +165,7 @@ func _swap_scenes(level_path : String) -> void:
 	$"/root/Main".add_child(next_scene)
 
 
-func _level_loaded() -> void:
+func _level_loaded(lost_game : bool = false) -> void:
 	_can_handle_joystick_connections = true
 	
 	emit_signal("show_player")
@@ -168,7 +178,7 @@ func _level_loaded() -> void:
 		index = player.name[6].to_int()
 		player.translation = _new_player_spawn_locations[index - 1]
 	
-	yield(ScreenTransition.fade_in(), "completed")
+	yield(ScreenTransition.fade_in(lost_game), "completed")
 	
 	emit_signal("can_pause_enabled")
 	emit_signal("enable_player_input")
@@ -185,6 +195,7 @@ func _add_new_player(device : int) -> void:
 	# Set new player properties
 	new_player.name = "Player" + String(device + 1)
 	new_player.translation = _new_player_spawn_locations[device]
+	(new_player.get_node("BodyMesh") as MeshInstance).material_override = PLAYER_MATERIALS[device]
 	
 	# Add new player to scene
 	$"/root/Main/Players".add_child(new_player)

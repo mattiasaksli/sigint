@@ -1,11 +1,59 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://meshes/personal_computer/PersonalComputer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://materials/interactable_computer_case.material" type="Material" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.354, 1.148, 2 )
 
 [sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+flags_unshaded = true
+albedo_color = Color( 0.447059, 0.447059, 0.447059, 1 )
+
+[sub_resource type="Shader" id=6]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular_power = 200.0;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+}
+
+void light() {
+	vec3 color = mix(ALBEDO, LIGHT_COLOR, 0.05);
+	
+	DIFFUSE_LIGHT = max(dot(NORMAL, LIGHT), 0.0) * ATTENUATION * color;
+	
+	lowp vec3 h = normalize(LIGHT + VIEW);
+	lowp float specular = pow(max(0.0, dot(NORMAL, h)), specular_power);
+	
+	SPECULAR_LIGHT += min(LIGHT_COLOR * specular, 1.0) * ATTENUATION;
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/albedo = Color( 0.196078, 0.184314, 0.152941, 1 )
+shader_param/specular_power = 600.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
 
 [node name="Interactable" type="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17061, 0 )
@@ -19,10 +67,14 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.980714 )
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = ExtResource( 2 )
 
 [node name="PersonalComputer" parent="MeshInstance" instance=ExtResource( 1 )]
 transform = Transform( -8.74228e-08, 8.74228e-08, 2, 2, -8.74228e-08, 8.74228e-08, 8.74228e-08, 2, -8.74228e-08, -0.25, -5.75, 2.39 )
+material/0 = ExtResource( 2 )
+material/1 = ExtResource( 2 )
+material/2 = SubResource( 5 )
+material/3 = SubResource( 7 )
 
 [node name="InteractionArea" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0 )

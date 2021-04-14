@@ -127,8 +127,6 @@ func on_delete_pressed() -> void:
 
 
 func on_done_pressed() -> void:
-	yield(ScreenTransition.fade_out(), "completed")
-	
 	emit_signal("team_name_entered", _name)
 
 

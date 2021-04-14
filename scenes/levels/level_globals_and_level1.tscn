@@ -16,14 +16,11 @@ pause_mode = 1
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 47 )
 cull_mask = 3
 current = true
-near = 37.5
+near = 40.0
 far = 62.0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Players" type="Spatial" parent="."]
 

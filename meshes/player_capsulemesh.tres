@@ -1,8 +1,5 @@
-[gd_resource type="CapsuleMesh" load_steps=2 format=2]
-
-[ext_resource path="res://materials/player.material" type="Material" id=1]
+[gd_resource type="CapsuleMesh" format=2]
 
 [resource]
-material = ExtResource( 1 )
 radial_segments = 8
 rings = 2
