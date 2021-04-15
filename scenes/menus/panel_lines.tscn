@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.85098, 0, 1, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer"]
@@ -14,18 +14,18 @@ __meta__ = {
 }
 
 [node name="Left" type="Panel" parent="."]
-margin_left = 410.0
-margin_right = 420.0
+margin_left = 400.0
+margin_right = 410.0
 margin_bottom = 800.0
 rect_min_size = Vector2( 10, 0 )
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 3 )
 
 [node name="Right" type="Panel" parent="."]
-margin_left = 860.0
-margin_right = 870.0
+margin_left = 870.0
+margin_right = 880.0
 margin_bottom = 800.0
 rect_min_size = Vector2( 10, 0 )
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

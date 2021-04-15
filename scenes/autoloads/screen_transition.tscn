@@ -69,6 +69,8 @@ tracks/1/keys = {
 pause_mode = 2
 layer = 0
 script = ExtResource( 2 )
+normal_transition_color = Color( 1, 1, 1, 1 )
+game_lost_transition_color = Color( 0, 0, 0, 1 )
 
 [node name="ScreenTransition" type="ColorRect" parent="."]
 material = SubResource( 1 )
