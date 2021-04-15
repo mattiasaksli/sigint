@@ -5,15 +5,18 @@
 [ext_resource path="res://scripts/tutorial/tutorial_camera_guard.gd" type="Script" id=3]
 [ext_resource path="res://materials/divider.material" type="Material" id=4]
 [ext_resource path="res://materials/walls.material" type="Material" id=5]
-[ext_resource path="res://scenes/level_misc/divider.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/level_misc/divider_low.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/tutorial_misc/tutorial_win_area.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/level_misc/two_room_invisible_walls_side.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=14]
+
+
+
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 4 )

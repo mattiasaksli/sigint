@@ -5,7 +5,7 @@ enum DoorSide {LEFT_DOOR, RIGHT_DOOR}
 export(DoorSide) var side
 export var double_doors_obstacle_path : NodePath
 export var speed : float = 3
-export var closed_bound : float = 18
+export var closed_bound : float = 19.5
 export var open_bound : float = 10
 
 var _door_movement_direction : Vector3 = Vector3.ZERO

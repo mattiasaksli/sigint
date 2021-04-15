@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/themes/main_menu.theme" type="Theme" id=1]
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
@@ -14,9 +14,6 @@ font_data = ExtResource( 3 )
 size = 50
 extra_spacing_char = 1
 font_data = ExtResource( 3 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.85098, 0, 1, 1 )
 
 [node name="MainMenuControl" type="Control"]
 anchor_right = 1.0
@@ -249,33 +246,6 @@ margin_bottom = -6.10352e-05
 bbcode_enabled = true
 bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
 text = "Back "
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 6.10352e-05
-custom_constants/separation = 440
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Left" type="Panel" parent="HBoxContainer"]
-margin_left = 400.0
-margin_right = 410.0
-margin_bottom = 800.0
-rect_min_size = Vector2( 10, 0 )
-custom_styles/panel = SubResource( 3 )
-
-[node name="Right" type="Panel" parent="HBoxContainer"]
-margin_left = 870.0
-margin_right = 880.0
-margin_bottom = 800.0
-rect_min_size = Vector2( 10, 0 )
-custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

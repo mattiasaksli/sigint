@@ -4,7 +4,7 @@
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 1 )
-size = Vector2( 32, 68 )
+size = Vector2( 34.5, 68 )
 
 [node name="Floor" type="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )

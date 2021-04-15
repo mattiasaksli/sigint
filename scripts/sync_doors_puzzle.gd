@@ -1,9 +1,9 @@
 extends Spatial
 
 # Based on spawn location indexes
-const LEFT_ROOM_INTERACTABLE_INDEXES : Array = [0, 3, 6]
-const MIDDLE_ROOM_INTERACTABLE_INDEXES : Array = [2, 5]
-const RIGHT_ROOM_INTERACTABLE_INDEXES : Array = [1, 4, 7]
+const LEFT_ROOM_INTERACTABLE_INDEXES : Array = [1, 4]
+const MIDDLE_ROOM_INTERACTABLE_INDEXES : Array = [0, 3, 6]
+const RIGHT_ROOM_INTERACTABLE_INDEXES : Array = [2, 5]
 
 var _interactable_nodes : Array = []
 var _next_active_node_indices_stack : Array = []
