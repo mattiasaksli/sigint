@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level_misc/sync_puzzle/sync_interactable.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/level_misc/three_room_side_invisible_walls.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/level_misc/floor.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=10]
+[ext_resource path="res://meshes/yellow_post/yellow_post.tscn" type="PackedScene" id=11]
 
 [node name="Root3D" type="Spatial"]
 
@@ -44,11 +45,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5, 0, 0 )
 
 [node name="Floor" parent="LeftRoom" instance=ExtResource( 9 )]
 
+[node name="DecorativePost" parent="LeftRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 1.4 )
+
+[node name="DecorativePost2" parent="LeftRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 1.4 )
+
 [node name="InvisibleWalls" parent="LeftRoom" instance=ExtResource( 8 )]
 
 [node name="MiddleRoom" type="Spatial" parent="."]
 
 [node name="Floor" parent="MiddleRoom" instance=ExtResource( 9 )]
+
+[node name="DecorativePost" parent="MiddleRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 1.4 )
+
+[node name="DecorativePost2" parent="MiddleRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 1.4 )
 
 [node name="LeftDivider" parent="MiddleRoom" instance=ExtResource( 7 )]
 
@@ -83,6 +96,12 @@ polygon = PoolVector2Array( 0, -1, 0, 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, 0, 0 )
 
 [node name="Floor" parent="RightRoom" instance=ExtResource( 9 )]
+
+[node name="DecorativePost" parent="RightRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 1.4 )
+
+[node name="DecorativePost2" parent="RightRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 1.4 )
 
 [node name="InvisibleWalls" parent="RightRoom" instance=ExtResource( 8 )]
 
