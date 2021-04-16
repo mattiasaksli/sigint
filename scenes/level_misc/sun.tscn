@@ -61,8 +61,8 @@ tracks/1/keys = {
 }
 
 [node name="Sun" type="DirectionalLight"]
-transform = Transform( 0.642787, -0.293153, 0.707732, 0, 0.92388, 0.382683, -0.766044, -0.245984, 0.593858, 0, 0, 0 )
-light_color = Color( 0.592157, 0.305882, 0, 1 )
+transform = Transform( 0.642787, 0.293153, -0.707732, 0, 0.92388, 0.382683, 0.766044, -0.245984, 0.593858, 0, 0, 0 )
+light_color = Color( 1, 0.972549, 0.788235, 1 )
 light_cull_mask = 4293918721
 script = ExtResource( 1 )
 __meta__ = {

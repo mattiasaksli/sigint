@@ -1,19 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://ui/themes/main_menu.theme" type="Theme" id=1]
+[ext_resource path="res://ui/themes/main.theme" type="Theme" id=1]
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
-[ext_resource path="res://ui/fonts/gnu_unifont_full_pm9p.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://ui/fonts/source_serif_pro_regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://ui/icons/logo.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
-size = 50
-extra_spacing_bottom = 4
-extra_spacing_char = 1
+size = 45
+use_filter = true
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 50
-extra_spacing_char = 1
+size = 45
+use_filter = true
 font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.964706, 0.921569, 0.843137, 0 )
+border_color = Color( 0.298039, 0.439216, 0.137255, 1 )
+corner_detail = 1
+anti_aliasing = false
 
 [node name="MainMenuControl" type="Control"]
 anchor_right = 1.0
@@ -32,59 +38,75 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuButtonsVBox" type="VBoxContainer" parent="Panel"]
-anchor_left = 0.344
-anchor_top = 0.25
-anchor_right = 0.656
-anchor_bottom = 0.75
-margin_left = -0.319977
-margin_right = 0.320007
+[node name="MainMenu" type="Control" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="Panel/MainMenu"]
+anchor_left = 0.336
+anchor_right = 0.664
+anchor_bottom = 0.525
+margin_left = -0.0800171
+margin_right = 0.0799561
 margin_bottom = -6.10352e-05
+texture = ExtResource( 4 )
+
+[node name="MenuButtonsVBox" type="VBoxContainer" parent="Panel/MainMenu"]
+anchor_left = 0.394
+anchor_top = 0.5
+anchor_right = 0.606
+anchor_bottom = 0.875
+margin_left = -0.320007
+margin_top = -6.10352e-05
+margin_right = 0.320007
+margin_bottom = -0.00012207
 rect_min_size = Vector2( 200, 200 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NewGameBtn" type="Button" parent="Panel/MenuButtonsVBox"]
-margin_top = 55.0
-margin_right = 400.0
-margin_bottom = 101.0
+[node name="NewGameBtn" type="Button" parent="Panel/MainMenu/MenuButtonsVBox"]
+margin_right = 272.0
+margin_bottom = 48.0
 focus_neighbour_top = NodePath("../QuitBtn")
 focus_neighbour_bottom = NodePath("../TutorialBtn")
-text = "NEW GAME"
+text = "New Game"
 
-[node name="TutorialBtn" type="Button" parent="Panel/MenuButtonsVBox"]
-margin_top = 116.0
-margin_right = 400.0
-margin_bottom = 162.0
+[node name="TutorialBtn" type="Button" parent="Panel/MainMenu/MenuButtonsVBox"]
+margin_top = 63.0
+margin_right = 272.0
+margin_bottom = 111.0
 focus_neighbour_top = NodePath("../NewGameBtn")
 focus_neighbour_bottom = NodePath("../LeaderboardBtn")
-text = "TUTORIAL"
+text = "Tutorial"
 
-[node name="LeaderboardBtn" type="Button" parent="Panel/MenuButtonsVBox"]
-margin_top = 177.0
-margin_right = 400.0
-margin_bottom = 223.0
+[node name="LeaderboardBtn" type="Button" parent="Panel/MainMenu/MenuButtonsVBox"]
+margin_top = 126.0
+margin_right = 272.0
+margin_bottom = 174.0
 focus_neighbour_top = NodePath("../TutorialBtn")
 focus_neighbour_bottom = NodePath("../OptionsBtn")
-text = "LEADERBOARD"
+text = "Leaderboard"
 
-[node name="OptionsBtn" type="Button" parent="Panel/MenuButtonsVBox"]
-margin_top = 238.0
-margin_right = 400.0
-margin_bottom = 284.0
+[node name="OptionsBtn" type="Button" parent="Panel/MainMenu/MenuButtonsVBox"]
+margin_top = 189.0
+margin_right = 272.0
+margin_bottom = 237.0
 focus_neighbour_top = NodePath("../LeaderboardBtn")
 focus_neighbour_bottom = NodePath("../QuitBtn")
-text = "OPTIONS"
+text = "Options"
 
-[node name="QuitBtn" type="Button" parent="Panel/MenuButtonsVBox"]
-margin_top = 299.0
-margin_right = 400.0
-margin_bottom = 345.0
+[node name="QuitBtn" type="Button" parent="Panel/MainMenu/MenuButtonsVBox"]
+margin_top = 252.0
+margin_right = 272.0
+margin_bottom = 300.0
 focus_neighbour_top = NodePath("../OptionsBtn")
 focus_neighbour_bottom = NodePath("../NewGameBtn")
-text = "QUIT"
+text = "Quit"
 
 [node name="Leaderboard" type="Control" parent="Panel"]
 visible = false
@@ -109,14 +131,14 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/Leaderboard/CenterContainer"]
 margin_left = 16.0
-margin_top = 4.0
+margin_top = 31.0
 margin_right = 1231.0
-margin_bottom = 59.0
+margin_bottom = 33.0
 custom_constants/separation = 120
 
 [node name="TeamName" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]
 margin_right = 325.0
-margin_bottom = 55.0
+margin_bottom = 58.0
 rect_min_size = Vector2( 325, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Team name"
@@ -126,7 +148,7 @@ valign = 1
 [node name="TimeElapsed" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]
 margin_left = 445.0
 margin_right = 770.0
-margin_bottom = 55.0
+margin_bottom = 58.0
 rect_min_size = Vector2( 325, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Time elapsed"
@@ -136,7 +158,7 @@ valign = 1
 [node name="Finished" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]
 margin_left = 890.0
 margin_right = 1215.0
-margin_bottom = 55.0
+margin_bottom = 58.0
 rect_min_size = Vector2( 325, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "Finished"
@@ -162,12 +184,12 @@ custom_constants/separation = 60
 alignment = 1
 
 [node name="BackButtonLabel" type="RichTextLabel" parent="Panel/Leaderboard"]
-anchor_left = 0.837
+anchor_left = 0.862
 anchor_top = 0.91
-anchor_right = 0.956
+anchor_right = 0.981
 anchor_bottom = 0.97
-margin_left = 32.64
-margin_right = 32.3199
+margin_left = 0.639893
+margin_right = 0.319824
 bbcode_enabled = true
 bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
 text = "Back "
@@ -196,28 +218,29 @@ __meta__ = {
 }
 
 [node name="Options" type="Label" parent="Panel/OptionsMenu"]
-anchor_left = 0.431
-anchor_top = 0.2
-anchor_right = 0.573
-anchor_bottom = 0.264
-margin_left = 0.319946
-margin_top = -1.52588e-05
-margin_right = -0.440002
-margin_bottom = -0.200012
+anchor_left = 0.425
+anchor_top = 0.25
+anchor_right = 0.575
+anchor_bottom = 0.322
+margin_left = 0.5
+margin_top = -4.57764e-05
+margin_right = -0.500061
+margin_bottom = 0.399933
 custom_fonts/font = SubResource( 2 )
-text = "OPTIONS"
+text = "Options"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/OptionsMenu"]
-anchor_left = 0.344
-anchor_top = 0.27
-anchor_right = 0.656
-anchor_bottom = 0.77
-margin_left = -0.320007
+anchor_left = 0.363
+anchor_top = 0.42
+anchor_right = 0.637
+anchor_bottom = 0.67
+margin_left = 0.359985
 margin_top = -3.05176e-05
-margin_right = 0.319946
+margin_right = 0.639954
 margin_bottom = -6.10352e-05
 rect_min_size = Vector2( 200, 200 )
 alignment = 1
@@ -227,21 +250,28 @@ __meta__ = {
 }
 
 [node name="FullscreenCheckButton" type="CheckButton" parent="Panel/OptionsMenu/VBoxContainer"]
-margin_top = 177.0
-margin_right = 400.0
-margin_bottom = 223.0
+margin_top = 68.0
+margin_right = 351.0
+margin_bottom = 132.0
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/hover_pressed = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+custom_colors/font_color_hover_pressed = Color( 0.133333, 0.152941, 0.145098, 1 )
+custom_colors/font_color_pressed = Color( 0.133333, 0.152941, 0.145098, 1 )
 custom_constants/hseparation = 40
-text = "FULLSCREEN"
+text = "Fullscreen"
 align = 1
 
 [node name="BackButtonLabel" type="RichTextLabel" parent="Panel/OptionsMenu"]
-anchor_left = 0.837
+anchor_left = 0.862
 anchor_top = 0.91
-anchor_right = 0.956
+anchor_right = 0.981
 anchor_bottom = 0.97
-margin_left = 32.64
+margin_left = 0.639893
 margin_top = -6.10352e-05
-margin_right = 32.3199
+margin_right = 0.319824
 margin_bottom = -6.10352e-05
 bbcode_enabled = true
 bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
@@ -249,9 +279,9 @@ text = "Back "
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="Panel/MenuButtonsVBox/NewGameBtn" to="." method="on_new_game_started"]
-[connection signal="pressed" from="Panel/MenuButtonsVBox/TutorialBtn" to="." method="on_tutorial_started"]
-[connection signal="pressed" from="Panel/MenuButtonsVBox/LeaderboardBtn" to="." method="on_leaderboard_opened"]
-[connection signal="pressed" from="Panel/MenuButtonsVBox/OptionsBtn" to="." method="on_options_opened"]
-[connection signal="pressed" from="Panel/MenuButtonsVBox/QuitBtn" to="." method="on_quit_game"]
+[connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/NewGameBtn" to="." method="on_new_game_started"]
+[connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/TutorialBtn" to="." method="on_tutorial_started"]
+[connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/LeaderboardBtn" to="." method="on_leaderboard_opened"]
+[connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/OptionsBtn" to="." method="on_options_opened"]
+[connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/QuitBtn" to="." method="on_quit_game"]
 [connection signal="toggled" from="Panel/OptionsMenu/VBoxContainer/FullscreenCheckButton" to="." method="_on_fullscreen_toggled"]

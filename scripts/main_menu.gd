@@ -12,7 +12,7 @@ enum {
 
 var _menu_state : int
 
-onready var _menu : VBoxContainer = $Panel/MenuButtonsVBox as VBoxContainer
+onready var _menu : Control = $Panel/MainMenu as Control
 onready var _leaderboard : Control = $Panel/Leaderboard as Control
 onready var _options : Control = $Panel/OptionsMenu as Control
 
@@ -21,7 +21,7 @@ onready var _fullscreen_toggle : CheckButton = $Panel/OptionsMenu/VBoxContainer/
 
 func _ready() -> void:
 	_menu_state = MENU_OPEN
-	(_menu.get_node("NewGameBtn") as Control).grab_focus()
+	(_menu.get_node("MenuButtonsVBox/NewGameBtn") as Control).grab_focus()
 	
 	_fullscreen_toggle.pressed = OS.window_fullscreen
 	
@@ -34,7 +34,7 @@ func _input(event : InputEvent) -> void:
 			_leaderboard.hide()
 			_menu.show()
 			_menu_state = MENU_OPEN
-			(_menu.get_node("NewGameBtn") as Control).grab_focus()
+			(_menu.get_node("MenuButtonsVBox/NewGameBtn") as Control).grab_focus()
 		elif event.is_action_pressed("ui_up"):
 			(_leaderboard.get_node("ScrollContainer") as ScrollContainer).scroll_vertical -= 55
 		elif event.is_action_pressed("ui_down"):
@@ -44,11 +44,11 @@ func _input(event : InputEvent) -> void:
 			_options.hide()
 			_menu.show()
 			_menu_state = MENU_OPEN
-			(_menu.get_node("NewGameBtn") as Control).grab_focus()
+			(_menu.get_node("MenuButtonsVBox/NewGameBtn") as Control).grab_focus()
 
 
 func on_new_game_started() -> void:
-	$Panel/MenuButtonsVBox/NewGameBtn.disconnect("pressed", self, "on_new_game_started")
+	$Panel/MainMenu/MenuButtonsVBox/NewGameBtn.disconnect("pressed", self, "on_new_game_started")
 	
 	print("Starting new game")
 	
@@ -64,7 +64,7 @@ func on_new_game_started() -> void:
 
 
 func on_tutorial_started() -> void:
-	$Panel/MenuButtonsVBox/TutorialBtn.disconnect("pressed", self, "on_tutorial_started")
+	$Panel/MainMenu/MenuButtonsVBox/TutorialBtn.disconnect("pressed", self, "on_tutorial_started")
 	
 	print("Starting tutorial")
 	
