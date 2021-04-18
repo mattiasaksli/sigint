@@ -131,9 +131,9 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/Leaderboard/CenterContainer"]
 margin_left = 16.0
-margin_top = 31.0
+margin_top = 3.0
 margin_right = 1231.0
-margin_bottom = 33.0
+margin_bottom = 61.0
 custom_constants/separation = 120
 
 [node name="TeamName" type="Label" parent="Panel/Leaderboard/CenterContainer/HBoxContainer"]

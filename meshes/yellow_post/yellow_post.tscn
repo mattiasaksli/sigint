@@ -58,7 +58,7 @@ shader_param/beta = 0.101
 extents = Vector3( 0.125, 0.125, 0.9 )
 
 [node name="DecorativePost" type="StaticBody"]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 0, 0, 1.4 )
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0.25 )
 collision_layer = 4
 collision_mask = 2
 

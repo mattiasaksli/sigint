@@ -1,9 +1,8 @@
 extends Spatial
 
-# Based on spawn location indexes
-const LEFT_ROOM_INTERACTABLE_INDEXES : Array = [1, 4]
-const MIDDLE_ROOM_INTERACTABLE_INDEXES : Array = [0, 3, 6]
-const RIGHT_ROOM_INTERACTABLE_INDEXES : Array = [2, 5]
+const LEFT_ROOM_PLAYER_INDEXES : Array = [1, 4]
+const MIDDLE_ROOM_PLAYER_INDEXES : Array = [0, 3, 6]
+const RIGHT_ROOM_PLAYER_INDEXES : Array = [2, 5]
 
 var _interactable_nodes : Array = []
 var _next_active_node_indices_stack : Array = []
@@ -95,30 +94,38 @@ func _set_active_nodes_order() -> Array:
 	_next_active_node_indices_stack.clear()
 	
 	# Randomize indices per room
-	LEFT_ROOM_INTERACTABLE_INDEXES.shuffle()
-	MIDDLE_ROOM_INTERACTABLE_INDEXES.shuffle()
-	RIGHT_ROOM_INTERACTABLE_INDEXES.shuffle()
+	LEFT_ROOM_PLAYER_INDEXES.shuffle()
+	MIDDLE_ROOM_PLAYER_INDEXES.shuffle()
+	RIGHT_ROOM_PLAYER_INDEXES.shuffle()
 	
-	var players_in_left_room : int = 0
-	var players_in_middle_room : int = 0
-	var players_in_right_room : int = 0
+	var players_in_left_room : bool = false
+	var players_in_middle_room : bool = false
+	var players_in_right_room : bool = false
 	
+	# Check if there are any players in the rooms
 	for player_index in _game_manager.get_controller_indices():
-		if player_index in LEFT_ROOM_INTERACTABLE_INDEXES:
-			players_in_left_room += 1
-		elif player_index in MIDDLE_ROOM_INTERACTABLE_INDEXES:
-			players_in_middle_room += 1
-		elif player_index in RIGHT_ROOM_INTERACTABLE_INDEXES:
-			players_in_right_room += 1
+		if not players_in_left_room and player_index in LEFT_ROOM_PLAYER_INDEXES:
+			players_in_left_room = true
+		elif not players_in_middle_room and player_index in MIDDLE_ROOM_PLAYER_INDEXES:
+			players_in_middle_room = true
+		elif not players_in_right_room and player_index in RIGHT_ROOM_PLAYER_INDEXES:
+			players_in_right_room = true
 	
-	# Make sure that each player gets "their own" interactable in the room they are in
+	# If a player is in a room, adds all of the interactables in that room the the queue
 	var new_indices : Array = []
-	for i in range(players_in_left_room):
-		new_indices.append(LEFT_ROOM_INTERACTABLE_INDEXES[i])
-	for i in range(players_in_middle_room):
-		new_indices.append(MIDDLE_ROOM_INTERACTABLE_INDEXES[i])
-	for i in range(players_in_right_room):
-		new_indices.append(RIGHT_ROOM_INTERACTABLE_INDEXES[i])
+	if players_in_left_room:
+		new_indices += LEFT_ROOM_PLAYER_INDEXES
+	if players_in_middle_room:
+		new_indices += MIDDLE_ROOM_PLAYER_INDEXES
+	if players_in_right_room:
+		new_indices += RIGHT_ROOM_PLAYER_INDEXES
+	
+#	for i in range(players_in_left_room):
+#		new_indices.append(LEFT_ROOM_PLAYER_INDEXES[i])
+#	for i in range(players_in_middle_room):
+#		new_indices.append(MIDDLE_ROOM_PLAYER_INDEXES[i])
+#	for i in range(players_in_right_room):
+#		new_indices.append(RIGHT_ROOM_PLAYER_INDEXES[i])
 	
 	# Randomize newly picked indices order
 	new_indices.shuffle()

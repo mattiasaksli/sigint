@@ -13,7 +13,6 @@
 [ext_resource path="res://meshes/yellow_post/yellow_post.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=12]
 
-
 [node name="Root3D" type="Spatial"]
 
 [node name="PlayerSpawnLocations" type="Spatial" parent="."]
@@ -48,10 +47,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, 0 )
 [node name="Floor" parent="LeftRoom" instance=ExtResource( 9 )]
 
 [node name="DecorativePost" parent="LeftRoom" instance=ExtResource( 11 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 1.4 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 0.25 )
 
 [node name="DecorativePost2" parent="LeftRoom" instance=ExtResource( 11 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 1.4 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 0.25 )
 
 [node name="InvisibleWalls" parent="LeftRoom" instance=ExtResource( 12 )]
 
@@ -60,10 +59,10 @@ transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 1.4 )
 [node name="Floor" parent="MiddleRoom" instance=ExtResource( 9 )]
 
 [node name="DecorativePost" parent="MiddleRoom" instance=ExtResource( 11 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -9, 18, 1.4 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -9, 18, 0.25 )
 
 [node name="DecorativePost2" parent="MiddleRoom" instance=ExtResource( 11 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 9, 18, 1.4 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 9, 18, 0.25 )
 
 [node name="InvisibleWalls" parent="MiddleRoom" instance=ExtResource( 8 )]
 
@@ -80,10 +79,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0, 0 )
 [node name="InvisibleWalls" parent="RightRoom" instance=ExtResource( 12 )]
 
 [node name="DecorativePost" parent="RightRoom" instance=ExtResource( 11 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 1.4 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 0.25 )
 
 [node name="DecorativePost2" parent="RightRoom" instance=ExtResource( 11 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 1.4 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 0.25 )
 
 [node name="OuterWalls" parent="." instance=ExtResource( 5 )]
 

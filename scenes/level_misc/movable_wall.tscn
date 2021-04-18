@@ -7,7 +7,7 @@ material = ExtResource( 1 )
 size = Vector3( 1.5, 10, 2 )
 
 [node name="MovableWall" type="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.32074, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.321, 1 )
 __meta__ = {
 "_edit_group_": true
 }

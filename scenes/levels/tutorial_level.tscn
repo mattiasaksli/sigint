@@ -1,9 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/tutorial/tutorial_open_toggle_door.gd" type="Script" id=1]
 [ext_resource path="res://scenes/level_misc/floor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/tutorial/tutorial_camera_guard.gd" type="Script" id=3]
-[ext_resource path="res://materials/divider.material" type="Material" id=4]
+[ext_resource path="res://scenes/level_misc/movable_wall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://materials/walls.material" type="Material" id=5]
 [ext_resource path="res://scenes/level_misc/divider_low.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=7]
@@ -15,14 +15,7 @@
 [ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=14]
 
-
-
-
-[sub_resource type="CubeMesh" id=1]
-material = ExtResource( 4 )
-size = Vector3( 2, 10, 2 )
-
-[sub_resource type="QuadMesh" id=2]
+[sub_resource type="QuadMesh" id=1]
 material = ExtResource( 5 )
 size = Vector2( 96, 4 )
 
@@ -55,7 +48,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -27.5, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -27.5, 0 )
 
 [node name="LeftRoom" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, 0 )
 
 [node name="Floor" parent="LeftRoom" instance=ExtResource( 2 )]
 
@@ -93,94 +86,24 @@ top_bound = 7.0
 bottom_bound = -13.5
 
 [node name="LeftDivider" parent="MiddleRoom" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -0.5 )
 
-[node name="Wall" type="Spatial" parent="MiddleRoom/LeftDivider"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.32074, 1 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider/Wall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/LeftDivider/Wall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/LeftDivider/Wall/FOVCollider"]
-depth = 4.0
-polygon = PoolVector2Array( 0, -5, 0, 5 )
-
-[node name="Wall2" type="Spatial" parent="MiddleRoom/LeftDivider"]
+[node name="StaticWall" parent="MiddleRoom/LeftDivider" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 24, 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/LeftDivider/Wall2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/LeftDivider/Wall2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/LeftDivider/Wall2/FOVCollider"]
-depth = 4.0
-polygon = PoolVector2Array( 0, -5, 0, 5 )
+[node name="StaticWall2" parent="MiddleRoom/LeftDivider" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 1 )
 
 [node name="RightDivider" parent="MiddleRoom" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -0.5 )
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 20.25, 0, -0.5 )
 
-[node name="Wall" type="Spatial" parent="MiddleRoom/RightDivider"]
-transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 1 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="StaticWall" parent="MiddleRoom/RightDivider" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 24, 1 )
 
-[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/RightDivider/Wall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/RightDivider/Wall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/RightDivider/Wall/FOVCollider"]
-depth = 4.0
-polygon = PoolVector2Array( 0, -5, 0, 5 )
-
-[node name="Wall2" type="Spatial" parent="MiddleRoom/RightDivider"]
-transform = Transform( -1, 0, 0, 0, 2, -8.74228e-08, 0, 1.74846e-07, 1, 0, 24, 1 )
-__meta__ = {
-"_edit_group_": true,
-"_editor_description_": ""
-}
-
-[node name="WallMesh" type="MeshInstance" parent="MiddleRoom/RightDivider/Wall2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="FOVCollider" type="StaticBody" parent="MiddleRoom/RightDivider/Wall2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionPolygon" type="CollisionPolygon" parent="MiddleRoom/RightDivider/Wall2/FOVCollider"]
-depth = 4.0
-polygon = PoolVector2Array( 0, -5, 0, 5 )
+[node name="StaticWall2" parent="MiddleRoom/RightDivider" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90735e-06, 1 )
 
 [node name="RightRoom" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0, 0 )
 
 [node name="Floor" parent="RightRoom" instance=ExtResource( 2 )]
 
@@ -202,12 +125,12 @@ transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -1.5 )
 
 [node name="DownWall" type="MeshInstance" parent="OuterWalls"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -30, 0.5 )
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="DownRim" type="MeshInstance" parent="OuterWalls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 2.5 )
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="TutorialWinArea" parent="." instance=ExtResource( 12 )]

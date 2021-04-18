@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
+flags_unshaded = true
+albedo_color = Color( 0.203922, 0.203922, 0.203922, 1 )
+
+[sub_resource type="ArrayMesh" id=1]
+resource_name = "Plane"
+surfaces/0 = {
+"aabb": AABB( -1, 0, 0, 2, 1e-05, 4 ),
+"array_data": PoolByteArray( 0, 0, 128, 191, 0, 0, 0, 0, 0, 0, 0, 64, 0, 127, 0, 0, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 127, 0, 0, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 127, 0, 0, 127, 0, 0, 127, 0, 0, 0, 60, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 128, 64, 0, 127, 0, 0, 0, 0, 127, 129, 0, 58, 0, 60, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 127, 0, 0, 0, 0, 127, 129, 0, 0, 0, 60, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 0, 64, 0, 127, 0, 0, 0, 0, 127, 129, 0, 52, 0, 0, 0, 0, 0, 191, 0, 0, 0, 0, 0, 0, 128, 64, 0, 127, 0, 0, 127, 0, 0, 127, 0, 52, 0, 60 ),
+"array_index_data": PoolByteArray( 4, 0, 5, 0, 2, 0, 5, 0, 3, 0, 6, 0, 4, 0, 2, 0, 1, 0, 5, 0, 4, 0, 3, 0, 2, 0, 5, 0, 0, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 15,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 7
+}
+
+[node name="Arrow" type="MeshInstance"]
+transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, -0.75, 0, 0.6, -3.27835e-08, 0, 0, 0 )
+material_override = SubResource( 2 )
+mesh = SubResource( 1 )
+material/0 = null

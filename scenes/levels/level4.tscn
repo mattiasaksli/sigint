@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/level_misc/divider_high.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/level_misc/invisible_walls_middle_room.tscn" type="PackedScene" id=8]
 
-
 [node name="Root3D" type="Spatial"]
 
 [node name="PlayerSpawnLocations" type="Spatial" parent="."]
@@ -69,12 +68,6 @@ retract_duration = 1.75
 starting_delay = 0.25
 before_extend_start_delay = 1.2
 
-[node name="CrusherObstacle4" parent="LeftRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
-extend_duration = 1.1
-retract_duration = 1.75
-before_extend_start_delay = 1.2
-
 [node name="MiddleRoom" type="Spatial" parent="."]
 
 [node name="Floor" parent="MiddleRoom" instance=ExtResource( 2 )]
@@ -82,7 +75,6 @@ before_extend_start_delay = 1.2
 [node name="InvisibleWalls" parent="MiddleRoom" instance=ExtResource( 8 )]
 
 [node name="LeftDivider" parent="MiddleRoom" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.25, 0, 0.5 )
 
 [node name="RightDivider" parent="MiddleRoom" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.25, 0, 0.5 )
@@ -115,14 +107,9 @@ before_extend_start_delay = 1.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
 extend_duration = 1.0
 retract_duration = 1.7
-starting_delay = 1.0
-before_retract_start_delay = 0.9
-before_extend_start_delay = 1.0
-
-[node name="CrusherObstacle4" parent="RightRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
-extend_duration = 1.0
-before_retract_start_delay = 0.9
+starting_delay = 0.3
+before_retract_start_delay = 0.45
+before_extend_start_delay = 0.5
 
 [node name="OuterWalls" parent="." instance=ExtResource( 5 )]
 
