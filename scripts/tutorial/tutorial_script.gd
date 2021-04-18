@@ -8,19 +8,19 @@ signal go_to_main_menu
 const _tutorial_win_texts : Array = [
 	"""[center]Now you know how to complete levels! The total time it takes to complete all levels (except when the game is paused) is tracked and can be entered into the leaderboard at the end of the game.
 	
-	Press [img]res://ui/icons/a_button.png[/img] to continue.[/center]""",
+	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
 	"""[center]The game is meant to be played with [color=#00ff00]2-4 players[/color], since you need to cooperate to get through levels. Players can join/leave the game at any time.
 	
-	Press [img]res://ui/icons/a_button.png[/img] to continue.[/center]""",
+	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
 	"""[center]You have [color=#ff0000]60 seconds[/color] to complete each level. You can keep track of this by looking at the sun's direction and color. If you take longer than 60 seconds to complete a level, that level will be restarted.
 	
-	Press [img]res://ui/icons/a_button.png[/img] to continue.[/center]""",
+	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
 	"""[center]Have [color=#ff0000]f[/color][color=#00ff00]u[/color][color=#0000ff]n[/color]!
 	
-	Press [img]res://ui/icons/a_button.png[/img] to return to the main menu.[/center]"""
+	Press [img=32]res://ui/icons/a_button.png[/img] to return to the main menu.[/center]"""
 ]
 
 var _player_interacted_with_computer : bool = false
@@ -84,7 +84,6 @@ func on_trigger_next_win_area_text() -> void:
 		_tutorial_win_texts.remove(0)
 		_tutorial_content.bbcode_text = _tutorial_win_texts[0]
 	else:
-		# TODO: change to screen transition
 		yield(get_tree().create_timer(1.0), "timeout")
 		
 		print("Tutorial ended, going to main menu")

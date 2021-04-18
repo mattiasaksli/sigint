@@ -54,13 +54,7 @@ func on_new_game_started() -> void:
 	
 	yield(ScreenTransition.fade_out(), "completed")
 	
-	# Add level 1 node
-	var level_globals_and_level1_scene : Node = (preload(LEVEL_GLOBALS_AND_LEVEL1_PATH) as PackedScene).instance()
-	$"/root".add_child(level_globals_and_level1_scene)
-	
-	# Remove main menu node
-	$"/root".remove_child(self)
-	self.call_deferred("free")
+	get_tree().change_scene_to(load(LEVEL_GLOBALS_AND_LEVEL1_PATH))
 
 
 func on_tutorial_started() -> void:
@@ -70,12 +64,7 @@ func on_tutorial_started() -> void:
 	
 	yield(ScreenTransition.fade_out(), "completed")
 	
-	var tutorial_scene : Node = (load(TUTORIAL_PATH) as PackedScene).instance()
-	$"/root".add_child(tutorial_scene)
-	
-	# Remove main menu node
-	$"/root".remove_child(self)
-	self.call_deferred("free")
+	get_tree().change_scene_to(load(TUTORIAL_PATH))
 
 
 func on_leaderboard_opened() -> void:

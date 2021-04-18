@@ -121,13 +121,7 @@ func on_restart_level(lost_game : bool = false) -> void:
 
 func on_go_to_main_menu() -> void:
 	yield(ScreenTransition.fade_out(), "completed")
-	
-	var main_menu : Control = _level_loader_thread.get_level(MAIN_MENU_PATH).instance() as Control
-	$"/root".add_child(main_menu)
-	
-	var old_scene : Node = $"/root/Main" as Node
-	$"/root".remove_child(old_scene)
-	old_scene.call_deferred("free")
+	get_tree().change_scene_to(preload(MAIN_MENU_PATH))
 
 
 # Each controller corresponds to an integer id, this function returns an array of them.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/tutorial/tutorial_open_toggle_door.gd" type="Script" id=1]
 [ext_resource path="res://scenes/level_misc/floor.tscn" type="PackedScene" id=2]
@@ -11,9 +11,10 @@
 [ext_resource path="res://scenes/level_misc/interactable.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/enemies/camera_guard.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/tutorial_misc/tutorial_win_area.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scripts/tutorial/tutorial_win_area.gd" type="Script" id=15]
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 5 )
@@ -133,6 +134,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 2.5 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="TutorialWinArea" parent="." instance=ExtResource( 12 )]
+[node name="WinArea" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
+script = ExtResource( 15 )
 
 [node name="Sun" parent="." instance=ExtResource( 14 )]

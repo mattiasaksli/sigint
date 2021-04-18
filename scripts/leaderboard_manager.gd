@@ -3,7 +3,6 @@ extends Node
 const FILE_NAME : String = "user://leaderboard.dat"
 const PASSWD : String = "1337"
 
-var _leaderboard_loaded_from_file : bool = false
 var _leaderboard_state : Array = []  # Array of dictionaries
 #[
 #	{
@@ -13,6 +12,10 @@ var _leaderboard_state : Array = []  # Array of dictionaries
 #	},
 #	...
 #]
+
+
+func _ready() -> void:
+	_load_from_file()
 
 
 func save_to_file(team_name : String, elapsed_time : String, finished_time : String) -> void:
@@ -44,10 +47,6 @@ func save_to_file(team_name : String, elapsed_time : String, finished_time : Str
 
 
 func get_leaderboard_state() -> Array:
-	if not _leaderboard_loaded_from_file:
-		_load_from_file()
-		_leaderboard_loaded_from_file = true
-	
 	if _leaderboard_state.size() != 0:
 		_sort_leaderboard_state()
 	

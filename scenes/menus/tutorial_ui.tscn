@@ -32,12 +32,12 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-anchor_left = 0.352
+anchor_left = 0.344
 anchor_top = 0.17
-anchor_right = 0.65
+anchor_right = 0.656
 anchor_bottom = 0.97
-margin_left = -0.560028
-margin_right = -2.0
+margin_left = -0.320007
+margin_right = 0.319946
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -68,11 +68,11 @@ custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[center]Welcome to [color=#00ff00]SIGINT[/color]!
 
-You can move your character using the left analog stick [img]res://ui/icons/l_stick.png[/img].
+You can move your character using the left analog stick [img=32]res://ui/icons/l_stick.png[/img].
 
 Go to the computer terminal in front of you and press the button that pops up.
 
-You can pause the game with the start button [img]res://ui/icons/start_button.png[/img].[/center]"
+You can pause the game with the start button [img=32]res://ui/icons/start_button.png[/img].[/center]"
 tab_size = 1
 text = "Welcome to SIGINT!
 

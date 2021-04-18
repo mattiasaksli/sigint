@@ -1,7 +1,7 @@
 extends Spatial
 
 const LEFT_ROOM_PLAYER_INDEXES : Array = [1, 4]
-const MIDDLE_ROOM_PLAYER_INDEXES : Array = [0, 3, 6]
+const MIDDLE_ROOM_PLAYER_INDEXES : Array = [0, 3, 6, 7]
 const RIGHT_ROOM_PLAYER_INDEXES : Array = [2, 5]
 
 var _interactable_nodes : Array = []

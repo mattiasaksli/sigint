@@ -53,6 +53,10 @@ margin_left = -0.0800171
 margin_right = 0.0799561
 margin_bottom = -6.10352e-05
 texture = ExtResource( 4 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MenuButtonsVBox" type="VBoxContainer" parent="Panel/MainMenu"]
 anchor_left = 0.394
@@ -191,7 +195,7 @@ anchor_bottom = 0.97
 margin_left = 0.639893
 margin_right = 0.319824
 bbcode_enabled = true
-bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
+bbcode_text = "Back [img=32]res://ui/icons/b_button.png[/img]"
 text = "Back "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -203,7 +207,7 @@ anchor_top = 0.91
 anchor_right = 0.3
 anchor_bottom = 0.97
 bbcode_enabled = true
-bbcode_text = "Scroll up/down [img]res://ui/icons/dpad_up_down.png[/img]"
+bbcode_text = "Scroll up/down [img=32]res://ui/icons/dpad_up_down.png[/img]"
 text = "Scroll up/down "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -274,7 +278,7 @@ margin_top = -6.10352e-05
 margin_right = 0.319824
 margin_bottom = -6.10352e-05
 bbcode_enabled = true
-bbcode_text = "Back [img]res://ui/icons/b_button.png[/img]"
+bbcode_text = "Back [img=32]res://ui/icons/b_button.png[/img]"
 text = "Back "
 __meta__ = {
 "_edit_use_anchors_": false
