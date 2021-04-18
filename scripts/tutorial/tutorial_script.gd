@@ -41,7 +41,7 @@ func on_player_interacted_with_computer() -> void:
 	
 	_player_interacted_with_computer = true
 	
-	_tutorial_content.bbcode_text = """[center] The door opened, move into the goal area.
+	_tutorial_content.bbcode_text = """[center] The door opened, move into the marked area.
 	
 	But watch out! Those guards are looking for you.
 	

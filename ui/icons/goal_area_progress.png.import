@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goal.png-a12dd77f3f6cb7084f1a309646baebe4.stex"
+path="res://.import/goal_area_progress.png-d09a7ffc4f65cabdbb1198f17e9b4675.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/icons/goal.png"
-dest_files=[ "res://.import/goal.png-a12dd77f3f6cb7084f1a309646baebe4.stex" ]
+source_file="res://ui/icons/goal_area_progress.png"
+dest_files=[ "res://.import/goal_area_progress.png-d09a7ffc4f65cabdbb1198f17e9b4675.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -101,7 +101,6 @@ transform = Transform( -1, 0, 0, 0, 2, -8.74228e-08, 0, 1.74846e-07, 1, 0, 24, 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, -0.5 )
 
 [node name="Wall" parent="MiddleRoom/RightDivider" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.321, 1 )
 
 [node name="Wall2" parent="MiddleRoom/RightDivider" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 24, 1 )

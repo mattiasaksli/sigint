@@ -109,7 +109,6 @@ extend_duration = 1.0
 retract_duration = 1.7
 starting_delay = 0.3
 before_retract_start_delay = 0.45
-before_extend_start_delay = 0.5
 
 [node name="OuterWalls" parent="." instance=ExtResource( 5 )]
 
