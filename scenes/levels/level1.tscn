@@ -119,6 +119,7 @@ bridge_obstacle_node_path = NodePath("../../../RightRoom/BridgeObstacle")
 speed = 5.0
 
 [node name="ButtonSprite3D" parent="LeftRoom/Interactables/RightBridgeInteractable" instance=ExtResource( 9 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 1, 2, 5 )
 
 [node name="ToggleDoorObstacle" parent="LeftRoom" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, -1.5 )
@@ -306,10 +307,11 @@ upper_bound = -2.0
 lower_bound = -24.0
 
 [node name="ButtonSprite3D" parent="RightRoom/Interactables/LeftWallInteractable" instance=ExtResource( 9 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0, 3, 5 )
 texture = ExtResource( 5 )
 
 [node name="LeftToggleDoorInteractable" parent="RightRoom/Interactables" instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -12, 21.0039, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -11, 21.0039, 0 )
 script = ExtResource( 12 )
 toggle_door_obstacle_path = NodePath("../../../LeftRoom/ToggleDoorObstacle")
 duration = 1.5

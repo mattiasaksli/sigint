@@ -2,8 +2,6 @@ class_name WinArea
 
 extends Area
 
-signal start_loading_level
-signal cancel_loading_level
 signal go_to_next_level
 
 var _players_in_win_area : Dictionary
@@ -21,8 +19,6 @@ func _enter_tree():
 	
 	_game_manager.connect("add_player", self, "new_player_spawned")
 	_game_manager.connect("remove_player", self, "player_despawned")
-	self.connect("start_loading_level", _game_manager, "on_start_loading_next_level")
-	self.connect("cancel_loading_level", _game_manager, "on_cancel_loading_next_level")
 	self.connect("go_to_next_level", _game_manager, "on_go_to_next_level")
 
 
@@ -90,7 +86,6 @@ func _are_all_players_in_win_area() -> bool:
 
 
 func _start_loading_next_level() -> void:
-	emit_signal("start_loading_level")
 	_timer.start()
 	
 	if _is_tween_paused:
@@ -105,7 +100,6 @@ func _start_loading_next_level() -> void:
 
 
 func _cancel_loading_next_level() -> void:
-	emit_signal("cancel_loading_level")
 	_timer.stop()
 	
 	# Stop interpolating the progress bar

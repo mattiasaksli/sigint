@@ -118,6 +118,7 @@ script = ExtResource( 1 )
 toggle_door_obstacle_path = NodePath("../../ToggleDoorObstacle")
 
 [node name="ButtonSprite3D" parent="RightRoom/Interactables/ToggleDoorInteractable" instance=ExtResource( 11 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 1, 7, 5 )
 
 [node name="ToggleDoorObstacle" parent="RightRoom" instance=ExtResource( 7 )]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -1.5 )

@@ -13,6 +13,7 @@ export var before_extend_start_delay : float = 0.5
 var _state : int = EXTENDING
 var _players_in_left_piston_area : Array = []
 var _players_in_right_piston_area : Array = []
+var _is_sending_game_over_signal : bool = false
 
 onready var _left_piston : Spatial = $Left/Piston as Spatial
 onready var _right_piston : Spatial = $Right/Piston as Spatial
@@ -141,6 +142,11 @@ func _retract_pistons() -> void:
 
 
 func _trigger_game_over() -> void:
+	if _is_sending_game_over_signal:
+		return
+	
+	_is_sending_game_over_signal = true
+	
 	var players_crushed : Array = []
 	var players = $"/root/Main/Players".get_children()
 	

@@ -26,7 +26,7 @@ func on_player_entered(body: Node) -> void:
 
 
 func on_progress_bar_full() -> void:
-	_game_manager._can_handle_joystick_connections = false
+	_game_manager._is_switching_level = true
 	
 	emit_signal("end_tutorial")
 

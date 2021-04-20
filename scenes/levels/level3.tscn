@@ -111,38 +111,46 @@ transform = Transform( 1.04, 0, 0, 0, 1, 0, 0, 0, 1, 34, 15, -1.5 )
 transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -14, 0, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0.707107, 2.12132, 5 )
 
 [node name="Interactable2" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 8, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable2" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 2, 2.5, 5 )
 
 [node name="Interactable3" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 8, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable3" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -2, 2.5, 5 )
 
 [node name="Interactable4" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 8, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable4" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0.5, 2.5, 5 )
 
 [node name="Interactable5" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 8, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable5" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 3, 2.5, 5 )
 
 [node name="Interactable6" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 8, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable6" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -3, 2.5, 5 )
 
 [node name="Interactable7" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 8, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable7" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -0.5, 2.5, 5 )
 
 [node name="Interactable8" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
 transform = Transform( 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 14, 0, 0 )
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable8" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -0.707, 2.121, 5 )

@@ -10,13 +10,6 @@ signal game_over
 signal can_pause_enabled
 signal can_pause_disabled
 
-# The current level is always at index 0
-const LEVELS_STACK : Array = [
-	"res://scenes/levels/level1.tscn",
-	"res://scenes/levels/level2.tscn",
-	"res://scenes/levels/level3.tscn",
-	"res://scenes/levels/level4.tscn"
-]
 const MAIN_MENU_PATH : String = "res://scenes/menus/main_menu.tscn"
 const PLAYER_MATERIALS : Array = [
 	preload("res://materials/player/player1.material"),
@@ -29,13 +22,17 @@ const PLAYER_MATERIALS : Array = [
 	preload("res://materials/player/player8.material")
 ]
 
+# The current level is always at index 0
+var _levels_stack : Array = [
+	"res://scenes/levels/level1.tscn",
+	"res://scenes/levels/level2.tscn",
+	"res://scenes/levels/level3.tscn",
+	"res://scenes/levels/level4.tscn"
+]
 var _new_player_spawn_locations : Array
-
 var _controller_player_dict : Dictionary
-var _can_handle_joystick_connections : bool = true    # Is set to false while the level is changing
+var _is_switching_level : bool = false    # Is set to false while the level is changing
 var _unhandled_joystick_connections : Dictionary
-
-var _level_loader_thread : LevelLoader
 
 
 func _ready() -> void:
@@ -43,9 +40,6 @@ func _ready() -> void:
 	
 	self.connect("can_pause_enabled", $"/root/Main/PauseMenuControl", "on_pause_enabled")
 	self.connect("can_pause_disabled", $"/root/Main/PauseMenuControl", "on_pause_disabled")
-	
-	_level_loader_thread = preload("res://scripts/level_loader.gd").new()
-	_level_loader_thread.start()
 	
 	_set_spawn_locations()
 	
@@ -57,19 +51,15 @@ func _ready() -> void:
 
 
 func _process(_delta : float) -> void:
-	if not _unhandled_joystick_connections.empty() and _can_handle_joystick_connections:
+	if not _unhandled_joystick_connections.empty() and not _is_switching_level:
 		# Handles all unhandled joystick connection events and clears dictionary
 		for key in _unhandled_joystick_connections.keys():
 			on_controller_connection_changed(key, _unhandled_joystick_connections[key])
 		_unhandled_joystick_connections.clear()
 
 
-func _exit_tree() -> void:
-	_level_loader_thread.stop_thread()
-
-
 func on_controller_connection_changed(device : int, connected : bool) -> void:
-	if not _can_handle_joystick_connections:
+	if _is_switching_level:
 		_unhandled_joystick_connections[device] = connected
 		return
 	
@@ -79,24 +69,18 @@ func on_controller_connection_changed(device : int, connected : bool) -> void:
 		_remove_player(device)
 
 
-func on_start_loading_next_level() -> void:
-	if LEVELS_STACK.size() > 1:
-		_level_loader_thread.queue_level(LEVELS_STACK[1])
-
-
-func on_cancel_loading_next_level() -> void:
-	_level_loader_thread.cancel_loading_level()
-
-
 func on_go_to_next_level() -> void:
-	if LEVELS_STACK.size() == 1:
+	if _is_switching_level:
+		return
+	
+	if _levels_stack.size() == 1:
 		_finish_game()
 		return
 	
-	print("Going to level " + LEVELS_STACK[1])
+	print("Going to level " + _levels_stack[1])
 	
-	yield(_swap_scenes(LEVELS_STACK[1]), "completed")
-	LEVELS_STACK.remove(0)
+	yield(_swap_scenes(_levels_stack[1]), "completed")
+	_levels_stack.remove(0)
 	_level_loaded()
 
 
@@ -115,7 +99,10 @@ func on_player_busted(caught_players : Array) -> void:
 
 
 func on_restart_level(lost_game : bool = false) -> void:
-	yield(_swap_scenes(LEVELS_STACK[0], lost_game), "completed")
+	if _is_switching_level:
+		return
+	
+	yield(_swap_scenes(_levels_stack[0], lost_game), "completed")
 	_level_loaded(lost_game)
 
 
@@ -145,7 +132,7 @@ func _set_spawn_locations() -> void:
 
 
 func _swap_scenes(level_path : String, lost_game : bool = false) -> void:
-	_can_handle_joystick_connections = false
+	_is_switching_level = true
 	
 	yield(ScreenTransition.fade_out(lost_game), "completed")
 	
@@ -155,12 +142,12 @@ func _swap_scenes(level_path : String, lost_game : bool = false) -> void:
 	old_scene.call_deferred("free")
 	
 	# Add newly loaded Root3D node
-	var next_scene : Spatial = _level_loader_thread.get_level(level_path).instance()
+	var next_scene : Spatial = load(level_path).instance()
 	$"/root/Main".add_child(next_scene)
 
 
 func _level_loaded(lost_game : bool = false) -> void:
-	_can_handle_joystick_connections = true
+	_is_switching_level = false
 	
 	emit_signal("show_player")
 	
@@ -211,8 +198,6 @@ func _remove_player(device : int) -> void:
 
 
 func _finish_game() -> void:
-	_level_loader_thread.queue_level(MAIN_MENU_PATH)
-	
 	var elapsed_time : float = ($"/root/Main/ElapsedTimeTracker" as TimeTracker).get_elapsed_time_and_stop_tracking()
 	var formatted_elapsed_time : String = _get_formatted_elapsed_time(elapsed_time)
 	

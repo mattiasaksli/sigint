@@ -14,7 +14,7 @@ const _tutorial_win_texts : Array = [
 	
 	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
-	"""[center]You have [color=#ff0000]60 seconds[/color] to complete each level. You can keep track of this by looking at the sun's direction and color. If you take longer than 60 seconds to complete a level, that level will be restarted.
+	"""[center]You have [color=#ff0000]60 seconds[/color] to complete each level (does not apply to the tutorial). You can keep track of this by looking at the sun's direction and color. If you take longer than 60 seconds to complete a level, that level will be restarted.
 	
 	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
@@ -58,7 +58,7 @@ func on_player_got_caught() -> void:
 	
 	_tutorial_content.bbcode_text = """[center]Oh no! You got caught!
 	
-	Thankfully nothing happened since this is a tutorial, but in an actual level you would be forced to restart.
+	Luckily nothing happened since this is a tutorial, but in an actual level you would be forced to restart.
 	
 	Keep moving to the goal area.[/center]"""
 

@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://git_api.gdns"
 }, {
-"base": "Reference",
-"class": "LevelLoader",
-"language": "GDScript",
-"path": "res://scripts/level_loader.gd"
-}, {
 "base": "Control",
 "class": "PauseMenu",
 "language": "GDScript",
@@ -53,7 +48,6 @@ _global_script_class_icons={
 "CameraGuard": "",
 "GameManager": "",
 "GitAPI": "",
-"LevelLoader": "",
 "PauseMenu": "",
 "Player": "",
 "TimeTracker": "",
@@ -74,6 +68,7 @@ ScreenTransition="*res://scenes/autoloads/screen_transition.tscn"
 
 [debug]
 
+settings/fps/force_fps=30
 settings/stdout/print_fps=true
 gdscript/warnings/unused_class_variable=true
 gdscript/warnings/return_value_discarded=false
@@ -84,7 +79,6 @@ gdscript/warnings/unsafe_call_argument=true
 window/size/width=1280
 window/size/height=800
 window/size/resizable=false
-window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -130,12 +124,14 @@ ui_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":-1.0,"script":null)
  ]
 }
 ui_down={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
  ]
 }
 ui_pause={

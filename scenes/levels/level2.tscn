@@ -77,6 +77,7 @@ script = ExtResource( 2 )
 double_doors_obstacle_path = NodePath("../../DoubleDoorsObstacle")
 
 [node name="ButtonSprite3D" parent="MiddleRoom/Interactables/LeftDoorLever" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -1, 4, 5 )
 
 [node name="RightDoorLever" parent="MiddleRoom/Interactables" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -6.6, 0 )
@@ -85,6 +86,7 @@ side = 1
 double_doors_obstacle_path = NodePath("../../DoubleDoorsObstacle")
 
 [node name="ButtonSprite3D" parent="MiddleRoom/Interactables/RightDoorLever" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 1, 4, 5 )
 
 [node name="DoubleDoorsObstacle" parent="MiddleRoom" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -1.5 )
