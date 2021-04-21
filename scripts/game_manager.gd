@@ -24,9 +24,9 @@ const PLAYER_MATERIALS : Array = [
 
 # The current level is always at index 0
 var _levels_stack : Array = [
-	"res://scenes/levels/level1.tscn",
-	"res://scenes/levels/level2.tscn",
-	"res://scenes/levels/level3.tscn",
+#	"res://scenes/levels/level1.tscn",
+#	"res://scenes/levels/level2.tscn",
+#	"res://scenes/levels/level3.tscn",
 	"res://scenes/levels/level4.tscn"
 ]
 var _new_player_spawn_locations : Array
@@ -220,11 +220,13 @@ func _finish_game() -> void:
 
 func _get_formatted_elapsed_time(elapsed_time : float) -> String:
 	if elapsed_time > 3600:
-		return "59 min 59 sec"
+		return "59 min 59 sec 999 ms"
 	
+	var milliseconds : float = (elapsed_time - (elapsed_time as int)) * 1000
 	var seconds : float = fmod(elapsed_time, 60)
 	var minutes : float = fmod(elapsed_time, 3600) / 60
-	return "%02d min %02d sec" % [minutes, seconds]
+	
+	return "%02d min %02d sec %03d ms" % [minutes, seconds, milliseconds]
 
 
 func _show_team_name_screen() -> Control:

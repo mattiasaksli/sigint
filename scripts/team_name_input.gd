@@ -4,6 +4,7 @@ signal team_name_entered
 
 var _character_index : int = 0
 var _name : String = ""
+var _is_handling_input : bool = false
 
 onready var _name_label : Label = $Panel/Name as Label
 
@@ -131,19 +132,33 @@ func on_done_pressed() -> void:
 
 
 func _add_letter_to_name(letter : String) -> void:
-	if _character_index < 14:
-		_name += letter
-		_character_index += 1
-		_name_label.text = _name + "_"
-	elif _character_index == 14:
+	if _is_handling_input:
+		return
+	
+	_is_handling_input = true
+	
+	if _character_index == 9:
 		_name += letter
 		_character_index += 1
 		_name_label.text = _name
+	elif _character_index < 9:
+		_name += letter
+		_character_index += 1
+		_name_label.text = _name + "_"
+	
+	_is_handling_input = false
 
 
 func _remove_letter_from_name() -> void:
-	if _character_index != -1:
-		_name.erase(_character_index, 1)
+	if _is_handling_input:
+		return
+	
+	_is_handling_input = true
+	
+	if _character_index != 0:
+		_name.erase(_character_index - 1, 1)
 		_character_index -= 1
 		
 		_name_label.text = _name + "_"
+	
+	_is_handling_input = false
