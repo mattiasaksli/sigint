@@ -116,6 +116,9 @@ func on_player_exited_bridge(body : Node) -> void:
 
 
 func on_game_over() -> void:
+	var bridge_area : Area = _bridge_node.get_node("../OnBridgeArea") as Area
+	bridge_area.disconnect("body_entered", self, "on_player_entered_bridge")
+	bridge_area.disconnect("body_exited", self, "on_player_exited_bridge")
 	$InteractionArea.disconnect("body_entered", self, "on_player_registered")
 	$InteractionArea.disconnect("body_exited", self, "on_player_unregistered")
 	
