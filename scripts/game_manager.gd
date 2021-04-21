@@ -24,9 +24,9 @@ const PLAYER_MATERIALS : Array = [
 
 # The current level is always at index 0
 var _levels_stack : Array = [
-#	"res://scenes/levels/level1.tscn",
-#	"res://scenes/levels/level2.tscn",
-#	"res://scenes/levels/level3.tscn",
+	"res://scenes/levels/level1.tscn",
+	"res://scenes/levels/level2.tscn",
+	"res://scenes/levels/level3.tscn",
 	"res://scenes/levels/level4.tscn"
 ]
 var _new_player_spawn_locations : Array
