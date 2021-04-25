@@ -1,82 +1,68 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scenes/level_misc/crusher_obstacle.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/level_misc/floor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/level_misc/sync_puzzle/sync_interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/sync_doors_puzzle.gd" type="Script" id=3]
 [ext_resource path="res://scenes/level_misc/win_area/win_area.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/level_misc/outer_walls.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/level_misc/button_sprite_3d.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/level_misc/divider_high.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/level_misc/invisible_walls_middle_room.tscn" type="PackedScene" id=8]
-[ext_resource path="res://meshes/yellow_post/yellow_post.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/level_misc/floor.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=10]
+[ext_resource path="res://meshes/yellow_post/yellow_post.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=12]
 
 [node name="Root3D" type="Spatial"]
 
 [node name="PlayerSpawnLocations" type="Spatial" parent="."]
 
 [node name="Spawn1" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -27.5, 0 )
 
 [node name="Spawn2" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -27.5, 0 )
 
 [node name="Spawn3" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, -27.5, 0 )
 
 [node name="Spawn4" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -27.5, 0 )
 
 [node name="Spawn5" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -40, -27.5, 0 )
 
 [node name="Spawn6" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 35, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -27.5, 0 )
 
 [node name="Spawn7" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -27.5, 0 )
 
 [node name="Spawn8" type="Spatial" parent="PlayerSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -27.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -27.5, 0 )
 
 [node name="LeftRoom" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, 0 )
 
-[node name="Floor" parent="LeftRoom" instance=ExtResource( 2 )]
+[node name="Floor" parent="LeftRoom" instance=ExtResource( 9 )]
 
-[node name="DecorativePost" parent="LeftRoom" instance=ExtResource( 9 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 2, -7, 15, 0.25 )
+[node name="DecorativePost" parent="LeftRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 0 )
 
-[node name="DecorativePost2" parent="LeftRoom" instance=ExtResource( 9 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 2, 7, 15, 0.25 )
+[node name="DecorativePost2" parent="LeftRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 0 )
 
-[node name="InvisibleWalls" parent="LeftRoom" instance=ExtResource( 6 )]
-
-[node name="Obstacles" type="Spatial" parent="LeftRoom"]
-
-[node name="CrusherObstacle" parent="LeftRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
-extend_duration = 0.9
-retract_duration = 2.0
-starting_delay = 0.75
-before_retract_start_delay = 0.5
-
-[node name="CrusherObstacle2" parent="LeftRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-extend_duration = 1.1
-retract_duration = 1.75
-starting_delay = 1.0
-before_extend_start_delay = 1.2
-
-[node name="CrusherObstacle3" parent="LeftRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
-extend_duration = 1.1
-retract_duration = 1.75
-starting_delay = 0.25
-before_extend_start_delay = 1.2
+[node name="InvisibleWalls" parent="LeftRoom" instance=ExtResource( 12 )]
 
 [node name="MiddleRoom" type="Spatial" parent="."]
 
-[node name="Floor" parent="MiddleRoom" instance=ExtResource( 2 )]
+[node name="Floor" parent="MiddleRoom" instance=ExtResource( 9 )]
+
+[node name="DecorativePost" parent="MiddleRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -9, 18, 0 )
+
+[node name="DecorativePost2" parent="MiddleRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 9, 18, 0 )
 
 [node name="InvisibleWalls" parent="MiddleRoom" instance=ExtResource( 8 )]
 
@@ -88,43 +74,83 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.25, 0, 0.5 )
 [node name="RightRoom" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 0, 0 )
 
-[node name="Floor" parent="RightRoom" instance=ExtResource( 2 )]
+[node name="Floor" parent="RightRoom" instance=ExtResource( 9 )]
 
-[node name="DecorativePost" parent="RightRoom" instance=ExtResource( 9 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 2, -7, 15, 0.25 )
+[node name="InvisibleWalls" parent="RightRoom" instance=ExtResource( 12 )]
 
-[node name="DecorativePost2" parent="RightRoom" instance=ExtResource( 9 )]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 2, 7, 15, 0.25 )
+[node name="DecorativePost" parent="RightRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, -7, 18, 0 )
 
-[node name="InvisibleWalls" parent="RightRoom" instance=ExtResource( 6 )]
-
-[node name="Obstacles" type="Spatial" parent="RightRoom"]
-
-[node name="CrusherObstacle" parent="RightRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
-extend_duration = 1.0
-retract_duration = 1.7
-before_retract_start_delay = 0.9
-before_extend_start_delay = 1.0
-
-[node name="CrusherObstacle2" parent="RightRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-extend_duration = 1.0
-retract_duration = 1.7
-starting_delay = 0.5
-before_retract_start_delay = 0.9
-before_extend_start_delay = 1.0
-
-[node name="CrusherObstacle3" parent="RightRoom/Obstacles" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
-extend_duration = 1.0
-retract_duration = 1.7
-starting_delay = 0.3
-before_retract_start_delay = 0.45
+[node name="DecorativePost2" parent="RightRoom" instance=ExtResource( 11 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 2, 7, 18, 0 )
 
 [node name="OuterWalls" parent="." instance=ExtResource( 5 )]
 
 [node name="WinArea" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
 
-[node name="Sun" parent="." instance=ExtResource( 3 )]
+[node name="Sun" parent="." instance=ExtResource( 10 )]
+
+[node name="SyncDoors" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="Doors" type="Spatial" parent="SyncDoors"]
+
+[node name="LeftDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1.04, 0, 0, 0, 1, 0, 0, 0, 1, -34, 15, -1.5 )
+
+[node name="MiddleDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -1.5 )
+
+[node name="RightDoor" parent="SyncDoors/Doors" instance=ExtResource( 1 )]
+transform = Transform( 1.04, 0, 0, 0, 1, 0, 0, 0, 1, 34, 15, -1.5 )
+
+[node name="Interactables" type="Spatial" parent="SyncDoors"]
+
+[node name="Interactable" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -14, 0, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0.707107, 2.12132, 5 )
+
+[node name="Interactable2" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 8, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable2" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 2, 2.5, 5 )
+
+[node name="Interactable3" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 8, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable3" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -2, 2.5, 5 )
+
+[node name="Interactable4" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 8, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable4" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0.5, 2.5, 5 )
+
+[node name="Interactable5" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 8, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable5" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 3, 2.5, 5 )
+
+[node name="Interactable6" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 8, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable6" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -3, 2.5, 5 )
+
+[node name="Interactable7" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 8, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable7" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -0.5, 2.5, 5 )
+
+[node name="Interactable8" parent="SyncDoors/Interactables" instance=ExtResource( 2 )]
+transform = Transform( 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 14, 0, 0 )
+
+[node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable8" instance=ExtResource( 6 )]
+transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -0.707, 2.121, 5 )
