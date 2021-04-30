@@ -3,7 +3,6 @@ class_name WinArea
 extends Area
 
 signal go_to_next_level
-signal stop_benchmarking
 
 var _players_in_win_area : Dictionary
 var _game_manager : GameManager
@@ -21,8 +20,6 @@ func _enter_tree():
 	_game_manager.connect("add_player", self, "new_player_spawned")
 	_game_manager.connect("remove_player", self, "player_despawned")
 	self.connect("go_to_next_level", _game_manager, "on_go_to_next_level")
-	
-	self.connect("stop_benchmarking", $"/root/Main/Root3D/Benchmark", "on_save_to_file")
 
 
 func _ready() -> void:
@@ -56,7 +53,6 @@ func on_player_exited(body: Node) -> void:
 
 
 func on_progress_bar_full():
-	emit_signal("stop_benchmarking")
 	emit_signal("go_to_next_level")
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/tutorial/tutorial_open_toggle_door.gd" type="Script" id=1]
 [ext_resource path="res://scenes/level_misc/floor.tscn" type="PackedScene" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scripts/tutorial/tutorial_win_area.gd" type="Script" id=15]
-[ext_resource path="res://scenes/benchmark.tscn" type="PackedScene" id=16]
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 5 )
@@ -141,6 +140,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
 script = ExtResource( 15 )
 
 [node name="Sun" parent="." instance=ExtResource( 14 )]
-
-[node name="Benchmark" parent="." instance=ExtResource( 16 )]
-_level = "tutorial"
