@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level_misc/sync_puzzle/sync_interactable.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/level_misc/sun.tscn" type="PackedScene" id=10]
 [ext_resource path="res://meshes/yellow_post/yellow_post.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/level_misc/invisible_walls_side_room.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/benchmark.tscn" type="PackedScene" id=13]
 
 [node name="Root3D" type="Spatial"]
 
@@ -154,3 +155,6 @@ transform = Transform( 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 1
 
 [node name="ButtonSprite3D" parent="SyncDoors/Interactables/Interactable8" instance=ExtResource( 6 )]
 transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -0.707, 2.121, 5 )
+
+[node name="Benchmark" parent="." instance=ExtResource( 13 )]
+_level = "level4"

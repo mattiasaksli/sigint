@@ -15,6 +15,8 @@ func _ready() -> void:
 	self.connect("first_player_entered_win_area", _tutorial_control, "on_first_player_entered_win_area")
 	self.connect("all_players_entered_win_area", _tutorial_control, "on_all_players_entered_win_area")
 	self.connect("end_tutorial", _tutorial_control, "on_tutorial_end")
+	
+	self.connect("end_tutorial", $"/root/Main/Root3D/Benchmark", "on_save_to_file")
 
 
 func on_player_entered(body: Node) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/level_misc/divider_low.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level_misc/toggle_door_obstacle.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://scripts/open_toggle_door.gd" type="Script" id=19]
 [ext_resource path="res://materials/divider.material" type="Material" id=20]
 [ext_resource path="res://materials/walls.material" type="Material" id=21]
+[ext_resource path="res://scenes/benchmark.tscn" type="PackedScene" id=22]
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 20 )
@@ -338,3 +339,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0 )
 
 [node name="Sun" parent="." instance=ExtResource( 11 )]
 transform = Transform( 0.5, 0.331414, -0.800103, 0, 0.92388, 0.382683, 0.866025, -0.191342, 0.46194, 0, 0, 0 )
+
+[node name="Benchmark" parent="." instance=ExtResource( 22 )]
+_level = "level2"

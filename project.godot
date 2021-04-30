@@ -59,7 +59,7 @@ _global_script_class_icons={
 config/name="SIGINT"
 config/description="A cooperative puzzle game for the Raspberry Pi."
 run/main_scene="res://scenes/menus/main_menu.tscn"
-config/icon="res://.project_meta_files/icon.png"
+config/icon="res://.project_meta_files/logo.png"
 
 [autoload]
 
