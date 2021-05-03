@@ -10,6 +10,10 @@ const _tutorial_win_texts : Array = [
 	
 	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
 	
+	"""[center]You play as robots in a factory. These robots have gained sentience and have decided to escape to see the outside world. Now you must work together to evade detection from patrolling guard robots and help each other get through the various rooms in the factory.
+	
+	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",
+	
 	"""[center]The game is meant to be played with [color=#00ff00]2-4 players[/color], since you need to cooperate to get through levels. Players can join/leave the game at any time.
 	
 	Press [img=32]res://ui/icons/a_button.png[/img] to continue.[/center]""",

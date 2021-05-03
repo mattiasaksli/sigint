@@ -291,6 +291,7 @@ movable_wall_node_path = NodePath("../../../MiddleRoom/LeftDivider/MovableWall")
 speed = 4.0
 upper_bound = -2.0
 lower_bound = -24.0
+arrow_active_color = Color( 0.858824, 0.588235, 0.0196078, 1 )
 
 [node name="ButtonSprite3D" parent="RightRoom/Interactables/LeftWallInteractable" instance=ExtResource( 6 )]
 transform = Transform( 7.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 0, 3, 5 )

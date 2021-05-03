@@ -14,6 +14,7 @@ export var movement_pause_time : float = 1
 
 export var normal_fov_color : Color = Color("#8cdec301")
 export var busted_fov_color : Color = Color("#cc973500")
+export var caught_fov_color : Color = Color("#e1150700")
 
 var _players_nearby : Array
 var _visible_players : Array
@@ -120,7 +121,7 @@ func body_exited_area(body : Node) -> void:
 
 
 func trigger_game_over() -> void:
-	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = busted_fov_color
+	(_immediate_geometry.material_override as SpatialMaterial).albedo_color = caught_fov_color
 	
 	_movement_is_stopped = true
 	_can_change_cone_color = false

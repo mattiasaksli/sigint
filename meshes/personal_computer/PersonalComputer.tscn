@@ -57,7 +57,7 @@ surfaces/3 = {
 [sub_resource type="SpatialMaterial" id=2]
 resource_local_to_scene = true
 flags_unshaded = true
-albedo_color = Color( 0.447059, 0.447059, 0.447059, 1 )
+albedo_color = Color( 0.780392, 0.780392, 0.780392, 1 )
 
 [node name="ComputerMesh" type="MeshInstance"]
 transform = Transform( 2.65431e-14, 1.62921e-07, 1, 1, -1.62921e-07, 0, 1.62921e-07, 1, -1.62921e-07, -0.115818, -2.883, 0.710335 )
