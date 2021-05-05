@@ -88,8 +88,6 @@ func on_trigger_next_win_area_text() -> void:
 		_tutorial_win_texts.remove(0)
 		_tutorial_content.bbcode_text = _tutorial_win_texts[0]
 	else:
-		yield(get_tree().create_timer(1.0), "timeout")
-		
 		print("Tutorial ended, going to main menu")
 		
 		emit_signal("go_to_main_menu")

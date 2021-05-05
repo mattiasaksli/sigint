@@ -11,7 +11,7 @@ extents = Vector3( 1.354, 1.148, 2 )
 [sub_resource type="SpatialMaterial" id=3]
 resource_local_to_scene = true
 flags_unshaded = true
-albedo_color = Color( 0.447059, 0.447059, 0.447059, 1 )
+albedo_color = Color( 0.780392, 0.780392, 0.780392, 1 )
 
 [node name="Interactable" type="StaticBody"]
 collision_layer = 12
@@ -47,7 +47,6 @@ visible = false
 light_color = Color( 1, 0.584314, 0, 1 )
 light_energy = 1.25
 light_cull_mask = 4293918721
-shadow_enabled = true
 shadow_bias = 0.25
 shadow_reverse_cull_face = true
 omni_range = 5.5

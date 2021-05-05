@@ -8,12 +8,12 @@ extents = Vector3( 1.354, 1.148, 2 )
 
 [sub_resource type="CubeMesh" id=2]
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=3]
 resource_local_to_scene = true
 flags_unshaded = true
-albedo_color = Color( 0.447059, 0.447059, 0.447059, 1 )
+albedo_color = Color( 0.780392, 0.780392, 0.780392, 1 )
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=4]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque;
 uniform vec4 albedo : hint_color;
@@ -46,8 +46,8 @@ void light() {
 	SPECULAR_LIGHT += min(LIGHT_COLOR * specular, 1.0) * ATTENUATION;
 }"
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
 shader_param/albedo = Color( 0.196078, 0.184314, 0.152941, 1 )
 shader_param/specular_power = 600.0
 shader_param/uv1_scale = Vector3( 1, 1, 1 )
@@ -73,8 +73,8 @@ material/0 = ExtResource( 2 )
 transform = Transform( -8.74228e-08, 8.74228e-08, 2, 2, -8.74228e-08, 8.74228e-08, 8.74228e-08, 2, -8.74228e-08, -0.25, -5.75, 2.39 )
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 2 )
-material/2 = SubResource( 5 )
-material/3 = SubResource( 7 )
+material/2 = SubResource( 3 )
+material/3 = SubResource( 5 )
 
 [node name="InteractionArea" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0 )
