@@ -1,11 +1,6 @@
 # Compiled export targets ignore
 .project_meta_files/*.rpi4
 
-# Git plugin ignores
-bin/
-git_api.gdnlib
-git_api.gdns
-
 # Godot-specific ignores
 .import/
 export.cfg

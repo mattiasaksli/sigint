@@ -283,6 +283,7 @@ text = "Back "
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/NewGameBtn" to="." method="on_new_game_started"]
 [connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/TutorialBtn" to="." method="on_tutorial_started"]
 [connection signal="pressed" from="Panel/MainMenu/MenuButtonsVBox/LeaderboardBtn" to="." method="on_leaderboard_opened"]
