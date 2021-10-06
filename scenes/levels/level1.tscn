@@ -61,14 +61,14 @@ starting_delay = 0.75
 before_retract_start_delay = 0.5
 
 [node name="CrusherObstacle2" parent="LeftRoom/Obstacles" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 extend_duration = 1.1
 retract_duration = 1.75
 starting_delay = 1.0
 before_extend_start_delay = 1.2
 
 [node name="CrusherObstacle3" parent="LeftRoom/Obstacles" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
 extend_duration = 1.1
 retract_duration = 1.75
 starting_delay = 0.25
@@ -108,7 +108,7 @@ before_retract_start_delay = 0.9
 before_extend_start_delay = 1.0
 
 [node name="CrusherObstacle2" parent="RightRoom/Obstacles" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 extend_duration = 1.0
 retract_duration = 1.7
 starting_delay = 0.5
@@ -116,7 +116,7 @@ before_retract_start_delay = 0.9
 before_extend_start_delay = 1.0
 
 [node name="CrusherObstacle3" parent="RightRoom/Obstacles" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
 extend_duration = 1.0
 retract_duration = 1.7
 starting_delay = 0.3
